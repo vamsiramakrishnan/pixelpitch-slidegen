@@ -9,7 +9,7 @@ import sys
 
 def run(args):
     import uvicorn
-    from dev_local import CLOUD_ONLY_VARS, ROOT, build_env, state_dir
+    from dev_local import CLOUD_ONLY_VARS, ROOT, build_env, state_dir, workstation_host
     from dotenv import load_dotenv
 
     if os.getenv("K_SERVICE"):
@@ -40,8 +40,15 @@ def run(args):
         flush=True,
     )
     try:
+        preview_origin = workstation_host(args.port)
+        if preview_origin:
+            print(f"Workstation preview: {preview_origin}", flush=True)
         server = uvicorn.Server(
-            uvicorn.Config(create_app(db, args.port), host="127.0.0.1", port=args.port)
+            uvicorn.Config(
+                create_app(db, args.port, local_preview_origin=preview_origin),
+                host="127.0.0.1",
+                port=args.port,
+            )
         )
         asyncio.run(server.serve())
     finally:

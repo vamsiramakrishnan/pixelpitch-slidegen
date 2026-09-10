@@ -8,10 +8,22 @@ const iframe = document.getElementById("app");
 const theme = document.getElementById("theme");
 const status = document.getElementById("host-status");
 const reload = document.getElementById("reload");
+const viewport = document.getElementById("viewport");
+const mode = document.getElementById("preview-mode");
 if (!(iframe instanceof HTMLIFrameElement && theme instanceof HTMLSelectElement && status instanceof HTMLElement && reload instanceof HTMLButtonElement)) throw new Error("Invalid host markup");
 
 const client = new Client({ name: "Pixelpitch local preview", version: "0.1.0" }, { capabilities: { experimental: { "io.modelcontextprotocol/ui": { mimeTypes: ["text/html;profile=mcp-app"] } } } });
 let bridge: AppBridge | undefined;
+if (viewport instanceof HTMLSelectElement) {
+  viewport.addEventListener("change", () => { iframe.style.maxWidth = `${viewport.value === "390" ? 390 : 800}px`; });
+}
+void fetch("/health").then((response) => response.json()).then((health: unknown) => {
+  if (mode && typeof health === "object" && health !== null && "preview_mode" in health) {
+    mode.textContent = health.preview_mode === "simulation"
+      ? "Simulation: no model calls. Slides and download links are test fixtures."
+      : "Live local mode: generation uses your configured cloud services.";
+  }
+}).catch(() => {});
 try {
   await client.connect(new StreamableHTTPClientTransport(new URL("/mcp", location.href)));
   const { tools } = await client.listTools();
@@ -27,6 +39,7 @@ try {
   const htmlText = html;
 
   async function mount(): Promise<void> {
+    const started = performance.now();
     if (!(iframe instanceof HTMLIFrameElement && theme instanceof HTMLSelectElement && status instanceof HTMLElement)) return;
     if (bridge) {
       await bridge.teardownResource({}).catch(() => {});
@@ -38,7 +51,8 @@ try {
     next.oninitialized = async () => {
       await next.sendToolInput({ arguments: { topic: "" } });
       await next.sendToolResult(result);
-      status.hidden = true;
+      status.hidden = false;
+      status.textContent = `MCP connected in ${((performance.now() - started) / 1000).toFixed(2)}s. This host is not Gemini Enterprise.`;
       performance.mark("pixelpitch-app-connected");
     };
     next.onsizechange = ({ height }) => { if (typeof height === "number") iframe.style.height = `${Math.min(Math.max(height, 400), 12000)}px`; };

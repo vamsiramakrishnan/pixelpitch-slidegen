@@ -1,6 +1,17 @@
 import { expect, test } from "@playwright/test";
 import { writeFile } from "node:fs/promises";
 
+test("labels simulation and lets developers test a narrow chat column", async ({ page }, testInfo) => {
+  await page.goto("/");
+  await expect(page.locator("#preview-mode")).toContainText("Simulation: no model calls");
+  const app = page.frameLocator("#app");
+  await expect(app.getByLabel("What is the presentation about?")).toBeEditable();
+  await page.getByLabel("Chat width").selectOption("390");
+  await expect(page.locator("#app")).toHaveCSS("max-width", "390px");
+  expect(await app.locator("body").evaluate((body) => body.scrollWidth > body.clientWidth)).toBe(false);
+  await page.screenshot({ path: testInfo.outputPath("developer-preview-narrow.png"), fullPage: true });
+});
+
 test("opens early, reveals drafts, reconnects and completes through the MCP bridge", async ({ page }, testInfo) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));

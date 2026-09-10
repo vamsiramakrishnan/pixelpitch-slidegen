@@ -56,6 +56,33 @@ uv run python scripts/prepare_agy_skills.py --check
 
 # ------------------------------------------------------------------- setting up
 
+[tasks.setup-dev]
+description = "Install local UI dependencies and Chromium, then build the preview"
+depends = ["setup"]
+run = """
+set -euo pipefail
+npm --prefix mcp-app ci
+uv run --extra mcp-app playwright install chromium
+npm --prefix mcp-app run build
+python scripts/doctor.py
+"""
+
+[tasks.build-ui]
+description = "Rebuild the MCP widget and local host"
+run = "npm --prefix mcp-app run build"
+
+[tasks.doctor]
+description = "Check local dependencies and print repair commands; no cloud calls"
+run = "python scripts/doctor.py"
+
+[tasks.demo]
+description = "Preview the real MCP lifecycle with synthetic slides and no cloud account"
+run = "uv run --frozen --extra mcp-app python scripts/dev_demo.py"
+
+[tasks.dev]
+description = "Run the live local MCP App; generation uses your configured cloud services"
+run = "uv run --frozen --extra mcp-app python scripts/dev_local.py mcp --port 18093"
+
 [tasks.configure]
 raw = true
 description = "Answer a few questions and write deploy.env"

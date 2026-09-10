@@ -87,6 +87,7 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=18092)
     parser.add_argument("--db", type=Path, required=True)
     parser.add_argument("--worker", action="store_true")
+    parser.add_argument("--preview-origin")
     args = parser.parse_args()
     tools.list_templates = templates
     if args.worker:
@@ -99,7 +100,14 @@ if __name__ == "__main__":
         )
         try:
             uvicorn.run(
-                create_app(args.db, args.port), host="127.0.0.1", port=args.port
+                create_app(
+                    args.db,
+                    args.port,
+                    preview_mode="simulation",
+                    local_preview_origin=args.preview_origin,
+                ),
+                host="127.0.0.1",
+                port=args.port,
             )
         finally:
             worker.send_signal(signal.SIGINT)

@@ -82,7 +82,24 @@ The renderer checks for missing authored text and editability before publishing.
 
 ## Develop and verify
 
-Run these commands from this directory:
+For a first local preview without cloud credentials, run:
+
+```bash
+mise run setup-dev
+mise run demo
+```
+
+Open `http://127.0.0.1:18092`. This runs the real MCP widget, job queue,
+draft previews, and cancellation with synthetic slides and placeholder
+downloads. It does not generate a real PowerPoint or prove Gemini Enterprise
+compatibility. The host labels the mode and lets you test narrow chat columns.
+
+Run `mise run doctor` for local dependency checks and repair commands. After
+changing the UI, run `mise run build-ui` and reload the browser. For real model
+calls and export, configure `.env` and use `mise run dev` on port 18093.
+See the [developer loop](docs/development.md) for the progression to a signed-in test.
+
+Run these verification commands from this directory:
 
 ```bash
 uv run pytest tests/unit tests/integration

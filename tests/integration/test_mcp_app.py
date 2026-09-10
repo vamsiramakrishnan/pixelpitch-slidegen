@@ -89,3 +89,37 @@ def test_dns_rebinding_and_foreign_origin_are_rejected(client):
     assert response.status_code == 421
     response = client.post("/mcp", json={}, headers={"Origin": "https://evil.example"})
     assert response.status_code == 403
+
+
+def test_exact_workstation_origin_is_allowed_but_other_origins_stay_denied(tmp_path):
+    origin = "https://18091-workstation.example.com"
+    with TestClient(
+        create_app(tmp_path / "proxy.sqlite", local_preview_origin=origin),
+        base_url=origin,
+    ) as client:
+        client.headers["Origin"] = origin
+        assert rpc(client, "tools/list", {})["tools"]
+        client.headers["Origin"] = "https://18092-workstation.example.com"
+        assert client.post("/mcp", json={}).status_code == 403
+        client.headers["Origin"] = "null"
+        assert client.post("/mcp", json={}).status_code == 403
+        client.headers["Origin"] = origin
+        assert (
+            client.post("/mcp", json={}, headers={"Host": "evil.example"}).status_code
+            == 421
+        )
+
+
+@pytest.mark.parametrize(
+    "origin",
+    [
+        "*",
+        "https://*.example.com",
+        "http://preview.example.com",
+        "https://preview.example.com/path",
+        "https://user:secret@preview.example.com",
+    ],
+)
+def test_preview_origins_cannot_be_wildcards_or_urls_with_paths(tmp_path, origin):
+    with pytest.raises(ValueError, match="exact HTTPS origin"):
+        create_app(tmp_path / "invalid.sqlite", local_preview_origin=origin)

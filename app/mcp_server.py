@@ -259,12 +259,25 @@ def create_app(
     store: DeckStore | None = None,
     public_url: str | None = None,
     verifier=None,
+    preview_mode: str = "live",
+    local_preview_origin: str | None = None,
 ) -> Starlette:
     from urllib.parse import urlsplit
 
     from app.mcp_auth import UserAuthMiddleware
 
     html_path = html_path or APP_ROOT / "mcp-app" / "dist" / "index.html"
+    if local_preview_origin:
+        origin = urlsplit(local_preview_origin)
+        if (public_url or origin.scheme != "https" or not origin.hostname
+                or origin.username or origin.password or origin.path
+                or origin.query or origin.fragment or "*" in origin.netloc):
+            raise ValueError("Local preview origin must be one exact HTTPS origin, without a path")
+    local_hosts = [f"127.0.0.1:{port}", f"localhost:{port}"]
+    local_origins = [f"http://127.0.0.1:{port}", f"http://localhost:{port}"]
+    if local_preview_origin:
+        local_hosts.append(urlsplit(local_preview_origin).netloc)
+        local_origins.append(local_preview_origin)
     if public_url and (
         store is None or verifier is None or urlsplit(public_url).scheme != "https"
     ):
@@ -283,10 +296,10 @@ def create_app(
         security_settings=TransportSecuritySettings(
             allowed_hosts=[urlsplit(public_url).netloc]
             if public_url
-            else [f"127.0.0.1:{port}", f"localhost:{port}"],
+            else local_hosts,
             allowed_origins=[public_url]
             if public_url
-            else [f"http://127.0.0.1:{port}", f"http://localhost:{port}"],
+            else local_origins,
         ),
     )
 
@@ -315,6 +328,7 @@ def create_app(
                 "status": "ok",
                 "mode": "cloud" if public_url else "local-only",
                 "ui_built": html_path.exists(),
+                "preview_mode": preview_mode,
             }
         )
 
