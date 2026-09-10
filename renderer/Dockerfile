@@ -28,6 +28,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /srv
+COPY LICENSE THIRD_PARTY_NOTICES.md ./
+COPY licenses/ ./licenses/
 COPY vendor/slidify /srv/slidify
 COPY renderer /srv/renderer
 COPY agy-worker/skills/pixelpitch-template-roundtrip/scripts/extract_slide_spec.py /opt/pixelpitch-template-tools/extract_slide_spec.py

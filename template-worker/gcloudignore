@@ -2,6 +2,10 @@
 !pyproject.toml
 !uv.lock
 !README.md
+!LICENSE
+!THIRD_PARTY_NOTICES.md
+!licenses/
+!licenses/**
 !app/
 !app/**
 !agy-worker/

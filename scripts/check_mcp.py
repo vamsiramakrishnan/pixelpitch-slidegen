@@ -99,6 +99,9 @@ print(json.dumps(sorted(chooser.GetIncludedFiles('.', include_dirs=False))))
         )
     )
     required = {
+        "LICENSE",
+        "THIRD_PARTY_NOTICES.md",
+        *(path.relative_to(ROOT).as_posix() for path in (ROOT / "licenses").glob("*.txt")),
         "app/mcp_cloud.py",
         "app/mcp_firestore.py",
         "app/mcp_auth.py",
@@ -137,6 +140,9 @@ print(json.dumps(sorted(chooser.GetIncludedFiles('.', include_dirs=False))))
             "pyproject.toml",
             "uv.lock",
             "README.md",
+            "LICENSE",
+            "THIRD_PARTY_NOTICES.md",
+            "licenses",
         }:
             raise RuntimeError(f"Unexpected build input: {name}")
     (EVIDENCE / "upload-files.json").write_text(json.dumps(files, indent=2) + "\n")

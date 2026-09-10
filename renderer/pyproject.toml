@@ -2,6 +2,7 @@
 name = "pixelpitch-slidegen-renderer"
 version = "0.1.0"
 description = "HTTP wrapper around slidify: HTML slides in, branded PPTX into GCS out."
+license = "Apache-2.0"
 requires-python = ">=3.11,<3.14"
 
 dependencies = [

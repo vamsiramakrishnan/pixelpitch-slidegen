@@ -1,4 +1,8 @@
 **
+!LICENSE
+!THIRD_PARTY_NOTICES.md
+!licenses/
+!licenses/**
 !vendor/
 !vendor/slidify/
 !vendor/slidify/**

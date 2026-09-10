@@ -32,7 +32,13 @@ def documents(root: Path) -> list[Path]:
         {
             *(
                 root / name
-                for name in ("README.md", "CLOUD_SHELL.md", "TUTORIAL.md", "AGENTS.md")
+                for name in (
+                    "README.md",
+                    "CLOUD_SHELL.md",
+                    "TUTORIAL.md",
+                    "AGENTS.md",
+                    "THIRD_PARTY_NOTICES.md",
+                )
             ),
             *root.joinpath("docs").rglob("*.md"),
             *root.joinpath("mcp-app").glob("*.md"),

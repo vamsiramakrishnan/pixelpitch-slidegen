@@ -11,6 +11,8 @@ RUN pip install --no-cache-dir uv==0.8.13
 RUN apt-get update && apt-get install -y --no-install-recommends git ripgrep
 WORKDIR /code
 COPY pyproject.toml uv.lock README.md ./
+COPY LICENSE THIRD_PARTY_NOTICES.md ./
+COPY licenses/ ./licenses/
 COPY app ./app
 RUN uv sync --frozen --extra mcp-app --no-dev
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/chromium

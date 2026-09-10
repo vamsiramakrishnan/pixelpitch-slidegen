@@ -61,6 +61,27 @@ uv run --extra mcp-app playwright install --with-deps chromium
 That command may require administrator privileges. Missing cloud credentials
 are not a failure for the simulation.
 
+## Troubleshoot the preview
+
+On Cloud Workstations, open the HTTPS URL printed by the demo in a browser tab
+before loading embedded content. The proxy authenticates each port separately.
+After changing ports, open the new URL directly to establish its session.
+
+If the MCP request returns `403`, check the server log for `Invalid Origin`.
+The local launcher allows the exact workstation origin derived from `WEB_HOST`.
+Use the URL it prints, not an unrelated hostname. Do not allow all origins or
+change the cloud authentication settings to fix a local preview.
+
+A `SecurityError` with a `chrome-extension://` stack trace comes from a browser
+extension. Try a browser profile with extensions disabled. The widget's
+sandboxed frame can have a `null` origin by design. Do not add
+`allow-same-origin` or remove the sandbox to silence an extension.
+See the [iframe sandbox reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe#sandbox).
+
+If the UI does not reflect your changes, run `mise run build-ui` and reload.
+For missing tools or Chromium, run `mise run doctor` and follow its repair
+commands. Linux browser libraries are covered under [Diagnose setup](#diagnose-setup).
+
 ## Verify real generation separately
 
 For actual authoring, configure `.env` with your approved project, renderer,

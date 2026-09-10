@@ -7,6 +7,7 @@ from scripts.check_docs import (
     check_document,
     check_private_values,
     check_svg,
+    documents,
     public_configurations,
 )
 
@@ -70,3 +71,7 @@ def test_public_configuration_is_included(tmp_path: Path):
     assert not check_private_values(
         'MCP_URL="https://pixelpitch-mcp-${PROJECT_NUMBER}.${REGION}.run.app"'
     )
+
+
+def test_third_party_notice_links_are_checked(tmp_path: Path):
+    assert tmp_path / "THIRD_PARTY_NOTICES.md" in documents(tmp_path)

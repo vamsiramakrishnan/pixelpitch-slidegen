@@ -19,6 +19,8 @@ RUN pip install --no-cache-dir uv==0.8.13
 WORKDIR /code
 
 COPY ./pyproject.toml ./README.md ./uv.lock* ./
+COPY LICENSE THIRD_PARTY_NOTICES.md ./
+COPY licenses/ ./licenses/
 
 COPY ./agy-worker/pyproject.toml ./agy-worker/uv.lock* ./agy-worker/
 
