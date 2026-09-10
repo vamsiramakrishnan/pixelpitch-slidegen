@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>The network is ageing faster than we are rebuilding it</title>
+    <style>
+      :root {
+        --ink: #1b1b1a;
+        --paper: #f4f2ed;
+        --muted: #8c8880;
+        --accent: #7a4a2b;
+        --rule: #dcd8d0;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        position: relative;
+        box-sizing: border-box;
+        width: 1280px;
+        height: 720px;
+        padding: 72px;
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: 1fr auto;
+      }
+      .ground {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+      .slide > :not(.ground) {
+        position: relative;
+        z-index: 1;
+      }
+      .display {
+        margin: 0;
+        align-self: end;
+        max-width: 15em;
+        font-size: 88px;
+        line-height: 1.02;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+      }
+      .display em {
+        font-style: normal;
+        color: #c98a5e;
+      }
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin: 0;
+        padding-top: 28px;
+        border-top: 1px solid #3a3a37;
+        font-size: 20px;
+        color: #a8a49c;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="slide">
+      <!-- Atmosphere is allowed here and only here. The ground is not
+           decoration: it is the feeder network, drawn thinning and breaking
+           left to right, which is the argument the title makes in words. -->
+      <svg class="ground" width="1280" height="720" viewBox="0 0 1280 720" aria-hidden="true">
+        <rect width="1280" height="720" fill="#1b1b1a" />
+        <g stroke="#2f2f2c" stroke-width="1" fill="none">
+          <path d="M0 120 H1280 M0 240 H1280 M0 360 H1280 M0 480 H1280 M0 600 H1280" />
+        </g>
+        <g stroke="#4a4a45" stroke-width="1.5" fill="none">
+          <path d="M60 660 L180 540 L300 540 L420 420 L540 420" />
+          <path d="M180 540 L200 420 L260 300 L380 300" />
+          <path d="M420 420 L520 300 L640 300" />
+          <path d="M300 540 L340 660 L480 660" />
+        </g>
+        <g stroke="#6b4630" stroke-width="1.5" fill="none" stroke-dasharray="10 14">
+          <path d="M540 420 L680 420 L800 300 L920 300" />
+          <path d="M640 300 L760 180 L900 180" />
+          <path d="M480 660 L640 660 L780 540" />
+          <path d="M920 300 L1060 300 L1180 180" />
+          <path d="M780 540 L900 540 L1020 660" />
+        </g>
+        <g fill="#7a4a2b">
+          <circle cx="800" cy="300" r="4" />
+          <circle cx="900" cy="180" r="4" />
+          <circle cx="780" cy="540" r="4" />
+          <circle cx="1060" cy="300" r="4" />
+          <circle cx="1020" cy="660" r="4" />
+        </g>
+      </svg>
+
+      <h1 class="display" data-pptx-role="title">
+        The network is ageing faster than we are <em>rebuilding</em> it
+      </h1>
+
+      <p class="foot">
+        <span>Capex reallocation, FY27&ndash;FY29</span>
+        <span>Board session, 30 August 2026</span>
+      </p>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,548 @@
+{
+  "about": "Sixteen slides from four decks that passed every gate. Query with scripts/pick_exhibit.py; do not read this file whole.",
+  "palettes": {
+    "grid": "warm neutral, brick accent (#7a4a2b on #f4f2ed)",
+    "trial": "cool near-white, forest accent (#2f5d3f on #fcfcfa)",
+    "defect": "warm grey, orange accent (#d2521e on #f2f1ee)",
+    "broadside": "ink and fire orange, no third hue (#d2521e on #1b1614)"
+  },
+  "exhibits": [
+    {
+      "id": "hero-figure-strip",
+      "role": "hero",
+      "carries": "One sentence of bad news, with the three numbers that size it",
+      "best_for": [
+        "postmortem opening",
+        "incident review",
+        "a number the room must not forget"
+      ],
+      "avoid_for": [
+        "more than three figures",
+        "figures that need units explained"
+      ],
+      "keywords": [
+        "headline number",
+        "impact",
+        "scale",
+        "opening",
+        "cover",
+        "title slide",
+        "shocking"
+      ],
+      "primitives": [
+        "flex strip",
+        "display type",
+        "dark ground"
+      ],
+      "watch": "The figure and its label are one thought. Set the label under the number, never beside it, and never past twelve words.",
+      "html": "hero-figure-strip.html",
+      "png": "hero-figure-strip.png"
+    },
+    {
+      "id": "hero-typographic",
+      "role": "hero",
+      "carries": "A question or claim carried by type alone, with provenance in a thin meta strip",
+      "best_for": [
+        "scientific or regulated openings",
+        "when any image would look decorative",
+        "a light deck that starts quiet"
+      ],
+      "avoid_for": [
+        "a title under eight words, which leaves the slide empty",
+        "openings that need to show a thing"
+      ],
+      "keywords": [
+        "opening",
+        "cover",
+        "title slide",
+        "question",
+        "quiet",
+        "restrained",
+        "study",
+        "readout"
+      ],
+      "primitives": [
+        "display type",
+        "flex meta strip",
+        "hairline rule"
+      ],
+      "watch": "A light hero lives or dies on the size jump. If the title is not at least three times the meta strip, the slide reads as a form.",
+      "html": "hero-typographic.html",
+      "png": "hero-typographic.png"
+    },
+    {
+      "id": "hero-svg-atmosphere",
+      "role": "hero",
+      "carries": "The deck's subject rendered as a full-bleed drawing behind the title",
+      "best_for": [
+        "physical systems",
+        "networks and infrastructure",
+        "a deck that needs one memorable image"
+      ],
+      "avoid_for": [
+        "abstract subjects with no honest picture",
+        "body slides, which must stay native"
+      ],
+      "keywords": [
+        "opening",
+        "cover",
+        "title slide",
+        "network",
+        "system",
+        "illustration",
+        "picture",
+        "map"
+      ],
+      "primitives": [
+        "full-bleed inline svg",
+        "gradient",
+        "display type over artwork"
+      ],
+      "watch": "The drawing must say something. This one thins and breaks its lines left to right because that is the argument. Atmosphere with no claim in it is decoration.",
+      "html": "hero-svg-atmosphere.html",
+      "png": "hero-svg-atmosphere.png"
+    },
+    {
+      "id": "field-declarative",
+      "role": "hero",
+      "carries": "One declaration at full volume on a saturated field, with the whole top of the frame left empty",
+      "best_for": [
+        "an opening that has to land before the speaker talks",
+        "a single finding the rest of the deck answers",
+        "a section marker or a closing line"
+      ],
+      "avoid_for": [
+        "anything with a second idea in it",
+        "a headline over about eight words, which drops the type below display size",
+        "body slides, whose text must stay small enough to read as information"
+      ],
+      "keywords": [
+        "cover",
+        "title slide",
+        "opening",
+        "section",
+        "closing",
+        "statement",
+        "bold",
+        "loud",
+        "editorial",
+        "poster",
+        "field",
+        "declaration"
+      ],
+      "primitives": [
+        "full-bleed accent ground",
+        "bottom-anchored flex column",
+        "display type on a measure",
+        "corner chrome",
+        "hairline footer"
+      ],
+      "watch": "The void above the block is the composition. Centring the type, or filling the space with a subtitle and a logo, turns a poster back into a slide. Set a measure so the headline breaks into two lines; without one it runs the full width as a strip.",
+      "html": "field-declarative.html",
+      "png": "field-declarative.png"
+    },
+    {
+      "id": "statement-single-line",
+      "role": "section",
+      "carries": "One sentence the room should hold, with nothing else in the frame",
+      "best_for": [
+        "the pivot between two halves of a deck",
+        "a quoted line from a customer, a regulator, or the room itself",
+        "the sentence a speaker wants four seconds of silence after"
+      ],
+      "avoid_for": [
+        "a sentence that needs evidence on the same slide",
+        "more than about twenty-five words",
+        "a claim the deck has not yet earned"
+      ],
+      "keywords": [
+        "statement",
+        "quote",
+        "pivot",
+        "section",
+        "transition",
+        "pause",
+        "one sentence",
+        "emphasis",
+        "attribution"
+      ],
+      "primitives": [
+        "ink ground",
+        "centred single block",
+        "one accent phrase",
+        "hairline over the attribution"
+      ],
+      "watch": "One accent phrase, not three. A statement slide that also carries a subtitle, an image, or a takeaway strip is a body slide wearing the wrong clothes.",
+      "html": "statement-single-line.html",
+      "png": "statement-single-line.png"
+    },
+    {
+      "id": "chart-line-threshold",
+      "role": "body",
+      "carries": "A trend crossing a line that means something",
+      "best_for": [
+        "a metric degrading past a limit",
+        "before and after a policy date",
+        "any claim of the form 'and then it crossed'"
+      ],
+      "avoid_for": [
+        "more than three series",
+        "categories that are not ordered"
+      ],
+      "keywords": [
+        "trend",
+        "time series",
+        "declining",
+        "rising",
+        "limit",
+        "target",
+        "breach",
+        "months",
+        "years",
+        "crossed"
+      ],
+      "primitives": [
+        "inline svg",
+        "polyline",
+        "dashed reference line",
+        "axis text"
+      ],
+      "watch": "The threshold needs its own label inside the plot, not in a legend. A dashed line nobody can name is furniture.",
+      "html": "chart-line-threshold.html",
+      "png": "chart-line-threshold.png"
+    },
+    {
+      "id": "chart-bar-intervals",
+      "role": "body",
+      "carries": "A comparison across arms where the uncertainty is part of the claim",
+      "best_for": [
+        "trial endpoints",
+        "A/B results",
+        "any comparison where a reader will ask 'is that difference real'"
+      ],
+      "avoid_for": [
+        "point estimates you cannot bound",
+        "more than six categories"
+      ],
+      "keywords": [
+        "bars",
+        "arms",
+        "groups",
+        "confidence",
+        "significance",
+        "error bars",
+        "endpoint",
+        "versus"
+      ],
+      "primitives": [
+        "inline svg",
+        "rect bars",
+        "whisker lines",
+        "annotation text"
+      ],
+      "watch": "Annotations at the right edge run out of viewBox before they run out of slide. Anchor them by measured width, and shorten the words before you shrink the type.",
+      "html": "chart-bar-intervals.html",
+      "png": "chart-bar-intervals.png"
+    },
+    {
+      "id": "matrix-unit-dots",
+      "role": "body",
+      "carries": "A count out of a population, shown as the population",
+      "best_for": [
+        "'38 of 214' where the 214 matters",
+        "risk exposure",
+        "replacing a percentage nobody feels"
+      ],
+      "avoid_for": [
+        "populations over about 400 dots",
+        "two proportions compared, which wants bars"
+      ],
+      "keywords": [
+        "proportion",
+        "share",
+        "fraction",
+        "out of",
+        "count",
+        "population",
+        "how many",
+        "percent",
+        "waffle",
+        "exposure"
+      ],
+      "primitives": [
+        "inline svg",
+        "circle grid",
+        "one accent fill"
+      ],
+      "watch": "Size the matrix first, then give the text column what is left. Sizing the text first is how the grid track collapses and the copy runs off the slide.",
+      "html": "matrix-unit-dots.html",
+      "png": "matrix-unit-dots.png"
+    },
+    {
+      "id": "diagram-flow",
+      "role": "body",
+      "carries": "How a population narrowed, stage by stage, with the losses named",
+      "best_for": [
+        "CONSORT and funnel disposition",
+        "eligibility and attrition",
+        "a pipeline where the drop-off is the point"
+      ],
+      "avoid_for": [
+        "flows that branch and rejoin",
+        "processes with no quantities"
+      ],
+      "keywords": [
+        "funnel",
+        "stages",
+        "attrition",
+        "drop off",
+        "screened",
+        "enrolled",
+        "excluded",
+        "pipeline",
+        "consort"
+      ],
+      "primitives": [
+        "inline svg",
+        "rect nodes",
+        "connector lines",
+        "svg text"
+      ],
+      "watch": "Side branches are the interesting part and the part that overflows. Every label sits inside its own box or outside every box, never half.",
+      "html": "diagram-flow.html",
+      "png": "diagram-flow.png"
+    },
+    {
+      "id": "diagram-timeline",
+      "role": "body",
+      "carries": "A dated sequence where the gap between two events is the argument",
+      "best_for": [
+        "how long something went undetected",
+        "decision history",
+        "a delay you are accountable for"
+      ],
+      "avoid_for": [
+        "more than about six events",
+        "durations you cannot date"
+      ],
+      "keywords": [
+        "chronology",
+        "dates",
+        "sequence",
+        "history",
+        "elapsed",
+        "detection",
+        "undetected",
+        "delay",
+        "when things happened"
+      ],
+      "primitives": [
+        "inline svg",
+        "axis line",
+        "event markers",
+        "shaded span"
+      ],
+      "watch": "Centred labels collide long before anything clips. Space events by label width, not by date, and shade the span you are arguing about.",
+      "html": "diagram-timeline.html",
+      "png": "diagram-timeline.png"
+    },
+    {
+      "id": "prose-with-figure",
+      "role": "body",
+      "carries": "An explanation that needs sentences, with one small exhibit holding the proportion",
+      "best_for": [
+        "causal explanation",
+        "when the honest answer is a paragraph",
+        "the slide after a chart, saying why"
+      ],
+      "avoid_for": [
+        "anything a chart alone would carry",
+        "two exhibits, which makes it a dashboard"
+      ],
+      "keywords": [
+        "why",
+        "cause",
+        "explanation",
+        "reasoning",
+        "narrative",
+        "paragraph",
+        "argument in words"
+      ],
+      "primitives": [
+        "two-column grid",
+        "body prose",
+        "one proportional column"
+      ],
+      "watch": "This is the form that saves a deck from being all charts. Keep the exhibit subordinate: if it is more than a third of the width it stops supporting the prose and starts competing with it.",
+      "html": "prose-with-figure.html",
+      "png": "prose-with-figure.png"
+    },
+    {
+      "id": "ledger-audit-marks",
+      "role": "body",
+      "carries": "A set of things checked, each with a verdict and a one-line reason",
+      "best_for": [
+        "why none of the controls caught it",
+        "options considered and rejected",
+        "a checklist where the reasons differ"
+      ],
+      "avoid_for": [
+        "items with identical reasons, which is a bullet list",
+        "more than six rows"
+      ],
+      "keywords": [
+        "checklist",
+        "controls",
+        "verdicts",
+        "pass fail",
+        "reviewed",
+        "considered",
+        "ruled out",
+        "gaps"
+      ],
+      "primitives": [
+        "three-column grid rows",
+        "hairline rules",
+        "accent mark glyph"
+      ],
+      "watch": "Rules between rows, not boxes around them. A wall of equal cards flattens exactly the difference between rows that this form exists to show.",
+      "html": "ledger-audit-marks.html",
+      "png": "ledger-audit-marks.png"
+    },
+    {
+      "id": "compare-two-states",
+      "role": "body",
+      "carries": "Today against the proposal, item for item",
+      "best_for": [
+        "a change of process",
+        "current versus target",
+        "a recommendation that needs its baseline visible"
+      ],
+      "avoid_for": [
+        "three or more options, which wants a table",
+        "comparisons where the items do not pair up"
+      ],
+      "keywords": [
+        "before after",
+        "current versus target",
+        "as is to be",
+        "old new",
+        "today tomorrow",
+        "change",
+        "proposal",
+        "baseline"
+      ],
+      "primitives": [
+        "two-column grid",
+        "column headers",
+        "hanging-indent lists"
+      ],
+      "watch": "Both columns get the same rules and the same type. The moment the proposal column is prettier, the slide is selling instead of comparing.",
+      "html": "compare-two-states.html",
+      "png": "compare-two-states.png"
+    },
+    {
+      "id": "split-field-positions",
+      "role": "body",
+      "carries": "Two positions, each given a whole ground, where the choice between them is the slide",
+      "best_for": [
+        "a recommendation set against the submitted case",
+        "build versus buy, keep versus retire, now versus later",
+        "two options that need three reasons apiece, not a one-line contrast"
+      ],
+      "avoid_for": [
+        "three or more options, which the split cannot hold",
+        "item-for-item comparison, which is compare-two-states",
+        "options that differ only in degree"
+      ],
+      "keywords": [
+        "comparison",
+        "versus",
+        "two options",
+        "choice",
+        "recommendation",
+        "either or",
+        "split",
+        "alternative",
+        "trade-off"
+      ],
+      "primitives": [
+        "50/50 grid",
+        "two full-bleed grounds",
+        "axis label above each heading",
+        "slash bullet markers",
+        "hairline note at each floor"
+      ],
+      "watch": "The surface colour is the argument, so neither half needs a card, a panel, or a border. Keep the two halves structurally identical and let only the content differ; a taller left column reads as the answer before anyone has read it.",
+      "html": "split-field-positions.html",
+      "png": "split-field-positions.png"
+    },
+    {
+      "id": "table-dense-data",
+      "role": "body",
+      "carries": "Values the audience will read one by one, not a shape they will see",
+      "best_for": [
+        "safety and adverse-event data",
+        "rate comparisons across arms",
+        "anything a reader will quote"
+      ],
+      "avoid_for": [
+        "a trend, which wants a line",
+        "fewer than about four rows"
+      ],
+      "keywords": [
+        "numbers",
+        "rates",
+        "values",
+        "figures",
+        "lookup",
+        "adverse events",
+        "statistics",
+        "readable data"
+      ],
+      "primitives": [
+        "html table",
+        "right-aligned numerics",
+        "hairline rules"
+      ],
+      "watch": "A real <table> converts natively and stays editable. Numbers right-aligned, one rule under the head, no vertical rules and no zebra fill.",
+      "html": "table-dense-data.html",
+      "png": "table-dense-data.png"
+    },
+    {
+      "id": "table-with-owners",
+      "role": "closing",
+      "carries": "What will be done, by whom, by when",
+      "best_for": [
+        "the last slide of anything that asks for a decision",
+        "commitments after an incident",
+        "a plan the room must hold you to"
+      ],
+      "avoid_for": [
+        "actions with no named owner, which is not a commitment",
+        "more than four rows"
+      ],
+      "keywords": [
+        "owner",
+        "owns",
+        "accountable",
+        "responsible",
+        "actions",
+        "next steps",
+        "deadline",
+        "due dates",
+        "who does what",
+        "commitments",
+        "asks"
+      ],
+      "primitives": [
+        "html table",
+        "accent date column",
+        "closing note"
+      ],
+      "watch": "A date with no name beside it is a wish. If you cannot fill the owner column the slide is not ready, and no styling fixes that.",
+      "html": "table-with-owners.html",
+      "png": "table-with-owners.png"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+metrics_to_run:
+  - custom_response_quality
+  - a2ui_output_check
+
+custom_metrics:
+  # Default: local LLM-as-judge (see response_quality.py). Runs in-process via
+  # google-genai on Agent Platform (ADC) or Google AI Studio (GEMINI_API_KEY).
+  - name: custom_response_quality
+    custom_function_file: response_quality.py
+  - name: agent_turn_count
+    custom_function: |
+      def evaluate(instance):
+          turns = (instance.get("agent_data") or {}).get("turns", [])
+          return {'score': len(turns)}
+  # Deterministic check: the final response must be an A2UI payload (tagged
+  # JSON) or, only when the renderer failed, a helpful plain-text fallback.
+  - name: a2ui_output_check
+    custom_function: |
+      def evaluate(instance):
+          response = instance.get("response") or {}
+          parts = response.get("parts") or []
+          text = "".join(
+              p.get("text", "") for p in parts if isinstance(p, dict)
+          )
+          trace = str(instance.get("agent_data") or {})
+          render_ok = '"status": "ok"' in trace and "gs://" in trace
+          has_a2ui = "<a2ui-json>" in text
+          if render_ok:
+              ok = has_a2ui and ("gs://" in text)
+              return {"score": 1.0 if ok else 0.0,
+                      "explanation": "render succeeded; A2UI result card with gs_uri required"}
+          if "error" in trace and ("renderer" in trace.lower() or "unreachable" in trace.lower()):
+              return {"score": 1.0,
+                      "explanation": "renderer unavailable; plain-text fallback accepted"}
+          return {"score": 1.0 if has_a2ui else 0.0,
+                  "explanation": "no render happened; expected A2UI-tagged output (e.g. intake form)"}

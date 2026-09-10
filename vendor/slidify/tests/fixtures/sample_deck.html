@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slide 1</title>
+<style>
+  html, body { margin: 0; padding: 0; width: 1280px; height: 720px; font-family: Inter, Helvetica, sans-serif; background: #ffffff; }
+  .slide { width: 1280px; height: 720px; box-sizing: border-box; padding: 80px; }
+  .title { font-size: 56px; font-weight: 700; color: #1f2937; margin-bottom: 16px; }
+  .subtitle { font-size: 24px; color: #6b7280; }
+  .footer { position: absolute; bottom: 32px; left: 80px; color: #9ca3af; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="title" data-pptx-role="title">slidify pipeline overview</div>
+  <div class="subtitle">Render → Cluster → Classify → Emit → Validate</div>
+  <div class="footer">Q1 2026 — internal review</div>
+</div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slide 2</title>
+<style>
+  html, body { margin: 0; padding: 0; width: 1280px; height: 720px; font-family: Inter, Helvetica, sans-serif; background: #f9fafb; }
+  .slide { width: 1280px; height: 720px; box-sizing: border-box; padding: 64px 80px; }
+  .h1 { font-size: 40px; font-weight: 700; color: #111827; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { background: #ffffff; border-radius: 12px; padding: 24px; border: 1px solid #e5e7eb; }
+  .card h3 { font-size: 22px; color: #1f2937; margin: 0 0 8px 0; }
+  .card p { font-size: 16px; color: #4b5563; margin: 0; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="h1" data-pptx-role="title">Three pillars of editability</div>
+  <div class="grid">
+    <div class="card">
+      <h3>Native text</h3>
+      <p>Headlines and body copy stay editable in PowerPoint.</p>
+    </div>
+    <div class="card">
+      <h3>Native shapes</h3>
+      <p>Cards, dividers, and rectangles emit as real shapes.</p>
+    </div>
+    <div class="card">
+      <h3>Smart raster</h3>
+      <p>Only complex visuals fall back to raster images.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Slide 3</title>
+<style>
+  html, body { margin: 0; padding: 0; width: 1280px; height: 720px; font-family: Inter, Helvetica, sans-serif; background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%); color: #fff; }
+  .slide { width: 1280px; height: 720px; box-sizing: border-box; padding: 96px; display: flex; flex-direction: column; justify-content: center; }
+  .kicker { text-transform: uppercase; letter-spacing: 0.3em; font-size: 14px; opacity: 0.85; margin-bottom: 16px; }
+  .quote { font-size: 44px; font-weight: 600; line-height: 1.25; max-width: 980px; }
+  .author { margin-top: 32px; font-size: 18px; opacity: 0.9; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="kicker">Closing thought</div>
+  <div class="quote" data-pptx-role="title">"Rasterization is the failure mode, not the goal."</div>
+  <div class="author">— slidify spec, §0</div>
+</div>
+</body>
+</html>

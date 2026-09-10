@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Customers now lose more than twice the minutes they lost in 2023</title>
+    <style>
+      :root {
+        --ink: #1b1b1a;
+        --paper: #f4f2ed;
+        --muted: #8c8880;
+        --accent: #7a4a2b;
+        --rule: #dcd8d0;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        position: relative;
+        box-sizing: border-box;
+        width: 1280px;
+        height: 720px;
+        padding: 72px;
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: auto auto 1fr auto;
+        row-gap: 22px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 44px;
+        line-height: 1.12;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+      }
+      .key {
+        color: var(--accent);
+      }
+      .caption,
+      .source {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.4;
+        font-style: italic;
+        color: var(--muted);
+      }
+      .axis,
+      .note {
+        font-size: 20px;
+      }
+      .axis {
+        fill: var(--muted);
+      }
+      .note {
+        fill: var(--ink);
+        font-weight: 700;
+      }
+      .note--muted {
+        fill: var(--muted);
+        font-weight: 400;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="slide">
+      <h1 data-pptx-role="title">
+        Customers lose <span class="key">two and a half times</span> the minutes
+        they lost in 2023
+      </h1>
+
+      <p class="caption">
+        Customer interruption minutes per connected customer, all feeders,
+        financial years to March
+      </p>
+
+      <!-- A line, because the claim is about a trajectory over time. The
+           licence threshold is drawn as a reference so the reader sees the
+           year we crossed it rather than being told. No gridlines: four
+           labelled points do not need a lattice. -->
+      <svg width="1136" height="352" viewBox="0 0 1136 352" role="img"
+           aria-label="Interruption minutes per customer: 12 in 2023, 17 in 2024, 24 in 2025, 31 in 2026, against a licence threshold of 15">
+        <line x1="60" y1="189" x2="1000" y2="189" stroke="#c9b9a8" stroke-width="1" stroke-dasharray="6 6" />
+        <text class="note note--muted" x="60" y="180">Licence threshold, 15 minutes</text>
+
+        <polyline points="100,211 380,174 660,122 940,70" fill="none" stroke="#7a4a2b" stroke-width="3" />
+
+        <circle cx="100" cy="211" r="6" fill="#7a4a2b" />
+        <circle cx="380" cy="174" r="6" fill="#7a4a2b" />
+        <circle cx="660" cy="122" r="6" fill="#7a4a2b" />
+        <circle cx="940" cy="70" r="8" fill="#7a4a2b" />
+
+        <text class="note" x="100" y="248" text-anchor="middle">12</text>
+        <text class="note" x="380" y="211" text-anchor="middle">17</text>
+        <text class="note" x="660" y="159" text-anchor="middle">24</text>
+        <text class="note" x="978" y="78">31 minutes</text>
+
+        <line x1="60" y1="300" x2="1076" y2="300" stroke="#dcd8d0" stroke-width="1" />
+        <text class="axis" x="100" y="332" text-anchor="middle">2023</text>
+        <text class="axis" x="380" y="332" text-anchor="middle">2024</text>
+        <text class="axis" x="660" y="332" text-anchor="middle">2025</text>
+        <text class="axis" x="940" y="332" text-anchor="middle">2026</text>
+      </svg>
+
+      <p class="source">
+        Source: regulatory reporting return, CI/CML series, FY2023 to FY2026.
+      </p>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Where the control chain failed</title>
+    <style>
+      :root {
+        --ink: #1a1a1a;
+        --paper: #f2f1ee;
+        --muted: #8b8b85;
+        --accent: #d2521e;
+        --rule: #dcdad4;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--paper); color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px;
+        padding: 72px; overflow: hidden;
+      }
+      h1 {
+        margin: 0; font-size: 44px; line-height: 1.14;
+        font-weight: 700; letter-spacing: -0.015em;
+      }
+      .key { color: var(--accent); }
+      .caption, .source {
+        margin: 0; font-size: 18px; line-height: 1.4;
+        font-style: italic; color: var(--muted);
+      }
+      .body { margin: 0; font-size: 24px; line-height: 1.45; }
+      svg text { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+
+      .slide--stack { display: grid; grid-template-rows: auto 1fr auto; row-gap: 28px; }
+      .chain { margin: 0; display: grid; }
+      .chain div {
+        display: grid; grid-template-columns: 44px 1fr 330px;
+        column-gap: 28px; align-items: baseline;
+        padding: 19px 0; border-top: 1px solid var(--rule);
+        font-size: 23px; line-height: 1.35;
+      }
+      .chain div:first-child { border-top: 1px solid var(--ink); }
+      .mark { font-size: 24px; font-weight: 700; }
+      .miss { color: var(--accent); }
+      .hit { color: var(--muted); }
+      .why { font-size: 20px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <section class="slide slide--stack">
+      <h1 data-pptx-role="title">
+        Four controls could have caught this.
+        <span class="key">One was designed to</span>, and it was the one we skipped
+      </h1>
+
+      <div class="chain">
+        <div>
+          <span class="mark miss">&#215;</span>
+          <span>Weekly torque wrench calibration</span>
+          <span class="why">Skipped 14 March, no alert when a slot is missed</span>
+        </div>
+        <div>
+          <span class="mark hit">&mdash;</span>
+          <span>Operator visual check</span>
+          <span class="why">Cannot see a 6 Nm error. Never could</span>
+        </div>
+        <div>
+          <span class="mark hit">&mdash;</span>
+          <span>End-of-line functional test</span>
+          <span class="why">Tests circuit continuity, not fastener torque</span>
+        </div>
+        <div>
+          <span class="mark miss">&#215;</span>
+          <span>Monthly audit sample, 5 units</span>
+          <span class="why">March sample drawn 12 March, two days before the drift</span>
+        </div>
+      </div>
+
+      <p class="body">
+        This was not a vigilance failure on the line. The only control that
+        measures torque runs weekly, and a missed run is invisible until the
+        next one.
+      </p>
+    </section>
+  </body>
+</html>

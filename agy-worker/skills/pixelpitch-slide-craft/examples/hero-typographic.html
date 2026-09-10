@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>The 40mg arm cleared the endpoint; the 20mg arm did not</title>
+    <style>
+      :root {
+        --ink: #14161a;
+        --paper: #fcfcfa;
+        --muted: #767a80;
+        --accent: #2f5d3f;
+        --rule: #dfe1e0;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--paper); color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px;
+        padding: 72px; overflow: hidden;
+      }
+      h1 {
+        margin: 0; font-size: 44px; line-height: 1.14;
+        font-weight: 700; letter-spacing: -0.015em;
+      }
+      .key { color: var(--accent); }
+      .caption, .source {
+        margin: 0; font-size: 18px; line-height: 1.4;
+        font-style: italic; color: var(--muted);
+      }
+      .body { margin: 0; font-size: 24px; line-height: 1.45; }
+      svg text { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+
+      .slide--open {
+        display: grid; grid-template-rows: auto 1fr auto; row-gap: 32px;
+      }
+      .open-title {
+        margin: 0; align-self: center; max-width: 17em;
+        font-size: 64px; line-height: 1.08; font-weight: 700;
+        letter-spacing: -0.025em;
+      }
+      .meta {
+        display: flex; gap: 56px; margin: 0; padding-top: 24px;
+        border-top: 2px solid var(--ink); font-size: 20px;
+      }
+      .meta span b { display: block; font-size: 18px; font-weight: 400; color: var(--muted); }
+      .study { margin: 0; font-size: 20px; color: var(--muted); letter-spacing: 0.01em; }
+    </style>
+  </head>
+  <body>
+    <section class="slide slide--open">
+      <p class="study">RA&ndash;214 &middot; Phase II &middot; Data monitoring committee, 30 August 2026</p>
+
+      <h1 class="open-title" data-pptx-role="title">
+        The 40mg arm cleared the endpoint. The
+        <span class="key">20mg arm did not</span>, and that is the whole
+        decision.
+      </h1>
+
+      <p class="meta">
+        <span><b>Randomised</b>412 participants</span>
+        <span><b>Allocation</b>1:1:1, placebo / 20mg / 40mg</span>
+        <span><b>Primary endpoint</b>ACR20 at week 24</span>
+        <span><b>Analysis set</b>Intention to treat</span>
+      </p>
+    </section>
+  </body>
+</html>

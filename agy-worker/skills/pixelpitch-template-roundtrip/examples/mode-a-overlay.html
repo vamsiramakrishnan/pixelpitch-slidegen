@@ -1,0 +1,101 @@
+<!doctype html>
+<!--
+  Mode A worked example: clean plate plus native overlay.
+
+  Built from examples/spec-slide-04.json. Every coordinate, family, size,
+  weight, and colour below is copied from that file; nothing is eyeballed.
+  Point sizes convert at px = pt * 4 / 3.
+
+  | Spec shape      | x    | y    | w   | size_pt | becomes |
+  |-----------------|------|------|-----|---------|---------|
+  | Title 1         | 96   | 432  | 880 | 54      | .title  |
+  | Body 2          | 96   | 596  | 760 | 18      | .sub    |
+  | Footer tagline  | 96   | 668  | 600 | 14      | .footer |
+
+  The PICTURE and the scrim are already in the plate, so they are not rebuilt.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Two harvests, one supply chain</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+      }
+      .slide {
+        position: relative;
+        box-sizing: border-box;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+      }
+      .plate {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1280px;
+        height: 720px;
+        display: block;
+      }
+      .t {
+        position: absolute;
+        margin: 0;
+        box-sizing: border-box;
+        white-space: pre-wrap;
+        font-family: "Founders Grotesk", Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .title {
+        left: 96px;
+        top: 432px;
+        width: 880px;
+        font-size: 72px;
+        line-height: 1.05;
+        font-weight: 700;
+        color: #ffffff;
+        text-align: left;
+      }
+      .sub {
+        left: 96px;
+        top: 596px;
+        width: 760px;
+        font-size: 24px;
+        line-height: 1.35;
+        font-weight: 400;
+        color: #c9d2e3;
+        text-align: left;
+      }
+      .footer {
+        left: 96px;
+        top: 668px;
+        width: 600px;
+        font-size: 18.67px;
+        line-height: 1.3;
+        font-weight: 400;
+        color: #8a94a6;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="slide">
+      <!-- clean/, never base/. The base render still says "Headline 90pt". -->
+      <img class="plate" src="clean/slide-04.png" alt="" />
+
+      <!-- The narrative replaces the placeholder copy in the placeholder's own
+           rect, at the placeholder's own type. Same zone, same weight, new
+           argument. -->
+      <h1 class="t title" data-pptx-role="title">Two harvests, one supply chain</h1>
+      <p class="t sub">Consolidating the Riverina and Sunraysia intakes from March.</p>
+
+      <!-- Painted out of the plate in the clean step, so it is re-added here
+           at the extracted values. Dropping it silently deletes the
+           template's furniture from the deck. -->
+      <p class="t footer">Northwind Group  |  Confidential</p>
+    </section>
+  </body>
+</html>

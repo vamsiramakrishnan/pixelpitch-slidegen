@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Thirty-eight circuits are already over their rating</title>
+    <style>
+      :root {
+        --field: #d2521e;
+        --ink: #1b1614;
+        --ink-soft: rgba(27, 22, 20, 0.62);
+        --hair: rgba(27, 22, 20, 0.22);
+        --display: 80px;
+        --lead: 26px;
+        --label: 18px;
+        --pad-x: 76px;
+        --pad-y: 48px;
+        /* The measure, not the frame. The headline breaks where this says,
+           and the break is the composition. */
+        --measure: 860px;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--field); color: var(--ink);
+        font-family: Barlow, Inter, "DejaVu Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      /* Declarative ground: the block sits on the floor and the whole top of
+         the field stays empty. Centring this is the reflex that flattens it. */
+      .slide {
+        position: relative; box-sizing: border-box;
+        width: 1280px; height: 720px; overflow: hidden;
+        padding: var(--pad-y) var(--pad-x);
+        display: flex; flex-direction: column; justify-content: flex-end;
+      }
+      .mark {
+        position: absolute; top: var(--pad-y); left: var(--pad-x);
+        font-size: var(--label); font-weight: 600;
+        letter-spacing: 0.16em; text-transform: uppercase;
+      }
+      .owner {
+        position: absolute; top: var(--pad-y); right: var(--pad-x);
+        font-size: var(--label); letter-spacing: 0.1em;
+        text-transform: uppercase; color: var(--ink-soft);
+      }
+      h1 {
+        margin: 0; max-width: var(--measure);
+        font-size: var(--display); font-weight: 900; line-height: 0.94;
+        letter-spacing: -0.045em; text-transform: lowercase;
+      }
+      .lead {
+        margin: 26px 0 0; max-width: 720px;
+        font-size: var(--lead); font-weight: 400; line-height: 1.32;
+        color: var(--ink-soft);
+      }
+      .foot {
+        display: flex; justify-content: space-between;
+        margin-top: 40px; padding-top: 16px;
+        border-top: 1px solid var(--hair);
+        font-size: var(--label); letter-spacing: 0.1em;
+        text-transform: uppercase; color: var(--ink-soft);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="slide"
+      data-pptx-notes="Open on the number. The room already knows the network is tight; what they do not know is that a sixth of it is past its plate rating today, not in 2031."
+    >
+      <span class="mark">Capacity review</span>
+      <span class="owner">Northwind Grid</span>
+      <h1 data-pptx-role="title">Thirty-eight circuits are over their rating</h1>
+      <p class="lead">
+        Out of two hundred and fourteen. Every one of them was inside its limit
+        when the plan was signed in 2019.
+      </p>
+      <div class="foot">
+        <span>Board review</span>
+        <span>February 2026</span>
+      </div>
+    </div>
+  </body>
+</html>

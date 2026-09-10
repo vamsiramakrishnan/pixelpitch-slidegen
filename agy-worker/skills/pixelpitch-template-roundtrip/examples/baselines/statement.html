@@ -1,0 +1,83 @@
+<!doctype html>
+<!--
+  An admitted baseline. Immutable: the outer process hash-pins this file and
+  refuses any patch whose baseline_sha256 does not match it.
+
+  Two regions are open, each fenced by a paired pp:seam marker. Everything
+  outside those markers is protected furniture and cannot be reached from a
+  patch, which is what makes fidelity a property of the system rather than of
+  your care.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+      }
+      .slide {
+        position: relative;
+        box-sizing: border-box;
+        width: 1280px;
+        height: 720px;
+        overflow: hidden;
+        font-family: "Founders Grotesk", Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .plate {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1280px;
+        height: 720px;
+        display: block;
+      }
+      .title {
+        position: absolute;
+        left: 96px;
+        top: 128px;
+        width: 880px;
+        margin: 0;
+        font-size: 72px;
+        line-height: 1.05;
+        font-weight: 700;
+        color: #1b2a4a;
+      }
+      .aid {
+        position: absolute;
+        left: 96px;
+        top: 320px;
+        width: 1088px;
+        height: 268px;
+      }
+      .footer {
+        position: absolute;
+        left: 96px;
+        top: 656px;
+        width: 700px;
+        margin: 0;
+        font-size: 18.67px;
+        color: #8a94a6;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="slide">
+      <img class="plate" src="clean/slide-06.png" alt="" />
+
+      <h1 class="title" data-pptx-role="title">
+        <!-- pp:seam:title:start -->Headline 90pt<!-- pp:seam:title:end -->
+      </h1>
+
+      <div class="aid">
+        <!-- pp:seam:aid:start --><span>Chart area</span><!-- pp:seam:aid:end -->
+      </div>
+
+      <p class="footer">Northwind Group  |  Confidential</p>
+    </section>
+  </body>
+</html>

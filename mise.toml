@@ -1,0 +1,255 @@
+# Pixelpitch slidegen deployment.
+#
+# `mise run deploy` installs the selected A2A/MCP interfaces. A2A registration
+# uses agents-cli; the MCP OAuth connector is a guided console step.
+# Keep Terraform state and rerun an individual failed step after fixing its
+# cause. Drain active jobs before replacing a worker.
+#
+# Human-supplied values live in deploy.env. Everything else (project number,
+# service URLs, the Gemini Enterprise service agent address) is looked up at
+# the moment it is used, because a written-down copy of any of those goes
+# stale without saying so.
+
+[tools]
+# gcloud comes with Cloud Shell. mise provides the remaining tools.
+uv = "latest"
+terraform = "1.14"
+python = "3.12"
+node = "22"
+
+[env]
+# Keeps `uv run` off the network for the tool itself once the venv exists.
+UV_PYTHON_PREFERENCE = "managed"
+
+[settings]
+# Deploy steps print progress that is worth watching live.
+task_output = "interleave"
+# Tasks below rely on `set -o pipefail`, which mise's default `sh` does not
+# have. A deploy step whose pipeline fails silently is worse than one that
+# stops, so the shell is pinned rather than the guard dropped.
+unix_default_inline_shell_args = "bash -c"
+
+# --------------------------------------------------------------- one command
+
+[tasks.deploy]
+raw = true
+description = "Deploy the chosen A2A/MCP interfaces after project confirmation"
+run = "uv run python scripts/deploy_cli.py deploy"
+
+[tasks.plan]
+description = "Review choices and deployment steps without cloud access"
+run = "uv run python scripts/deploy_cli.py plan"
+
+[tasks.docs-check]
+description = "Check public docs, example configuration, and architecture SVG without cloud access"
+run = "uv run python scripts/check_docs.py"
+
+[tasks.setup]
+description = "Install locked Python dependencies and validate the four slide skills"
+run = """
+set -euo pipefail
+uv sync --frozen --extra mcp-app --extra lint
+uv sync --project agy-worker --frozen --no-install-project
+uv run python scripts/prepare_agy_skills.py
+uv run python scripts/prepare_agy_skills.py --check
+"""
+
+# ------------------------------------------------------------------- setting up
+
+[tasks.configure]
+raw = true
+description = "Answer a few questions and write deploy.env"
+run = "uv run python scripts/deploy_cli.py configure"
+
+[tasks.preview]
+description = "Start the workstation experiment on port 18090 without generating a deck"
+run = 'uv run python scripts/dev_local.py up --port 18090 --no-check --public-base="${PREVIEW_PUBLIC_BASE:?Set PREVIEW_PUBLIC_BASE to the existing registered Cloud Run origin}"'
+
+[tasks.preview-probe]
+description = "Measure localhost and the authenticated workstation proxy; no IAM or GE changes"
+run = 'uv run python scripts/workstation_preview.py probe --port 18090 --service-account="${PREVIEW_CALLER_SA:?Set PREVIEW_CALLER_SA to the approved preview service account}"'
+
+[tasks.config]
+description = "Show the resolved configuration"
+run = "uv run python scripts/deploy_cli.py config"
+
+[tasks.preflight]
+description = "Check tools, credentials and project access before deploying"
+run = """
+set -euo pipefail
+echo "Preflight"
+uv run python scripts/deploy_cli.py preflight
+"""
+
+# ---------------------------------------------------------------- provisioning
+
+[tasks.infra]
+raw = true
+description = "Provision APIs, Artifact Registry, bucket, service accounts and secret (Terraform)"
+dir = "deployment/terraform/single-project"
+run = """
+set -euo pipefail
+eval "$(cd "$MISE_PROJECT_ROOT" && uv run python scripts/deploy_cli.py config --shell | sed 's/^/export /')"
+echo "Provisioning $PROJECT_ID in $REGION"
+terraform init -input=false
+terraform apply \
+  -var "project_id=$PROJECT_ID" \
+  -var "region=$REGION" \
+  -var "deck_bucket_name=$DECK_BUCKET" \
+  -var "artifact_repo=$ARTIFACT_REPO"
+"""
+
+[tasks.build]
+description = "Build the renderer image with Cloud Build (from the repo root, so slidify is in context)"
+dir = "{{ config_root }}"
+run = """
+set -euo pipefail
+eval "$(uv run python scripts/deploy_cli.py config --shell | sed 's/^/export /')"
+TAG="$(date -u +%Y%m%d-%H%M%S)-$(uv run python -c 'import uuid; print(uuid.uuid4().hex[:8])')"
+echo "Building $RENDERER_IMAGE:$TAG"
+# No --region: the image location comes from the tag, and the default
+# build pool is available everywhere a regional one might not be.
+gcloud builds submit . \
+  --project "$PROJECT_ID" \
+  --config renderer/cloudbuild.yaml \
+  --ignore-file renderer/gcloudignore \
+  --substitutions "_TAG=$TAG,_REGION=$REGION,_REPO=$ARTIFACT_REPO"
+uv run python scripts/deploy_cli.py pin-renderer --tag "$TAG"
+"""
+
+# -------------------------------------------------------------------- deploying
+
+[tasks.deploy-renderer]
+description = "Deploy the HTML-to-PPTX renderer to Cloud Run"
+run = """
+set -euo pipefail
+eval "$(uv run python scripts/deploy_cli.py config --shell | sed 's/^/export /')"
+# Chromium and LibreOffice run in this container, and a full-profile
+# conversion of a twenty-slide deck is minutes of work, not seconds.
+gcloud run deploy slidegen-renderer \
+  --project "$PROJECT_ID" \
+  --region "$REGION" \
+  --image "$(uv run python scripts/deploy_cli.py renderer-release)" \
+  --service-account "slidegen-renderer@$PROJECT_ID.iam.gserviceaccount.com" \
+  --no-allow-unauthenticated \
+  --cpu 4 --memory 8Gi --timeout 900 --concurrency 4 --max-instances 100 \
+  --cpu-boost \
+  --set-env-vars "SLIDEGEN_GCS_BUCKET=$DECK_BUCKET,SLIDIFY_PROFILE=full,SLIDIFY_LLM_BACKEND=gemini-vertex,GOOGLE_CLOUD_PROJECT=$PROJECT_ID,GOOGLE_CLOUD_LOCATION=$REGION" \
+  --set-secrets "RENDERER_API_KEY=slidegen-renderer-key:latest" \
+  --quiet
+"""
+
+[tasks.deploy-agent]
+description = "Validate slide skills, then deploy the A2A agent to Cloud Run"
+run = """
+set -euo pipefail
+eval "$(uv run python scripts/deploy_cli.py config --shell | sed 's/^/export /')"
+
+# Validate the bundled slide skills before building.
+uv run python scripts/prepare_agy_skills.py
+uv run python scripts/prepare_agy_skills.py --check
+
+# Writes .env from the renderer URL Cloud Run just assigned.
+uv run python scripts/deploy_cli.py agent-env
+
+# Let the agent call the renderer. Both are --no-allow-unauthenticated, so
+# without this the first deck request fails with a 403 and no other clue.
+gcloud run services add-iam-policy-binding slidegen-renderer \
+  --project "$PROJECT_ID" --region "$REGION" \
+  --member "serviceAccount:slidegen-agent@$PROJECT_ID.iam.gserviceaccount.com" \
+  --role roles/run.invoker --quiet >/dev/null
+
+# --service-name is not optional. agents-cli otherwise derives the service
+# from pyproject's name, which is pixelpitch-slidegen, and every other task
+# here looks for slidegen-agent. Omitting it deploys a second service that
+# status, verify and register cannot see.
+uv run agents-cli deploy \
+  --deployment-target cloud_run \
+  --project "$PROJECT_ID" \
+  --region "$REGION" \
+  --service-name slidegen-agent \
+  --service-account "slidegen-agent@$PROJECT_ID.iam.gserviceaccount.com" \
+  --secrets "SLIDEGEN_RENDERER_API_KEY=slidegen-renderer-key:latest" \
+  --no-confirm-project
+"""
+
+[tasks.grant-invoker]
+description = "Let Gemini Enterprise invoke the agent"
+run = "uv run python scripts/deploy_cli.py grant-invoker"
+
+[tasks.deploy-mcp]
+raw = true
+description = "Provision isolated MCP storage and deploy private API plus durable worker"
+run = "uv run --extra mcp-app python scripts/deploy_mcp.py deploy"
+
+[tasks.verify-mcp]
+description = "Check private MCP API health and user-token enforcement"
+run = "uv run --extra mcp-app python scripts/deploy_mcp.py verify"
+
+[tasks.test-mcp]
+description = "Build and test the MCP UI and local protocol path"
+run = "uv run --extra mcp-app python scripts/check_mcp.py local"
+
+[tasks.deploy-templates]
+description = "Build the preparation worker, apply upload triggers, and enqueue existing templates"
+run = "uv run python scripts/deploy_templates.py deploy"
+
+[tasks.templates-backfill]
+description = "Enqueue the current generation of every source PPTX"
+run = "uv run python scripts/deploy_templates.py backfill"
+
+[tasks.templates-status]
+description = "Report template preparation status and matching ready bundles"
+run = "uv run python scripts/deploy_templates.py status"
+
+[tasks.register]
+raw = true
+description = "Register the agent with Gemini Enterprise (via agents-cli)"
+run = "uv run python scripts/deploy_cli.py register"
+
+[tasks.ge-apps]
+description = "List the Gemini Enterprise apps in this project"
+run = "uv run python scripts/deploy_cli.py ge-apps"
+
+# ------------------------------------------------------------------- operating
+
+[tasks.verify]
+description = "Prove the deployed agent serves all five surfaces"
+run = "uv run python scripts/deploy_cli.py verify"
+
+[tasks.status]
+description = "Show what is deployed and where"
+run = "uv run python scripts/deploy_cli.py status"
+
+[tasks.logs]
+description = "Tail the renderer and agent logs"
+run = """
+set -euo pipefail
+eval "$(uv run python scripts/deploy_cli.py config --shell | sed 's/^/export /')"
+gcloud beta logging tail \
+  'resource.type="cloud_run_revision" AND resource.labels.service_name=("slidegen-agent" OR "slidegen-renderer")' \
+  --project "$PROJECT_ID"
+"""
+
+[tasks.test]
+description = "Run the agent unit tests"
+run = "uv run pytest tests/unit -q"
+
+[tasks.destroy]
+description = "Remove the Cloud Run services and the provisioned infrastructure"
+dir = "deployment/terraform/single-project"
+run = """
+set -euo pipefail
+eval "$(cd "$MISE_PROJECT_ROOT" && uv run python scripts/deploy_cli.py config --shell | sed 's/^/export /')"
+echo "This deletes slidegen-agent, slidegen-renderer and gs://$DECK_BUCKET in $PROJECT_ID."
+read -r -p "Type the project id to confirm: " confirm
+[ "$confirm" = "$PROJECT_ID" ] || { echo "Aborted."; exit 1; }
+for svc in slidegen-agent slidegen-renderer; do
+  gcloud run services delete "$svc" --project "$PROJECT_ID" --region "$REGION" --quiet || true
+done
+terraform destroy -input=false -auto-approve \
+  -var "project_id=$PROJECT_ID" \
+  -var "region=$REGION" \
+  -var "deck_bucket_name=$DECK_BUCKET" \
+  -var "artifact_repo=$ARTIFACT_REPO"
+"""

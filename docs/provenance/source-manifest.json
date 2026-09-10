@@ -1,0 +1,2392 @@
+{
+  "repository": "https://github.com/vamsiramakrishnan/pixelpitch",
+  "base_commit": "26f353ff5c4342f69f9ba305cc6ed57f5afe93e6",
+  "snapshot": "Working-tree files, before standalone path adjustments. Hashes describe copied source bytes, not final files.",
+  "files": [
+    {
+      "source": "agents/pixelpitch-slidegen/.gitignore",
+      "destination": ".gitignore",
+      "sha256": "48e56289c9ad93e2d526490d34ae4848102408f8d28499ffa6e6469eabee2407"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/.gcloudignore",
+      "destination": ".gcloudignore",
+      "sha256": "9a574f00c50a53cb959152a87ecaa2793a67ecf36ccf4fdab530b05a832cc04f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/.env.example",
+      "destination": ".env.example",
+      "sha256": "ec70d58180576df928441d8bbcece4e972c5458f129e03252c7473f0a135a925"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deploy.env.example",
+      "destination": "deploy.env.example",
+      "sha256": "0a89a749cdd98af8eeeb1ecb9c8cdc05ecea901cdf20d174b4bf79783e8872f5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/AGENTS.md",
+      "destination": "AGENTS.md",
+      "sha256": "cc435704ddc8af59827467f615f3516d21faf9b1385c8227a9efe12c4050661f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/CLOUD_SHELL.md",
+      "destination": "CLOUD_SHELL.md",
+      "sha256": "accd420044c91011c9305219a5a41a01df2c97c7e8307f8f1f170f7da2bc0e91"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/DESIGN.md",
+      "destination": "DESIGN.md",
+      "sha256": "2f319423f898809f96b66a05f89a6afc0dfd06b1901cf763c147d71dcd87d725"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/Dockerfile",
+      "destination": "Dockerfile",
+      "sha256": "93526b63cf99b87182dfd6f6f6596d210b8be61e53d7d8c17cb19486dbb35a02"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/README.md",
+      "destination": "README.md",
+      "sha256": "e62fc4851af74f226da378bbaae07d7aa61b821592ecccc36bbb2b4873bd46a0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/TUTORIAL.md",
+      "destination": "TUTORIAL.md",
+      "sha256": "34e9e245e18e16f6f4ee6cc148c65b52169f77e000a7f6e196b9505cbf3fba4e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agents-cli-manifest.yaml",
+      "destination": "agents-cli-manifest.yaml",
+      "sha256": "4811b38b78628b9414aca1df9c52ea5b5d7f7ddfd91be6c2c3e1bab5e12506ca"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/pyproject.toml",
+      "destination": "pyproject.toml",
+      "sha256": "27e8f62bc5f3f1ed7ae5e8bd4e7c009c11cc5a047c1c2e844367b83f6272ad0c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/uv.lock",
+      "destination": "uv.lock",
+      "sha256": "842d3a68f3635b4b4d93388014eba6dc40367f050a551af669de21560a7e58e8"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mise.toml",
+      "destination": "mise.toml",
+      "sha256": "fbfdc64cd371ba89103185d1a4e32ede273633f267ad1620305648f67baea7b7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/__init__.py",
+      "destination": "app/__init__.py",
+      "sha256": "e4f304a38370662d162492847dfc9e220ec953d3c2cbf885a6a7734e270e9b82"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/a2a_jobs.py",
+      "destination": "app/a2a_jobs.py",
+      "sha256": "110694ee7f412f1bb918fac894b937c8168d77bc513d6003198c027848ad29b5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/a2a_worker.py",
+      "destination": "app/a2a_worker.py",
+      "sha256": "5a50c75a469426983cb2c22b0ccb0e761c60051d381d70748a358b12eb24d44b"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/a2ui_composer.py",
+      "destination": "app/a2ui_composer.py",
+      "sha256": "0930f6a972ec55113bb09f3e402a6d94beed6bcd3cbe50b691865611ef1b8b3b"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/agent.py",
+      "destination": "app/agent.py",
+      "sha256": "df6aa21b00343e126758df3a4230150a75184476d54143a39f5237bc2c0c6694"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/agy_authoring.py",
+      "destination": "app/agy_authoring.py",
+      "sha256": "a6633945a4b1d97148458c76331dcaf5107bb666731ba1110a2f8bf41a4c9fe3"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/app_utils/a2a.py",
+      "destination": "app/app_utils/a2a.py",
+      "sha256": "04f3808c536b9cb9245f2b2dfb4b1b4edb0c0b2be1cfa49fe5707a1bb54cc84f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/app_utils/a2ui_format.py",
+      "destination": "app/app_utils/a2ui_format.py",
+      "sha256": "5be84ec90ad3909d3554b8e0b0e7d1af7802a9c5f1082e35ab6f84fc8ceaced7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/app_utils/reasoning_engine_adapter.py",
+      "destination": "app/app_utils/reasoning_engine_adapter.py",
+      "sha256": "d42cf196ed78c0208bf4370a8880099a9ebd51194b766d95bc5d2783a43bffa2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/app_utils/services.py",
+      "destination": "app/app_utils/services.py",
+      "sha256": "806e5aa6aa75ca68a87f5adf944d7e7835904901bb0f53b076b490681eadfbc7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/app_utils/telemetry.py",
+      "destination": "app/app_utils/telemetry.py",
+      "sha256": "d0bbde493a8bd49ea20a818bb87c41f2c3657567c84ba9faa0275cc064034973"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/app_utils/typing.py",
+      "destination": "app/app_utils/typing.py",
+      "sha256": "6c9769e589e96f9e9624d0f5eb23b4022b75045b50267d4af17918c5cf8aa572"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/airbnb.md",
+      "destination": "app/assets/brands/airbnb.md",
+      "sha256": "4cd7b1972080ebeb2c360b27271e1d898c153c46c9d7f038ed512bb5130577fc"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/apple.md",
+      "destination": "app/assets/brands/apple.md",
+      "sha256": "001c06b02855b8443b397bfef583be5dedfd96391dcae94d7e3050e64841ed4d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/index.json",
+      "destination": "app/assets/brands/index.json",
+      "sha256": "bf55500ace29cb671ba45bd4077ac40fba5c69535c6d230a7df14328be94b949"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/slack.md",
+      "destination": "app/assets/brands/slack.md",
+      "sha256": "f00936d05230ee957f51459a84bbd28480c85c3feac9828a5cd6a17ee579489f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/spotify.md",
+      "destination": "app/assets/brands/spotify.md",
+      "sha256": "7590203321fad077bf4e9043d8b5a722dbbf1ce1c27f16d95342320ae9c92bad"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/starbucks.md",
+      "destination": "app/assets/brands/starbucks.md",
+      "sha256": "3d3c7ee68c24e6e4e06cfa2b01f4eec8f7b8a87d7e01ccf0e5fd4061afa87260"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/stripe.md",
+      "destination": "app/assets/brands/stripe.md",
+      "sha256": "66dea910aa4e4d7a2cbda9ad93496da5d464f40f343e7a14b8b8029d873535ae"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/tesla.md",
+      "destination": "app/assets/brands/tesla.md",
+      "sha256": "ee98b4b8acb7a0e5d25921e085661bb855e3dbd04c98a5f2885c458a680594e3"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/brands/vercel.md",
+      "destination": "app/assets/brands/vercel.md",
+      "sha256": "17d533f0ff2e1b5d9be3e69335ab7fc599d1ddf52bc9ac2f2dd36479676cbd3d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/gemini_enterprise_composite_catalog.json",
+      "destination": "app/assets/gemini_enterprise_composite_catalog.json",
+      "sha256": "79307dcfd77f094aa6003579cbeaa54a16435d4cf28635bec6e447feaba65b5d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/assets/styles/index.json",
+      "destination": "app/assets/styles/index.json",
+      "sha256": "a952f681d16499a0efbd40d735171838bb3f5878eaa764dce56ac7d74b2d0926"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/brand_deriver.py",
+      "destination": "app/brand_deriver.py",
+      "sha256": "799bca36fa47104151acce1b487f077590a29e1af2182b21f79c217db1b86ae8"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/companion.py",
+      "destination": "app/companion.py",
+      "sha256": "c95a96dc10ad7efabaae2c37a3f2f62f233bde4d4ca75f91d818c1a9b6dd38bb"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/deck_run.py",
+      "destination": "app/deck_run.py",
+      "sha256": "c71c888fb0e4bea4c16ff9482eb8ebf4b341ed09b37f69078d089f56aad9fa8c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/fast_api_app.py",
+      "destination": "app/fast_api_app.py",
+      "sha256": "178f38eb5f6ae61f4791b5fb6441631d23ecb6be79946c750ffe41a7d6ccd5a5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/mcp_auth.py",
+      "destination": "app/mcp_auth.py",
+      "sha256": "8cd9e86d9eb7c28e6988686d65f8ae370a6649db5efea501881952f92020b8db"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/mcp_cloud.py",
+      "destination": "app/mcp_cloud.py",
+      "sha256": "38b299dba8037f93bb567f1833e1af9fbfe7bbe9bbb2955a74e3c3ee5ce3bbe2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/mcp_firestore.py",
+      "destination": "app/mcp_firestore.py",
+      "sha256": "39458114be78fad2f790dc614d16739675d9de2a9a39639216bb232fa2d76b38"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/mcp_jobs.py",
+      "destination": "app/mcp_jobs.py",
+      "sha256": "48fd6f76ff08aa1e7bb11453dd3fda694dec4638783ebfc6249bcb5fa4165c5c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/mcp_server.py",
+      "destination": "app/mcp_server.py",
+      "sha256": "70c437225ee1b1c74adce33efc427a579af2489583d624cf27a539adb51c07c7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/mcp_store.py",
+      "destination": "app/mcp_store.py",
+      "sha256": "41a774a095ec650c8e0ad788f446652b40103a72783edc891112e624b72747f0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/mcp_worker.py",
+      "destination": "app/mcp_worker.py",
+      "sha256": "725b24c843ab4771b52b88a6ff327990996d5ed64ce8d1a792e348f1464f7553"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/pixelpitch_agent.py",
+      "destination": "app/pixelpitch_agent.py",
+      "sha256": "e891c5be0f7bcd604070f0239f3fe41557e47244ca22ca3bcc0abbed5b761040"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/progress.py",
+      "destination": "app/progress.py",
+      "sha256": "ac96e7e96a5c21635d1827dff6e58d3584b548ee688987e99bf93773c4cf48f9"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/reference.py",
+      "destination": "app/reference.py",
+      "sha256": "8c0fbc2976d69b26abd004bd44ed667ee4dac7c91fd62169d0b8c49997c512e8"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/specimens.py",
+      "destination": "app/specimens.py",
+      "sha256": "cd53bcd3faa7eddb562189d8b96234f9506e522fa7e2e024e79864e060858a47"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/template_baselines.py",
+      "destination": "app/template_baselines.py",
+      "sha256": "7b7d69f25fbfdfba92957c6322e1dd43b4ce3f29ab1970207b76a8ecc41a5028"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/template_policy.py",
+      "destination": "app/template_policy.py",
+      "sha256": "dd2411c4d4ed3075090c5a3c4c8da982ed10ecf8fc6277558441a5b6654c4beb"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/template_queue.py",
+      "destination": "app/template_queue.py",
+      "sha256": "31fe9a124c0cb2664b8d790ded7c3ebb8d27b8262dd0d676aad3a508e3c0228d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/template_versions.py",
+      "destination": "app/template_versions.py",
+      "sha256": "b71abbb1bbfe640b57d658b0f19e49e2fc262f62206fccf58a600f45f579b6f0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/template_worker.py",
+      "destination": "app/template_worker.py",
+      "sha256": "e9352c2b0c275c88d5365a267df2cfe793b52d4f6e8d432ac79d7951d3f8b6e9"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/tools.py",
+      "destination": "app/tools.py",
+      "sha256": "214b00d8d2bdec3230653a76e593316206c3e4c02ea753914caf1ef7f632ac20"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/app/turns.py",
+      "destination": "app/turns.py",
+      "sha256": "632fa44fc8329de936d17920bd2a6b2f60307458458901c2d81accf0c49d0dec"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/aids.py",
+      "destination": "agy-worker/aids.py",
+      "sha256": "06dbb0515e7abdc5ba818090ec9565d2807e7df317d58042506febce0409d4fe"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/disclosure.py",
+      "destination": "agy-worker/disclosure.py",
+      "sha256": "f0bcd803b6d8a6199dffad58ad84454dc90ccc491550bc649c91ce8aba6f9bdd"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/eval_guidance.py",
+      "destination": "agy-worker/eval_guidance.py",
+      "sha256": "a02ea54b1bacb9c2401bd3324d5b6de7e99beaf7b50a3ba01093dc26af13f60d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/guards.py",
+      "destination": "agy-worker/guards.py",
+      "sha256": "fe67817844a577c915de649c23a4c95487577c231782daafbd718ea4c114c99c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/pyproject.toml",
+      "destination": "agy-worker/pyproject.toml",
+      "sha256": "cf04c84135a69849d9a87d11dcd695957f66a03f4f3b0b725416a6f02c406cd2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/runner.py",
+      "destination": "agy-worker/runner.py",
+      "sha256": "3cde27f161ae7b7afdd3f54c2e1fbd6727ebf9f59dc19159f2969499ef72a202"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-brand-derivation/SKILL.md",
+      "destination": "agy-worker/skills/pixelpitch-brand-derivation/SKILL.md",
+      "sha256": "fbee4a9314c71e22b6b562da6c6408988b1a75a6d580bc0cd0d17d873612fa09"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-brand-derivation/assets/contract-template.json",
+      "destination": "agy-worker/skills/pixelpitch-brand-derivation/assets/contract-template.json",
+      "sha256": "e39159dcbea8ed48dc60d516df4d2f822b8d20ba568522e5f8fcbe0873e3bbdd"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-brand-derivation/examples/README.md",
+      "destination": "agy-worker/skills/pixelpitch-brand-derivation/examples/README.md",
+      "sha256": "199d2cc0825a5ab1fcde862c4786b06dc50a929fddc80ac59fb4bb617eb7bd1a"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-brand-derivation/examples/brand-contract.json",
+      "destination": "agy-worker/skills/pixelpitch-brand-derivation/examples/brand-contract.json",
+      "sha256": "b690edd1be820f371e379c9cd4ebd41b3f16a8f63d4a1f93254bc914d3c831d0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-brand-derivation/references/contract-schema.md",
+      "destination": "agy-worker/skills/pixelpitch-brand-derivation/references/contract-schema.md",
+      "sha256": "ca17dcbb1cd0f05e5e4872c12052ba0a030f53d3e06de052f0a2fa2859253a37"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-brand-derivation/references/method.md",
+      "destination": "agy-worker/skills/pixelpitch-brand-derivation/references/method.md",
+      "sha256": "ef2ccd1f81f0030923e71783e0b3ddd32af709dd2eb4100c618d46aa353e159e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-brand-derivation/scripts/stage_template.sh",
+      "destination": "agy-worker/skills/pixelpitch-brand-derivation/scripts/stage_template.sh",
+      "sha256": "f66a73b5f15fd24fe8c264f0dc94d87ec64d9b8ef18fdebb6fb657c38729991e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/SKILL.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/SKILL.md",
+      "sha256": "dc3fc76c05b7bf2c3bb5c79fb28bccbd47836f69e6d094ee8a7fe27a16d334c5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/assets/deck-stage.js",
+      "destination": "agy-worker/skills/pixelpitch-deck/assets/deck-stage.js",
+      "sha256": "652a7eb6c94a727e5468a7ccdaa876701f404c95e9acb73a962cd03382d80e23"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/examples/finished-turn.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/examples/finished-turn.md",
+      "sha256": "18d4994f241ebb61c3fc715d55a16ab66aee848b4e60edc703a06f142ee5399b"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/examples/slides-index.json",
+      "destination": "agy-worker/skills/pixelpitch-deck/examples/slides-index.json",
+      "sha256": "f2845e41466e70fb885762b616562c241165ccba3ae455f13c1d6f4f55db8205"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/playbooks/arena.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/playbooks/arena.md",
+      "sha256": "399e55bca3082eab3e8b5e10d27e46819dc71f5edd2679e203bcd44354757bf9"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/playbooks/interrogate.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/playbooks/interrogate.md",
+      "sha256": "796b151b451326f958f4c09ed1736c16b69b90ab66f061979acb7c9992022af6"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/playbooks/new-deck.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/playbooks/new-deck.md",
+      "sha256": "c3a78500e3a930f67a620103dcc422996cf0712c903e3c33538053458733a2d8"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/playbooks/polish.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/playbooks/polish.md",
+      "sha256": "37cc4204831356ff6e6ad12b9b758ae831dbee788061a979a1182b2bfb38a8d2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/playbooks/precompute.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/playbooks/precompute.md",
+      "sha256": "db6cc37ae7293f364a458cacde7bfc46e69f983d041d6237838fc91b6e4c8532"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/playbooks/repair.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/playbooks/repair.md",
+      "sha256": "9c03130db940cbe3151b458728cd11d842d959bfef0049251cacc0d54509096a"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/principles.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/principles.md",
+      "sha256": "9fb46ce759e8d242feb48e03f358adf56ad6b9261b932aa700ed9e03c7252dfd"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/quality-gates.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/quality-gates.md",
+      "sha256": "21be83e608903c338710146f11cd0616cd0512087322aad10965d2b2336691b6"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/routes.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/routes.md",
+      "sha256": "1034c17618f8ca1107991787155aeca7dd0c42f0e0bb52204a3f45d4d497dc89"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/references/workspace.md",
+      "destination": "agy-worker/skills/pixelpitch-deck/references/workspace.md",
+      "sha256": "b6e4a7fe8fbbe5b43fffaa06412a6b03056b868d48fdb5d3531f643d22bdd11d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/scripts/deck",
+      "destination": "agy-worker/skills/pixelpitch-deck/scripts/deck",
+      "sha256": "d208aedf5dc1e4eabc5896f6eab7e5190db6dd2bc68072fdb75901d20c9200f4"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/scripts/image_diff.py",
+      "destination": "agy-worker/skills/pixelpitch-deck/scripts/image_diff.py",
+      "sha256": "12de5783922bc2763d147b6e0d1fee247d9f967abb62be7849bde07d0a25a9c6"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/scripts/render_deck.sh",
+      "destination": "agy-worker/skills/pixelpitch-deck/scripts/render_deck.sh",
+      "sha256": "820e8eb7fd361bcace11c683bd01f29ac9b28b0d83c3a1d5e82337fcfc357e13"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/scripts/shot.py",
+      "destination": "agy-worker/skills/pixelpitch-deck/scripts/shot.py",
+      "sha256": "b2ba60297cfb98f783568751ac9a9762e2448ccfc9937f5eea197ea1af922a52"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/scripts/stage_deck.py",
+      "destination": "agy-worker/skills/pixelpitch-deck/scripts/stage_deck.py",
+      "sha256": "0ac4001f73dcd8848a168d0f545c15599e8ac1d26e74cdabba6ba214cf60a625"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/scripts/test_deck_check.py",
+      "destination": "agy-worker/skills/pixelpitch-deck/scripts/test_deck_check.py",
+      "sha256": "65d69eb377e82cdf7f26ace105b6c6ce47385a694349c0fc082d76294e2e7300"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/scripts/test_shot.py",
+      "destination": "agy-worker/skills/pixelpitch-deck/scripts/test_shot.py",
+      "sha256": "fd22902482e1cbd3f882eb59d8dd1c5bd6c9afd46d40c72e044d0c4299d29e25"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-deck/scripts/test_stage_deck.py",
+      "destination": "agy-worker/skills/pixelpitch-deck/scripts/test_stage_deck.py",
+      "sha256": "20269edbf1698d133d838f6572c05917dc9ee19ef6150908409f6381e1ff1384"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/SKILL.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/SKILL.md",
+      "sha256": "888116a9e26de6954d863df49b06187d86e7065617f5c62700406436bfb630b6"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/assets/slide-base.css",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/assets/slide-base.css",
+      "sha256": "451faeb5fb17be8e20f202f24196a5af32b8763cf7a0d941810eded6d1068e63"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/README.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/README.md",
+      "sha256": "fe7ac7a9d103df288f590e4c340687127a3f8e2c0f0de8fa38d77f428fc63a60"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/chart-bar-intervals.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/chart-bar-intervals.html",
+      "sha256": "2d1814405510bece09c7094fa37e7a93a3e8222e246340801e7e9a73973a93ca"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/chart-bar-intervals.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/chart-bar-intervals.png",
+      "sha256": "65aaec536ab8dffac19e557db2e5fd50e6d87af31f8a378d91618ed95bf728d5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/chart-line-threshold.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/chart-line-threshold.html",
+      "sha256": "d13759745abb4a20ea0d745856946d9c4d8be9537821c0b4836f1284f9087fcb"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/chart-line-threshold.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/chart-line-threshold.png",
+      "sha256": "fbe634128ce8fe5c92cf62d8808d174ee8118af08304feff8c2eaa7c651c64d4"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/compare-two-states.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/compare-two-states.html",
+      "sha256": "ec449484b4e51cb4c30b781a40a7b8a7010d95d1562ceb40cf0ffbc8ab4aa669"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/compare-two-states.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/compare-two-states.png",
+      "sha256": "647bfb19f37f0ad8fd2549312e826ce01fc71917a9a73df341f16eb4c14c253b"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/diagram-flow.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/diagram-flow.html",
+      "sha256": "4499a1866963c0e1a8c2ffd301ee2e5bc0e3c7f525f2aca0d9193a74e121494a"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/diagram-flow.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/diagram-flow.png",
+      "sha256": "736bd07e60a69c87e47c94c7cda6328b7fc814705e90c98370f2a7f949d8eb56"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/diagram-timeline.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/diagram-timeline.html",
+      "sha256": "2301a1827d1d368828890a71ef8ec735ddaf212996d52cd7c15edbeea1bac068"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/diagram-timeline.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/diagram-timeline.png",
+      "sha256": "09088b959467ea80a09211583fe1150da557dc335580d94a87161ff31450c096"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/field-declarative.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/field-declarative.html",
+      "sha256": "4f7de94b186ab6957340f1f8802ce0bf565aa92cb5bd5339b853230775fd8252"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/field-declarative.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/field-declarative.png",
+      "sha256": "fb128cee65d8a7d7ce525917c70619f3be249d885551a76620613444e69cccce"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/hero-figure-strip.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/hero-figure-strip.html",
+      "sha256": "3bd19d8b74e908f11505b6d3b2fee171d83f947be097b87517b0f47ae0bf80c8"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/hero-figure-strip.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/hero-figure-strip.png",
+      "sha256": "146db678260eec4ef0c9e021186a0ff806eec52fd7dac1316af5a30833dee8ef"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/hero-svg-atmosphere.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/hero-svg-atmosphere.html",
+      "sha256": "ea44ce4e09eea23a6bcbb1a1cf0f5c8c8f09f27a3c2e094f410df405fc357588"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/hero-svg-atmosphere.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/hero-svg-atmosphere.png",
+      "sha256": "85e1986537b70b813b41fd3cb19e0df245976284816d13a6d301a6984ebfb804"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/hero-typographic.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/hero-typographic.html",
+      "sha256": "995d780a1a8f614a713713b7fbc5b1e0a8eb5ea50f8cf61f75deeb71c0255401"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/hero-typographic.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/hero-typographic.png",
+      "sha256": "902e8d826f689c3d341e29695b774e15a2d17ee8e1f3cdd5ca4513fbc60d9cd9"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/index.json",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/index.json",
+      "sha256": "b18fa33888ddc0297a51263b772eb26394ec4a369a80a3fbcdc71e646c79cbfe"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/ledger-audit-marks.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/ledger-audit-marks.html",
+      "sha256": "c433bc2e8d8740012ea03b97ad0c2eff3dd964524822aa84a2dde39775983c63"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/ledger-audit-marks.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/ledger-audit-marks.png",
+      "sha256": "2df261faa8c419d90c08bb21e54c650f356c588dcd7041a6465b9cb396fe9431"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/matrix-unit-dots.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/matrix-unit-dots.html",
+      "sha256": "ea12d75cffc5d70513940d3d5906b1e73d5bb1910d37a58a63f1979aa7291093"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/matrix-unit-dots.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/matrix-unit-dots.png",
+      "sha256": "cba0e038e1f9c4dc4ad4a815691b2380d5cd687e600c83310ed192c8f3d24b24"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/prose-with-figure.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/prose-with-figure.html",
+      "sha256": "b578f679c51ac9c56c8f91c0bf20f96908fb55278bf8ce51ea7819f9eeda8697"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/prose-with-figure.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/prose-with-figure.png",
+      "sha256": "792d6ff1b3714b4b4d3c265412adb78364937bcfb5464fd5731482e2629cee4f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/slop-anti-example.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/slop-anti-example.html",
+      "sha256": "6af69dddfe8bd08ed7241af93516314acdb27c436a93def4b7985d77b67e248e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/split-field-positions.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/split-field-positions.html",
+      "sha256": "8d9da500a2378c6ca8126a4fd4534945d22efcc766217a729ccd5d8ebe727627"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/split-field-positions.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/split-field-positions.png",
+      "sha256": "6eae5dee7d7b8a804d13f5c9b7f9d8311f079612ab0002c3af8376661e0c5b44"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/statement-single-line.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/statement-single-line.html",
+      "sha256": "487f8976c5a5bd135ccf57fa3dcbcf7aa56b99a9da85d0e0a16d090743afcb15"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/statement-single-line.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/statement-single-line.png",
+      "sha256": "93253136e0b9cc9eddcd95cdc4aaa9b90efc60cfcd4ffebd26c386e9563f9a74"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/table-dense-data.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/table-dense-data.html",
+      "sha256": "da68a90f780f71fbd8a805912c8b25110e4563078a36882fbe7349f25b88e905"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/table-dense-data.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/table-dense-data.png",
+      "sha256": "f96e24e2c73ab2e2de73053ccd89c5e096eb2e10f5adf137be9de3fa3edb8da8"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/table-with-owners.html",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/table-with-owners.html",
+      "sha256": "571ce504067f011a02f2c33c2d74a82d623b2530252359c100cab2497f960644"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/examples/table-with-owners.png",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/examples/table-with-owners.png",
+      "sha256": "1a1fb4d15016dddcb795e61586d4bc83b850344de9dd3e4ff08ae24aa319783e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/references/anti-slop.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/references/anti-slop.md",
+      "sha256": "4a003ee531e8c312029293934c19baceecbce65523dbc86ec26da3a89754ce22"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/references/communication.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/references/communication.md",
+      "sha256": "c63aecbb41f91081f92f6dcee70b7213e67e5cb32b258806aeb340cea5db73c5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/references/composition.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/references/composition.md",
+      "sha256": "1c7cfc993e77e1199c0e87f941dad21e0d9fc8e5f59827a701012a2082cd52c7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/references/craft.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/references/craft.md",
+      "sha256": "09e7fd4de0196eaa1e3e1f53b12b4e63e89a1f37ce0f92286d3062ee2342a4f6"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/references/slidify-grammar.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/references/slidify-grammar.md",
+      "sha256": "e2d107b3bc9223e50e4f028ad9855264b1dc97951d71353a84400e1456ffdf84"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/references/slidify-hints.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/references/slidify-hints.md",
+      "sha256": "1d0eeceae8a55d5e647dc54b1b1f265f7c60b142a6cbcaf57494c176b41e0abd"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/references/visual-aids.md",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/references/visual-aids.md",
+      "sha256": "3a779e91cccf68a950e7b10d01e1009462db50c63358bfd1292dc94f8d3d2bd3"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/brand_gate.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/brand_gate.py",
+      "sha256": "40a912a90353d04979ff45806ddc5cfa526e905bd7db0cf498c03523b4e57cfa"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/lint_slides.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/lint_slides.py",
+      "sha256": "669303ed771c0cdc40712dbbd5f0bffb19ac5b7599a4ba5adfe4100b2c285785"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/pick_exhibit.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/pick_exhibit.py",
+      "sha256": "2ae1a8d77815f092a77a7ec56851c9a71a836d58fa67998498be7303cabcea8f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/slides_io.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/slides_io.py",
+      "sha256": "01d0dfeb76bf65bfb20a51ae4f702e06b158049a663b2d45934cfd65c3d94af6"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/slop.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/slop.py",
+      "sha256": "a2cd4efed87b1fdeab2b4760e11e1a645b14d8953c2c4bc906926fec2a533384"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/test_brand_gate.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/test_brand_gate.py",
+      "sha256": "2505121aaedaa67d0d06c2edb91efdc069f84704a7eee8e1e6ba8c892a00db30"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/test_pick_exhibit.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/test_pick_exhibit.py",
+      "sha256": "720de1c6e14f3c32862a2bca94790cbe5fddf7e936a6fb844d03a6a60b60a96c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/test_slides_io.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/test_slides_io.py",
+      "sha256": "56f20e69166381134b2c032d8e246fddc9fd05cca709d71c300f399a50ef6b09"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/test_slidify_hints.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/test_slidify_hints.py",
+      "sha256": "767daa54c268f4cbf5d9f72eeec3e197d04e6bd564ae140fb16543e73b706ac0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-slide-craft/scripts/test_slop.py",
+      "destination": "agy-worker/skills/pixelpitch-slide-craft/scripts/test_slop.py",
+      "sha256": "a01e8226662fd01365343e511899aa8f98f388cd78d8021c1ac57a8befa90380"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/SKILL.md",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/SKILL.md",
+      "sha256": "a759a96aec6270bd5b70b076274005b55f0f4c267944e50f5b340486a7fdd57b"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/assets/overlay-base.css",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/assets/overlay-base.css",
+      "sha256": "ac5b43d86391e7c706192392d843b1ded5c341a60d654ae25223fcb29750daf0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/examples/README.md",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/examples/README.md",
+      "sha256": "eb3bd49e0cdd361d88576a484acd6181e3a9406d9a3f90bdbaf786d88da49491"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/examples/authoring-plan.json",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/examples/authoring-plan.json",
+      "sha256": "723b21143086cad9fc77dd7b835117faa779c66b431e427a63a5bd115b243322"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/examples/baselines/statement.html",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/examples/baselines/statement.html",
+      "sha256": "a25b2dcaac2317988a5e1258f274b943aff66bc4f586deb5ac48e57365f78832"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/examples/mode-a-overlay.html",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/examples/mode-a-overlay.html",
+      "sha256": "34a9e4738b5a4bd64fb9b10ddbe163435696432bed73b00bd502266b5a253844"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/examples/patches.json",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/examples/patches.json",
+      "sha256": "b3478af80fa1a5091d39cf57ab2ea74771f54178b16a4a45a2d839d98ecb1566"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/examples/spec-slide-04.json",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/examples/spec-slide-04.json",
+      "sha256": "53347a3a4d5ab7b5457ea3c4ea8bfc27882c1a58a0948bf1a6a84dba254ee380"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/references/seams.md",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/references/seams.md",
+      "sha256": "b7e00eabc238ae87ab4fa478d61308f872cbe2a4643e40a03b1b6eba216bfedb"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/references/source-roundtrip.md",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/references/source-roundtrip.md",
+      "sha256": "fbe50f47b4027598345b984341e18a7ccdbe8a8320cf23ee10e1b5fd3dec088c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/scripts/build_from_source.py",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/scripts/build_from_source.py",
+      "sha256": "5520d50589b370c4b29d9033bdf131cce39b3bbc44b61466d5d3128b921c3882"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/scripts/extract_slide_spec.py",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/scripts/extract_slide_spec.py",
+      "sha256": "df46f065fcbadad43aed283bc4f330798533346484cd9ba6d9972908a423acfb"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/scripts/layout_contract.py",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/scripts/layout_contract.py",
+      "sha256": "5857dc36b88c60c3f5eda7c1580dbb05e4ec7124615b5804ab73e67266ad8dac"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/scripts/make_clean_plates.py",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/scripts/make_clean_plates.py",
+      "sha256": "f8c6ed6c44020004313b2e61fb77922fb36e969193094fb65da5be745cbe227e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/scripts/test_extract_slide_spec.py",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/scripts/test_extract_slide_spec.py",
+      "sha256": "000f9a8f576da642483888b4ad7759a41712fd1d3f395a929f909b8c802bedfe"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/scripts/test_layout_contract.py",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/scripts/test_layout_contract.py",
+      "sha256": "87b7de7e7fb8adc749f4389f8ee7415e77c9151f2e0b3550e95590b23a0f4b32"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/skills/pixelpitch-template-roundtrip/scripts/test_make_clean_plates.py",
+      "destination": "agy-worker/skills/pixelpitch-template-roundtrip/scripts/test_make_clean_plates.py",
+      "sha256": "87f44b19bcc649712fccba8b25e2c5eca8988d150ed9de0bd3ac84879816a3a9"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/test_aids.py",
+      "destination": "agy-worker/test_aids.py",
+      "sha256": "41367251ff4102792c7e122d2e5ed609c8a5133eae4360a4e73bf36423510445"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/test_disclosure.py",
+      "destination": "agy-worker/test_disclosure.py",
+      "sha256": "dc48c228aa1085309ac4a66719b76c44048fb429effb09edde3994d54928bca2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/test_eval_guidance.py",
+      "destination": "agy-worker/test_eval_guidance.py",
+      "sha256": "b1f1cb6ff7a9b2c6eec68b7befb75910615c7f41e62d57db0166196f5b5bf3ce"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/test_guards.py",
+      "destination": "agy-worker/test_guards.py",
+      "sha256": "b52a30b27635bae7343227013e2b314f069d1a9afa3c610865e9f85602eaf278"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/agy-worker/uv.lock",
+      "destination": "agy-worker/uv.lock",
+      "sha256": "ee4bbb94e6b9408282bedc7d180260bb699ebacbe4d6b7f51f77b43f2f23c203"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/.gcloudignore",
+      "destination": "renderer/.gcloudignore",
+      "sha256": "56d75f8abb9fe06dcd72629ddb55bd6ee3dc09c069bac9f50b1aa69ba30f4a06"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/Dockerfile",
+      "destination": "renderer/Dockerfile",
+      "sha256": "03d5c696139fdfccf297c0c8ce3dfd5f09cde8d099aa030af397eb93cc23c7ef"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/README.md",
+      "destination": "renderer/README.md",
+      "sha256": "f4db1c00ac067a694173eda0ef2250089b0a4f6de437701bfaab77294aa10b53"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/cloudbuild.yaml",
+      "destination": "renderer/cloudbuild.yaml",
+      "sha256": "dc151e2282fe9fa183c4a9d1878bfe59ed99c17d61475796a82638b5a1a8d902"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/gcloudignore",
+      "destination": "renderer/gcloudignore",
+      "sha256": "17d8e03dcdead64eb9cccc0473952af3e29390bfe0ce7054c1d0f5b0586e4756"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/pyproject.toml",
+      "destination": "renderer/pyproject.toml",
+      "sha256": "cfb2c8017c91cf7342296c1f5bff99c69a29e3dcb775b8e5dca0c6b05bb8745d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/renderer/content_check.py",
+      "destination": "renderer/renderer/content_check.py",
+      "sha256": "d723874989dc1e2c88bdfb73182c42f157e9df23e5ce276397304b787f117557"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/renderer/main.py",
+      "destination": "renderer/renderer/main.py",
+      "sha256": "56fc8fc3ad95a4031611f76814a1c8e8ec0ad4ae420aafd2b120cc02f2b9e526"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/renderer/template_source.py",
+      "destination": "renderer/renderer/template_source.py",
+      "sha256": "7a759ece433d43270116e441538062aa3933e8b9b3e8dbecd58acb85bc9c1558"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/tests/test_content_check.py",
+      "destination": "renderer/tests/test_content_check.py",
+      "sha256": "14059034a48a54c721ec51eced552abfbea47a8bf5b883b477b5ad4bd96b3e00"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/tests/test_main.py",
+      "destination": "renderer/tests/test_main.py",
+      "sha256": "fae4efa6a000a3625fb3a7e4cbf215ef5212505a36f487b9826583b4484c52b3"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/tests/test_template_source.py",
+      "destination": "renderer/tests/test_template_source.py",
+      "sha256": "d63be9558ed16cd7ff58ff48bc946d36c5306afa81f2605f9c3253b7381f07e1"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/renderer/uv.lock",
+      "destination": "renderer/uv.lock",
+      "sha256": "6a1e4d73eb92e7244691e8e0817c344d20a94c28eed2e3d8081c51d63299de94"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/template-worker/Dockerfile",
+      "destination": "template-worker/Dockerfile",
+      "sha256": "9f48b28a713ada7a8138e353e922faf4757e577db24292fbcd385a52e941aaa2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/template-worker/cloudbuild.yaml",
+      "destination": "template-worker/cloudbuild.yaml",
+      "sha256": "98ee6420cb7ff2dc076f797923f87a1ff70d4c088a8e7349b69f8831972ef65b"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/template-worker/gcloudignore",
+      "destination": "template-worker/gcloudignore",
+      "sha256": "c07232cc01b444890058ec8c178b824108904d9c69f22e8cd1691d35af3efed7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/DEPLOY.md",
+      "destination": "mcp-app/DEPLOY.md",
+      "sha256": "3a9ed34c0b8e1162a7982c6192684b3cfe0097a3964f912f18982549afc43726"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/Dockerfile",
+      "destination": "mcp-app/Dockerfile",
+      "sha256": "cde67c84b5bb93463c06094ba1d7b8fd758ef9041b780f3abd9664a768b6f7c8"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/Dockerfile.dockerignore",
+      "destination": "mcp-app/Dockerfile.dockerignore",
+      "sha256": "e3826ea743cbc3c18257dd89c27dbb19a07dd2c9c185eadb4d3ed9ff6a9c6b93"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/README.md",
+      "destination": "mcp-app/README.md",
+      "sha256": "15c8e360fbe2a47ba4f1188c664e097d9b8be322c6bf35f5e8bc3c96c8b64c23"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/cloudbuild.yaml",
+      "destination": "mcp-app/cloudbuild.yaml",
+      "sha256": "94e712f71919c7aaa18c45c595f9313d2db83a073f9d75549ec3bd77e93f65d6"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/drafts-lifecycle.json",
+      "destination": "mcp-app/drafts-lifecycle.json",
+      "sha256": "67a7a840e7a0b25b0bc0b19453cfe3eb7acbd6f544e02bde205a913342b263be"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/host.html",
+      "destination": "mcp-app/host.html",
+      "sha256": "fba0a5791727239e653d29f3e4f1f303f38e5d7ba9d44aaa47130fa1d330f7ae"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/index.html",
+      "destination": "mcp-app/index.html",
+      "sha256": "1f7a127c1f86b752853b80f4fabd8a52976b21c4a8d1bc1fa866202252b97d88"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/package-lock.json",
+      "destination": "mcp-app/package-lock.json",
+      "sha256": "a720db7dca633c5972380b1249753ac6c526f293ab5e9cfd5052df07861e9d08"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/package.json",
+      "destination": "mcp-app/package.json",
+      "sha256": "82c9322f0fdb26a45220de473a2028200ad6cdbe85cb022707a350affc39b737"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/playwright.config.ts",
+      "destination": "mcp-app/playwright.config.ts",
+      "sha256": "9c6bb4037e88bf3549422eb116d27ff1dfdc3eb3279b8712177a084307fa1195"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/src/app.ts",
+      "destination": "mcp-app/src/app.ts",
+      "sha256": "491bcd5466317193db24a5108f1a400c6479af5688d0ae5ab0d273d6c36fefd7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/src/local-host.ts",
+      "destination": "mcp-app/src/local-host.ts",
+      "sha256": "f0d32ed80db59a17e750af7042e5b6758f45c42c472a67ecc24aede5095f0bc0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/src/style.css",
+      "destination": "mcp-app/src/style.css",
+      "sha256": "24905cd928294ec120c55b886c2365386851e0d4fb7445cb592ed60a20eeaf3e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/tests/workspace.spec.ts",
+      "destination": "mcp-app/tests/workspace.spec.ts",
+      "sha256": "4f447317b8d76fb6dd8d78e80b5e9edb1508ba043142832462697d4fa91e8d22"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/tsconfig.json",
+      "destination": "mcp-app/tsconfig.json",
+      "sha256": "9c28505b6c5d0996f6d04f96f20e2a1237a7063965088ecb69f63a9e88df8e28"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/mcp-app/vite.config.ts",
+      "destination": "mcp-app/vite.config.ts",
+      "sha256": "c3391002796ca02fc462dac73ddb0fc2275e97c0ba905a3a74e6295e3b0d39cc"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/mcp/main.tf",
+      "destination": "deployment/terraform/mcp/main.tf",
+      "sha256": "77a1729a4668dbe083c3785d7a9f71dc4fe6f6ac94d41638df8ea23aceb5a5f5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/shared/completions.sql",
+      "destination": "deployment/terraform/shared/completions.sql",
+      "sha256": "52ab72401e29e04234c736eb4f32a69a6669d75ccb4a9dcdfe3e790414f8c45f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/shared/dummy_source.b64",
+      "destination": "deployment/terraform/shared/dummy_source.b64",
+      "sha256": "71cbd373e6bc9dc17b7f5582b165d30db4f49338d4067950908a15f8e34898e0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/shared/genai_logs_schema.json",
+      "destination": "deployment/terraform/shared/genai_logs_schema.json",
+      "sha256": "9c9f7c5d78762851c242eb0fb64ef696c44f4cd3b79d80609a45a729fa3c3851"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/apis.tf",
+      "destination": "deployment/terraform/single-project/apis.tf",
+      "sha256": "6d092ab2e3e794dd01c738b6d4f85fcc9380a9ad865bf041e3c1d999b6360d9e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/iam.tf",
+      "destination": "deployment/terraform/single-project/iam.tf",
+      "sha256": "39ee4dfe66d9ba1f54655bde8837dbf66fd9bf8685b54cfe8eb48125ab959035"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/modules/telemetry/main.tf",
+      "destination": "deployment/terraform/single-project/modules/telemetry/main.tf",
+      "sha256": "8244f090531956a74cccb87c26857cb3753c7c7f1f71de02a34c550e31adc644"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/modules/telemetry/outputs.tf",
+      "destination": "deployment/terraform/single-project/modules/telemetry/outputs.tf",
+      "sha256": "d17419d469d14953e63818af36e978f9bcebde2eeace7aa8e4f16ee57a2261ae"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/modules/telemetry/storage.tf",
+      "destination": "deployment/terraform/single-project/modules/telemetry/storage.tf",
+      "sha256": "7d49634f808588c90684bf39fa3df13bc2fae93181c6a85981ddb68875c0675f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/modules/telemetry/variables.tf",
+      "destination": "deployment/terraform/single-project/modules/telemetry/variables.tf",
+      "sha256": "d9dc37eced57f9701eb7d2a56af23df2192af5c031a24edfa61f329349f5ca6c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/modules/telemetry/versions.tf",
+      "destination": "deployment/terraform/single-project/modules/telemetry/versions.tf",
+      "sha256": "e37fba60332db991ee162b2ae90e89dcd8cc21e8481d0968f182d80bfbbb7ef7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/outputs.tf",
+      "destination": "deployment/terraform/single-project/outputs.tf",
+      "sha256": "a33ba772dd60c7cfea66ded3ea1ea8c38fa2226fecb5bb08a94d2bb6145b519e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/providers.tf",
+      "destination": "deployment/terraform/single-project/providers.tf",
+      "sha256": "c3b84eee4d90a7387b485293203ff8b542281ff1cef8405037d299a3bf6c432e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/registry.tf",
+      "destination": "deployment/terraform/single-project/registry.tf",
+      "sha256": "79c2221f55b7faf21de50211acbbaa8c3372f7fa7cc151bf3747c5a9f797a098"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/storage.tf",
+      "destination": "deployment/terraform/single-project/storage.tf",
+      "sha256": "cf03f68bcb23f69b768a62a5fefcdb5d095e7c9b4ccc095ec9c19a3d4b55c22a"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/telemetry.tf",
+      "destination": "deployment/terraform/single-project/telemetry.tf",
+      "sha256": "a90b61dc8cb5b98cd58e55ef7392b9a4fb835ac4c975ba13832aa93f4f0a40c5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/telemetry_outputs.tf",
+      "destination": "deployment/terraform/single-project/telemetry_outputs.tf",
+      "sha256": "df33614402bbe2cb18c626d4d7d39ca8bd44ef50ebbe5db095f86ff76803075a"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/variables.tf",
+      "destination": "deployment/terraform/single-project/variables.tf",
+      "sha256": "3c5ea695aa28ca5cb92c48679b71a2c81109aa2f65db0300e08dc7d4e772b6c5"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/single-project/vars/env.tfvars",
+      "destination": "deployment/terraform/single-project/vars/env.tfvars",
+      "sha256": "b60accccf69cfc19d0dd6730487fa7faa95d2035c2e478779a7660a20c4c7bd2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/deployment/terraform/template-preparation/main.tf",
+      "destination": "deployment/terraform/template-preparation/main.tf",
+      "sha256": "52173786211491309c33eb8e859a1f07e68c2902474ccf94f725a67743d58e23"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/check_a2a_jobs.py",
+      "destination": "scripts/check_a2a_jobs.py",
+      "sha256": "86bf3d410f0ec3ec639a69843e3997dde62c9a8eddcfadf606569092ae8ae44d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/check_docs.py",
+      "destination": "scripts/check_docs.py",
+      "sha256": "1fe5a9d764a17558770ea8080f6889fd135514b478e44c7e100b3d24b4175d25"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/check_mcp.py",
+      "destination": "scripts/check_mcp.py",
+      "sha256": "b38eee9f1208cbefe27685eedeb40b6bc0448295d1538e4ed39170deb262cd3f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/check_ocr_fidelity.py",
+      "destination": "scripts/check_ocr_fidelity.py",
+      "sha256": "5637e66056c13590a0ce5a2778b1670cc1771c9ebc9c4364adddf8fe6d7ef808"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/check_template_fidelity.py",
+      "destination": "scripts/check_template_fidelity.py",
+      "sha256": "73de8c987f93b7c976cca319a80f70fc40eb2c4b401fe335ee4d3f745603dabd"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/collect_deck_proof.py",
+      "destination": "scripts/collect_deck_proof.py",
+      "sha256": "f14b6b53fc7fd1a369b910aa7c34579437d0c07e06c9556182ba84e2f35d1d0e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/deploy_cli.py",
+      "destination": "scripts/deploy_cli.py",
+      "sha256": "8c39ec4713efda88fc2d62d5b3ef0943003e88d9b74e8f95d555063095e92bae"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/deploy_mcp.py",
+      "destination": "scripts/deploy_mcp.py",
+      "sha256": "d2d48f39f8087e8a99982ae6dc2de2785d2c53bd8013e3e17d09b3699f3dbec1"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/deploy_templates.py",
+      "destination": "scripts/deploy_templates.py",
+      "sha256": "e1b6705ae8bf66745707e956872bfb4e91719ca34a1ee71fb7bda427d1edf4ae"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/dev_local.py",
+      "destination": "scripts/dev_local.py",
+      "sha256": "e395a8d26f40202b20939ee85a4b2b6ae7dc914a05f891547eec1a46c30afa96"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/dev_mcp.py",
+      "destination": "scripts/dev_mcp.py",
+      "sha256": "faf6ecaeb53ee4084d9671fbdb0777790ea4559747c22373e0f697f90aafcf00"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/extract_styles.py",
+      "destination": "scripts/extract_styles.py",
+      "sha256": "db55caa410d58e4c6a03eed0765d486e87776b42717543fe3a46f5156d148b03"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/gen_deck.py",
+      "destination": "scripts/gen_deck.py",
+      "sha256": "d2328a0f7caf3f549dcf3cf462bffb6c656644bd0e5f4f51a563a0c6cbc558bc"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/prepare_agy_skills.py",
+      "destination": "scripts/prepare_agy_skills.py",
+      "sha256": "96b5f6f326d3144d23d180caa039c19cf0b1d01ce3faefdb4635dcbe9f311f80"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/smoke_mcp.py",
+      "destination": "scripts/smoke_mcp.py",
+      "sha256": "d5c6511699fc1fbb35f7b060d442d080b4c6a74dae0e9d92fe9e82603203d44d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/scripts/workstation_preview.py",
+      "destination": "scripts/workstation_preview.py",
+      "sha256": "8dca3338ce1d2f7880e56ad0633130338c63c70d2bd8135b6f684263af29fe5a"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/eval/datasets/README.md",
+      "destination": "tests/eval/datasets/README.md",
+      "sha256": "585b84c98e70899ef6c5016ee6f4726d0e1d921775d9b4b0e0e05487eb057e07"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/eval/datasets/basic-dataset.json",
+      "destination": "tests/eval/datasets/basic-dataset.json",
+      "sha256": "9f7626f5ab062a30ef75cdf81cd6b333cb295ad273251d1486a05f9918819232"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/eval/eval_config.yaml",
+      "destination": "tests/eval/eval_config.yaml",
+      "sha256": "daeb53a1323184e4cb5a4aa6c9601e97d164e99d05b4d71fc58d5b467403890f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/eval/response_quality.py",
+      "destination": "tests/eval/response_quality.py",
+      "sha256": "89c0aafda71eb8f019249a7b896e702b8d07cd8bc4b511aea87cbef7490c99d1"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/fixtures/mcp_preview.py",
+      "destination": "tests/fixtures/mcp_preview.py",
+      "sha256": "1d899822124279d9e24650e28ef15731122d54f502f57bd2a63f02658724e8c4"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/integration/test_agent.py",
+      "destination": "tests/integration/test_agent.py",
+      "sha256": "c186de5621f4e7fe6c073ef7b7d4d846c94ae4098ab0f2637bcf82cdd92fbb19"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/integration/test_mcp_app.py",
+      "destination": "tests/integration/test_mcp_app.py",
+      "sha256": "82090960a1b6b24894bb2e70bb935740e4ab8c7bd422c29e61b6df9a388f6fc0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/integration/test_mcp_cloud.py",
+      "destination": "tests/integration/test_mcp_cloud.py",
+      "sha256": "d2022f49ed130c103db2fcc93fc6cf5a74e1281ec5a15ae71930a6ebec5087f4"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/integration/test_mcp_firestore.py",
+      "destination": "tests/integration/test_mcp_firestore.py",
+      "sha256": "8d5f4dc1f46ba97a24d0ac233716dc38c91775f8b165bce47f21b5ffc8ba7809"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/integration/test_server_e2e.py",
+      "destination": "tests/integration/test_server_e2e.py",
+      "sha256": "41bf272f4ac169f7235468c2d9c1457452c1530325ab0e7bb694eeb0fd42d808"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_a2a_extension.py",
+      "destination": "tests/unit/test_a2a_extension.py",
+      "sha256": "c569142e06bc9697cd18b977930fe1b0edc53528df26889fae36f88c6a323b1e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_a2a_job_lifecycle.py",
+      "destination": "tests/unit/test_a2a_job_lifecycle.py",
+      "sha256": "0d5dd8bc162cd76f52398e27b684f28d79e2aff0baf0095f5e080215225e8d26"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_a2a_jobs.py",
+      "destination": "tests/unit/test_a2a_jobs.py",
+      "sha256": "62e1ad058cc56279bed1c423c589d5c55d36bad888153a1f0b9a16e0a369a1b8"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_a2ui_catalog_contract.py",
+      "destination": "tests/unit/test_a2ui_catalog_contract.py",
+      "sha256": "f4f096c1ddd16d9a9df54a52d6733873441911bf5fff9a228221da38c17b30e2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_agent_prompt.py",
+      "destination": "tests/unit/test_agent_prompt.py",
+      "sha256": "9021f43b227b3aa07118bb3874d19a4116ffedf0bb61068e2ce4fd8fb9dc9610"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_agy_authoring.py",
+      "destination": "tests/unit/test_agy_authoring.py",
+      "sha256": "520b60c947866211ad58e2096fd18d2c9803d1b9ed91719430a90780880d58c0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_check_docs.py",
+      "destination": "tests/unit/test_check_docs.py",
+      "sha256": "f11e2800020ddf2ca0c0ea2dfd794c75d63b064b362beb97a61acc38d1f17165"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_deck_run.py",
+      "destination": "tests/unit/test_deck_run.py",
+      "sha256": "564241a6d2873ce070de40198f3393d87b8e3eb48b49cdf8466567871e06b2b1"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_deploy_cli.py",
+      "destination": "tests/unit/test_deploy_cli.py",
+      "sha256": "a8e0714d2b152b08ea11fb6296d904982995185d119e3297cd663382a3b7aa4c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_deploy_mcp.py",
+      "destination": "tests/unit/test_deploy_mcp.py",
+      "sha256": "e63959bd46bc89a7d3ede073bf5177262227077377f201b93cff3a425291f8af"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_dummy.py",
+      "destination": "tests/unit/test_dummy.py",
+      "sha256": "4ac4bffa6f7f0950581e030f8bfd4d13d71f100d3fc256154a2734461f1c3008"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_engagement.py",
+      "destination": "tests/unit/test_engagement.py",
+      "sha256": "73d51ea6e704ad6476cc5854c862a552580ab3ed6cd2214392f109794869c839"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_gen_deck_cli.py",
+      "destination": "tests/unit/test_gen_deck_cli.py",
+      "sha256": "0b58cbe96e52a89c01152e02420ee5f1c4520eec7865a4b33a3a09d347bf9dfd"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_mcp_auth.py",
+      "destination": "tests/unit/test_mcp_auth.py",
+      "sha256": "79377ba9fc703d8a0272176496da6fa6200e52ea164f5a93cb4f8a36303b93ba"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_mcp_jobs.py",
+      "destination": "tests/unit/test_mcp_jobs.py",
+      "sha256": "254adc2e40a68cff53f64a8446f019a64d8231bcaa9607d09bda407558cfd41e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_pixelpitch_agent.py",
+      "destination": "tests/unit/test_pixelpitch_agent.py",
+      "sha256": "57633abf585de476a7b1a9456273bf7d556f85187bd64ab7e583a380db2a0367"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_prepare_agy_skills.py",
+      "destination": "tests/unit/test_prepare_agy_skills.py",
+      "sha256": "173101c8d03dcb538b9b4710e6e9f3d6fcf83746a0e468df8cefa67b11e7d31f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_progress.py",
+      "destination": "tests/unit/test_progress.py",
+      "sha256": "65e00cc58a0d7bcd82a4f35d484bd58e1ed3259c779d70f33ecd003723e0c35c"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_template_baselines.py",
+      "destination": "tests/unit/test_template_baselines.py",
+      "sha256": "0baa96628e887c88994c618b083aea8c2d17849ce021bacbf9b6afb71cdb10f6"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_template_events.py",
+      "destination": "tests/unit/test_template_events.py",
+      "sha256": "6e4296a8455e074cb05984eb4d9d51e34bfdaf478030cf59c3a2c1919f681a95"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_template_policy.py",
+      "destination": "tests/unit/test_template_policy.py",
+      "sha256": "ccdf1bf1b75ecb3a11013d8f19ab6bc97c8e579855368d8b5f5ddd54d1bf8655"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_tools.py",
+      "destination": "tests/unit/test_tools.py",
+      "sha256": "f0dfa78e55a320c31da000b8ed5f91caa8ae98d28a4354511fee43e2477ba706"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_workstation_preview.py",
+      "destination": "tests/unit/test_workstation_preview.py",
+      "sha256": "45a038250d2afab2514da90e0c09b2046aba4aa11672ca4f53a6c3b6dbcb2ea2"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/tests/unit/test_workstation_relay.py",
+      "destination": "tests/unit/test_workstation_relay.py",
+      "sha256": "b9bc6b96744b0a24789e6a1f3af93fe2b653e4bc05b717c6e5286f5d27608e12"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/README.md",
+      "destination": "docs/README.md",
+      "sha256": "6177686f09f40c0dbfcbab3e85086ba0de78c70efd3717b8498d48a028a57cd9"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/a2a-background-jobs.md",
+      "destination": "docs/a2a-background-jobs.md",
+      "sha256": "73b401f07e168595ab9f36450572b20a8fff079b9e725245acf31e2c6247189b"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/architecture.md",
+      "destination": "docs/architecture.md",
+      "sha256": "afd4c82f0a76c3cd457ab50ae00fd680e045e430b4fcafbcc3448f4ca9ab47d7"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/assets/architecture.svg",
+      "destination": "docs/assets/architecture.svg",
+      "sha256": "4259a064ded4ca5f291d9113baccb84282a496f790d2f99fb05d2c5a80df066d"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/mcp-setup.md",
+      "destination": "docs/mcp-setup.md",
+      "sha256": "17049715bcdb902f3da85588d20beff35b113b8aa55b7baf814339738e5de868"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/release-checklist.md",
+      "destination": "docs/release-checklist.md",
+      "sha256": "94b2cd04fa8a0f72887c637d3fc58924931ec78e5bdc943c790af37979904ff9"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/standalone-repository.md",
+      "destination": "docs/standalone-repository.md",
+      "sha256": "c4016d97284b5e7e3e0a184d248adc6f74a7c360487eddf56e8e4079e9dc2fcc"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/template-architecture.md",
+      "destination": "docs/template-architecture.md",
+      "sha256": "ea630067f6b4b6d143766b35bc8a748f2f317182da0ebe91d138c224d1e1dd93"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/template-operations.md",
+      "destination": "docs/template-operations.md",
+      "sha256": "46eacf04029f05e5f85408c84725e6a33d4e7a2217616d13d1cb67cbe80af04e"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/docs/workstation-preview.md",
+      "destination": "docs/workstation-preview.md",
+      "sha256": "4d088e525f9dca934689dffa33c188a67809617a85fdf2dc71a9085e8bffceb0"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/workstation-relay/Dockerfile",
+      "destination": "workstation-relay/Dockerfile",
+      "sha256": "6e691857b97c249b7be739ae36c680cca89b61c3374b24b752eddc06f7aadc07"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/workstation-relay/cloudbuild.yaml",
+      "destination": "workstation-relay/cloudbuild.yaml",
+      "sha256": "a05d12256fc79f1e35d0f2411906d06c2330b44c32cce390575f9b338bdef4cc"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/workstation-relay/gcloudignore",
+      "destination": "workstation-relay/gcloudignore",
+      "sha256": "9534230dc203b269011644f54486ebed015516eba729dc45735681ac3dd6505f"
+    },
+    {
+      "source": "agents/pixelpitch-slidegen/workstation-relay/relay.py",
+      "destination": "workstation-relay/relay.py",
+      "sha256": "98bd98b7df257483a018b022f0a5b4943a3febb2b39f56a5635314ef3340bffe"
+    },
+    {
+      "source": "engines/slidify/slidify/__init__.py",
+      "destination": "vendor/slidify/slidify/__init__.py",
+      "sha256": "019a07489f848b1cfa7e91a5d31af0035aeb9ea5b0d6a9217dc8762731fcd499"
+    },
+    {
+      "source": "engines/slidify/slidify/__main__.py",
+      "destination": "vendor/slidify/slidify/__main__.py",
+      "sha256": "dd61c754cb01089360b5644f51a18dcfed83cafad3d2f914364e26cfd5a38c69"
+    },
+    {
+      "source": "engines/slidify/slidify/_logging.py",
+      "destination": "vendor/slidify/slidify/_logging.py",
+      "sha256": "5f9f13ece3e60fa6b52d4ba813dcb51c1c572aeac5d409dc1601f29feb9f9a13"
+    },
+    {
+      "source": "engines/slidify/slidify/_overflow.py",
+      "destination": "vendor/slidify/slidify/_overflow.py",
+      "sha256": "6ef185213f19d176738a201ba73e827b2d9fa28c53bd895f3f03fd8edb96f178"
+    },
+    {
+      "source": "engines/slidify/slidify/anim_capture.py",
+      "destination": "vendor/slidify/slidify/anim_capture.py",
+      "sha256": "7dcd0fa8a7cefd0b2b76df272f34788e6f41c871a03f0426dbfd62c402e792f6"
+    },
+    {
+      "source": "engines/slidify/slidify/api/__init__.py",
+      "destination": "vendor/slidify/slidify/api/__init__.py",
+      "sha256": "017dfe6a5d03113f7b2765cdc89b98ecc610bc1828bde180627e8ad02d12cf2b"
+    },
+    {
+      "source": "engines/slidify/slidify/api/config.py",
+      "destination": "vendor/slidify/slidify/api/config.py",
+      "sha256": "1c35be9a59521be5cd06fecfef427f1e42607f8349dd91008a9ba825f96db12a"
+    },
+    {
+      "source": "engines/slidify/slidify/api/oracle.py",
+      "destination": "vendor/slidify/slidify/api/oracle.py",
+      "sha256": "4fd84f0957e3aca35a3e697d5d616a9d9d14471131af040fb25499d4dd527393"
+    },
+    {
+      "source": "engines/slidify/slidify/api/pipeline.py",
+      "destination": "vendor/slidify/slidify/api/pipeline.py",
+      "sha256": "617d5ce3229bc36c85dd79c9ad3fba830011d71d0162bf4268fbfba6386d14cb"
+    },
+    {
+      "source": "engines/slidify/slidify/api/sources.py",
+      "destination": "vendor/slidify/slidify/api/sources.py",
+      "sha256": "1d1d603c89b9962d64b128926a9e1a428e9495b31d396852c2d82da29908fa45"
+    },
+    {
+      "source": "engines/slidify/slidify/api/state.py",
+      "destination": "vendor/slidify/slidify/api/state.py",
+      "sha256": "776d08f5e2a9a25be96c35c3520ab0b8cb07071ad191d78c94247e4c782d7d5c"
+    },
+    {
+      "source": "engines/slidify/slidify/assets/__init__.py",
+      "destination": "vendor/slidify/slidify/assets/__init__.py",
+      "sha256": "f9b340a9a99b127be6ea59bc0bc1336188fcb807fe701f402ceca68b6fa51d56"
+    },
+    {
+      "source": "engines/slidify/slidify/assets/font_embed.py",
+      "destination": "vendor/slidify/slidify/assets/font_embed.py",
+      "sha256": "2b9d50f7e5a8cccaa7715d8249b03199e364b193656d99526120657e4fe5a396"
+    },
+    {
+      "source": "engines/slidify/slidify/assets/font_resolver.py",
+      "destination": "vendor/slidify/slidify/assets/font_resolver.py",
+      "sha256": "48f3109fd5d20c576da8b7969637caad058aaa6085de90493f1ab9ef2f4eaaf4"
+    },
+    {
+      "source": "engines/slidify/slidify/atom_inference.py",
+      "destination": "vendor/slidify/slidify/atom_inference.py",
+      "sha256": "a1c7bb1bd779da38075323715d6e3118a8020968a95acfadec2002d4ad74885d"
+    },
+    {
+      "source": "engines/slidify/slidify/cache.py",
+      "destination": "vendor/slidify/slidify/cache.py",
+      "sha256": "74022ed5bbef5da7baffbe6bf745d9ca7057f950e98f72f1ce1012c2ef652a10"
+    },
+    {
+      "source": "engines/slidify/slidify/checker.py",
+      "destination": "vendor/slidify/slidify/checker.py",
+      "sha256": "241b616ef49005860cc864f841ee7551d11be34c988ac073b250349b6e356c95"
+    },
+    {
+      "source": "engines/slidify/slidify/classifier/__init__.py",
+      "destination": "vendor/slidify/slidify/classifier/__init__.py",
+      "sha256": "aacbce8915bd55027dee44d19e4bcd688b60ca532d958dc3f2c9b89129653cc9"
+    },
+    {
+      "source": "engines/slidify/slidify/classifier/cost_model.py",
+      "destination": "vendor/slidify/slidify/classifier/cost_model.py",
+      "sha256": "1f6193c4980fc71649c792364343a95f66ede23107b6aaf2c9e7bf01e16f9ff6"
+    },
+    {
+      "source": "engines/slidify/slidify/classifier/llm.py",
+      "destination": "vendor/slidify/slidify/classifier/llm.py",
+      "sha256": "2a09f788d6ba5c4167b1bd2ae9816a9623906016bbbcd9b22fb54ae8d62a7f69"
+    },
+    {
+      "source": "engines/slidify/slidify/classifier/prompts.py",
+      "destination": "vendor/slidify/slidify/classifier/prompts.py",
+      "sha256": "10c80e2dfa08352563e5049ea0b67e41528dd82c4d2144cb28409c4005e64013"
+    },
+    {
+      "source": "engines/slidify/slidify/classifier/tier1.py",
+      "destination": "vendor/slidify/slidify/classifier/tier1.py",
+      "sha256": "08df37cb169b19f5189c1d1f6f2d0d4bea410db3c612bb5ce00857626b7ff184"
+    },
+    {
+      "source": "engines/slidify/slidify/classifier/tier2.py",
+      "destination": "vendor/slidify/slidify/classifier/tier2.py",
+      "sha256": "d7bbabcdbbb9e3039859d95c5dea4c6c6047c800e40cd8f9d3c7f5955a539662"
+    },
+    {
+      "source": "engines/slidify/slidify/classifier/tier3.py",
+      "destination": "vendor/slidify/slidify/classifier/tier3.py",
+      "sha256": "415251f692d1e964b4e768e36064bf5703406cdff61d7ebd6bfe99c7f0952a7f"
+    },
+    {
+      "source": "engines/slidify/slidify/cli/__init__.py",
+      "destination": "vendor/slidify/slidify/cli/__init__.py",
+      "sha256": "3080e72b04f6c727d2143fa97607737b527adc17dc49362c68c0ac9534911ccf"
+    },
+    {
+      "source": "engines/slidify/slidify/cli/commands/__init__.py",
+      "destination": "vendor/slidify/slidify/cli/commands/__init__.py",
+      "sha256": "51aada4aa4a3d901ed2e90d8cfb8474c6fdd4eb97e50f705dbe0ba3092f7da3a"
+    },
+    {
+      "source": "engines/slidify/slidify/cli/commands/guide.py",
+      "destination": "vendor/slidify/slidify/cli/commands/guide.py",
+      "sha256": "61d2902a05eca43493b16abedb07f66e92caabc38f6060030b966835c832f6de"
+    },
+    {
+      "source": "engines/slidify/slidify/cli/commands/harvest.py",
+      "destination": "vendor/slidify/slidify/cli/commands/harvest.py",
+      "sha256": "f6384dc51aae2d2eab9f4edf8bb25cd0ff632fdad911eac77119cb5426f8b528"
+    },
+    {
+      "source": "engines/slidify/slidify/cli/main.py",
+      "destination": "vendor/slidify/slidify/cli/main.py",
+      "sha256": "b9a32c4ae6ef0aa95ad944ef60f4bdf9b4e4231fb2d2c0db5581ac91431a2615"
+    },
+    {
+      "source": "engines/slidify/slidify/colors.py",
+      "destination": "vendor/slidify/slidify/colors.py",
+      "sha256": "66706e53ffa4754381fd0eca6ccc2b9761b483484d2a2256159661e4c80f2030"
+    },
+    {
+      "source": "engines/slidify/slidify/compat.py",
+      "destination": "vendor/slidify/slidify/compat.py",
+      "sha256": "d38783a7ed85afb7ffc5e00fa7304d125a4a8327b04b5af561776d2452f62a50"
+    },
+    {
+      "source": "engines/slidify/slidify/compile_ir/__init__.py",
+      "destination": "vendor/slidify/slidify/compile_ir/__init__.py",
+      "sha256": "1f36aad9bafb06ee24b0aef18ce48d33c3c23db49ecf32f84c18a341745209bd"
+    },
+    {
+      "source": "engines/slidify/slidify/compile_ir/compiler.py",
+      "destination": "vendor/slidify/slidify/compile_ir/compiler.py",
+      "sha256": "6fc4bc3d1731c1eda476cefc7cddd99b1da7db5108ccb91b4e3d57112c6e3138"
+    },
+    {
+      "source": "engines/slidify/slidify/decorations.py",
+      "destination": "vendor/slidify/slidify/decorations.py",
+      "sha256": "845368188e92c8cb2ccb27f31eee1bfdf52581f3f505021ba505d6f9aa6356a8"
+    },
+    {
+      "source": "engines/slidify/slidify/dom/__init__.py",
+      "destination": "vendor/slidify/slidify/dom/__init__.py",
+      "sha256": "d6769a37fd87f98a4d3191891c9deb972999220929a0a02d1a65a92b1671c4f6"
+    },
+    {
+      "source": "engines/slidify/slidify/dom/coverage.py",
+      "destination": "vendor/slidify/slidify/dom/coverage.py",
+      "sha256": "92ab1a0561f3d75ce7af4a8829ef96e46bf074981658e4024cce2d1894b68bcf"
+    },
+    {
+      "source": "engines/slidify/slidify/dom/units.py",
+      "destination": "vendor/slidify/slidify/dom/units.py",
+      "sha256": "3bf6514df605fd1499c6f2d9eafdd758bfdbd3a50d60b73f50199d1b3308f818"
+    },
+    {
+      "source": "engines/slidify/slidify/dom/walker.py",
+      "destination": "vendor/slidify/slidify/dom/walker.py",
+      "sha256": "d617be297bc743d2fe043fd21d700e9a7d9b5d663420742095a85ff4933cdc79"
+    },
+    {
+      "source": "engines/slidify/slidify/dom_walker.py",
+      "destination": "vendor/slidify/slidify/dom_walker.py",
+      "sha256": "78623f14065f5e3b11e59c48ba804d3701d810114d30eea9efed35b2d302688e"
+    },
+    {
+      "source": "engines/slidify/slidify/effects.py",
+      "destination": "vendor/slidify/slidify/effects.py",
+      "sha256": "f12d10d695e916c730f4227416f37094dad8570079824bcd8b2ad0416cce3968"
+    },
+    {
+      "source": "engines/slidify/slidify/emitter/__init__.py",
+      "destination": "vendor/slidify/slidify/emitter/__init__.py",
+      "sha256": "e1bf20cd27f492b78b374891bbb148ff5c082ea8e49125ec8686be178a11ae8c"
+    },
+    {
+      "source": "engines/slidify/slidify/emitter/core.py",
+      "destination": "vendor/slidify/slidify/emitter/core.py",
+      "sha256": "ffb91452a1400bce20b05a7275df01ec56119bee017c892c549648b2dcc5ef2f"
+    },
+    {
+      "source": "engines/slidify/slidify/emitter/geometry.py",
+      "destination": "vendor/slidify/slidify/emitter/geometry.py",
+      "sha256": "cc6e7a5b1d4a607d0aa3001cec27a000566d2f69afd0e0f5348d1028000f6b7d"
+    },
+    {
+      "source": "engines/slidify/slidify/emitter/metrics.py",
+      "destination": "vendor/slidify/slidify/emitter/metrics.py",
+      "sha256": "cb7e1ec34cb2e388859140be3b2213fc99eb9c9d4d94a2fb287d43ccef6435da"
+    },
+    {
+      "source": "engines/slidify/slidify/emitter/shapes.py",
+      "destination": "vendor/slidify/slidify/emitter/shapes.py",
+      "sha256": "83628282e1b590f7e04135963f254bba45133947bbff24932aeac8e60f770504"
+    },
+    {
+      "source": "engines/slidify/slidify/emitter/text.py",
+      "destination": "vendor/slidify/slidify/emitter/text.py",
+      "sha256": "50e97806e6fa2707300e76441ddf0c360567fe117e8b76025b1c514161331d09"
+    },
+    {
+      "source": "engines/slidify/slidify/exceptions.py",
+      "destination": "vendor/slidify/slidify/exceptions.py",
+      "sha256": "9b34cead9b697e9414df15f394a1be649f15ef80bf77e007ac750c5aca78bdd0"
+    },
+    {
+      "source": "engines/slidify/slidify/font_embed.py",
+      "destination": "vendor/slidify/slidify/font_embed.py",
+      "sha256": "fa19a9af20075534080770f2e690620a505a1db8f62404488d1021c0d3507da8"
+    },
+    {
+      "source": "engines/slidify/slidify/font_resolver.py",
+      "destination": "vendor/slidify/slidify/font_resolver.py",
+      "sha256": "3ae4440c865eff4d10c4b42feafa4b4a13eb4035d3089dcc939d093a03eeabf9"
+    },
+    {
+      "source": "engines/slidify/slidify/fonts.py",
+      "destination": "vendor/slidify/slidify/fonts.py",
+      "sha256": "5119f68e75f2123d9876dcd18bcd57c424936cc93122d91266b860d165f7dbc0"
+    },
+    {
+      "source": "engines/slidify/slidify/geom.py",
+      "destination": "vendor/slidify/slidify/geom.py",
+      "sha256": "730a9de4a12482ed25b16d4613dd8c843c2a68db20a628be331dee69c37fdde1"
+    },
+    {
+      "source": "engines/slidify/slidify/gradients.py",
+      "destination": "vendor/slidify/slidify/gradients.py",
+      "sha256": "9f340d91fdfdaa2ff19763d04df8c580d77b3821152d41a649a3094e0b93c881"
+    },
+    {
+      "source": "engines/slidify/slidify/guides/agent-quickstart.md",
+      "destination": "vendor/slidify/slidify/guides/agent-quickstart.md",
+      "sha256": "124d5f15f3be67cbab671df75e4f0f8192e558a1276dd660050bfb291255d9e6"
+    },
+    {
+      "source": "engines/slidify/slidify/guides/api.md",
+      "destination": "vendor/slidify/slidify/guides/api.md",
+      "sha256": "f9e28c82481ba968efcffb0ded892a5ca5e5225bdb9449391b4d8851f7051fc6"
+    },
+    {
+      "source": "engines/slidify/slidify/guides/authoring.md",
+      "destination": "vendor/slidify/slidify/guides/authoring.md",
+      "sha256": "85f3de938b47ea4697cdf2164469443a36df70147503865da4fa46990057b76f"
+    },
+    {
+      "source": "engines/slidify/slidify/guides/binary.md",
+      "destination": "vendor/slidify/slidify/guides/binary.md",
+      "sha256": "e256c2669383c550ec195c42cd19dba4c6e195eb6514c2538823b338cbd460bd"
+    },
+    {
+      "source": "engines/slidify/slidify/guides/troubleshooting.md",
+      "destination": "vendor/slidify/slidify/guides/troubleshooting.md",
+      "sha256": "d79ba270e5e1cba01242aae540145bbc5a1c2c7b6f78c4fd8ced21b3145cec39"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/__init__.py",
+      "destination": "vendor/slidify/slidify/harvester/__init__.py",
+      "sha256": "a2f47a764d4585a35d359b7a3987e5dced241ea09e46f1c79a37145c1a1a8a3d"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/candidates.py",
+      "destination": "vendor/slidify/slidify/harvester/candidates.py",
+      "sha256": "b1b1e41b609d0fa918fe5de5370a291faefd6646d78008d8465a15653bc22e8b"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/cluster_signals.py",
+      "destination": "vendor/slidify/slidify/harvester/cluster_signals.py",
+      "sha256": "34d4380367eaa878e4b12de2f47fba22bed35559606b63d114edf3cc5446e857"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/collection.py",
+      "destination": "vendor/slidify/slidify/harvester/collection.py",
+      "sha256": "bff0e1b712ca3057503c0a6440f1b598ae161df5a9dae30cb753734d66d3478e"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/core.py",
+      "destination": "vendor/slidify/slidify/harvester/core.py",
+      "sha256": "6db67f0183098c6fc6c7acae3efb4cd0a763ca14ab72ebc59682b1b91699c5b9"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/mechanisms.py",
+      "destination": "vendor/slidify/slidify/harvester/mechanisms.py",
+      "sha256": "4c10ed5ed6c8a28b8f1f69bc568f65c06b1df036b2f5c24c834255586c817e72"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/portfolio.py",
+      "destination": "vendor/slidify/slidify/harvester/portfolio.py",
+      "sha256": "faf872fd9e501590171e1ad79da5e97826becec5813d66307092befda891210f"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/quality.py",
+      "destination": "vendor/slidify/slidify/harvester/quality.py",
+      "sha256": "ed224f19aa440a50ebc528e4914dd08f0a38376a6b0baf37ad9265504896136f"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/signals.py",
+      "destination": "vendor/slidify/slidify/harvester/signals.py",
+      "sha256": "9307c790fae1a3d2ea0502f11118fc76fa0e24eec72f77fb4ed5c3135731eff1"
+    },
+    {
+      "source": "engines/slidify/slidify/harvester/types.py",
+      "destination": "vendor/slidify/slidify/harvester/types.py",
+      "sha256": "989ee3fe7647390854b6019e78a0f4713857fbd4c13417c7db1d4fba04e9d0a0"
+    },
+    {
+      "source": "engines/slidify/slidify/ir.py",
+      "destination": "vendor/slidify/slidify/ir.py",
+      "sha256": "b38139f3cf276e5a019d5f333a7f02ff3226bf67f882130a1bd04fa9e531ff52"
+    },
+    {
+      "source": "engines/slidify/slidify/mesh.py",
+      "destination": "vendor/slidify/slidify/mesh.py",
+      "sha256": "173726aa7b3da847968575e393564f9e18f3ed5ddae58d2ea1f68c032c73623a"
+    },
+    {
+      "source": "engines/slidify/slidify/models.py",
+      "destination": "vendor/slidify/slidify/models.py",
+      "sha256": "10f03640c7d3e402a3d3f933c1381daa4652d08d3f353cf650001ceaf1be2245"
+    },
+    {
+      "source": "engines/slidify/slidify/oklch.py",
+      "destination": "vendor/slidify/slidify/oklch.py",
+      "sha256": "6fa3597a59f329c1c0b3ae10885af0911cb83a646879068da724d9d350bd7b8d"
+    },
+    {
+      "source": "engines/slidify/slidify/oracle.py",
+      "destination": "vendor/slidify/slidify/oracle.py",
+      "sha256": "7eef24c0462c6fc9f87bbd9b9e209becc4ce4b903c74eba9bd76a1dede284725"
+    },
+    {
+      "source": "engines/slidify/slidify/path.py",
+      "destination": "vendor/slidify/slidify/path.py",
+      "sha256": "ff90ec1707b1060af3d9cb99ab9e1c5ee70c30a1863f86219b2c1364aba10825"
+    },
+    {
+      "source": "engines/slidify/slidify/pattern_fills.py",
+      "destination": "vendor/slidify/slidify/pattern_fills.py",
+      "sha256": "85b1586953b364ea6ca46a2df19b57ec941dc3c1b8025442f76397790dc18f67"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/__init__.py",
+      "destination": "vendor/slidify/slidify/patterns/__init__.py",
+      "sha256": "d251863c9207c19586d24ce62f93d71fe025ae73b794917dd31416f978cb6fa9"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/__main__.py",
+      "destination": "vendor/slidify/slidify/patterns/__main__.py",
+      "sha256": "a09479c1059a29692708e0e4985be60f01fbced1ae97633ae880dffdb7f8e3b1"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/data/__init__.py",
+      "destination": "vendor/slidify/slidify/patterns/data/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/data/atom_signatures.json",
+      "destination": "vendor/slidify/slidify/patterns/data/atom_signatures.json",
+      "sha256": "5d9f7b212576c3ba93b119ac9736c1eb43fb5eb474589b185cf82d2746f3b20a"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/data/atoms.SCHEMA.md",
+      "destination": "vendor/slidify/slidify/patterns/data/atoms.SCHEMA.md",
+      "sha256": "6a0aeeeca6e21a23dc641cce7e88e3c3883b7dc829fa5ea035542d6a1b5fedb3"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/data/atoms.yaml",
+      "destination": "vendor/slidify/slidify/patterns/data/atoms.yaml",
+      "sha256": "0c7027586660df0bb0dd9b84a4f0a56abdb78e567aa3e443fa08b060382e9934"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/data/patterns.yaml",
+      "destination": "vendor/slidify/slidify/patterns/data/patterns.yaml",
+      "sha256": "4abae443851d3227658a4ee62302dc7f6ae34f812a01f04ad6d462159c48d322"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/data/tailwind.json",
+      "destination": "vendor/slidify/slidify/patterns/data/tailwind.json",
+      "sha256": "c8669b37f2049a75327203997590b240d65624dd26ebea1cae5e2af709c7785f"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/matcher/__init__.py",
+      "destination": "vendor/slidify/slidify/patterns/matcher/__init__.py",
+      "sha256": "883d106ba276046057ddc0a5d9232fed6a127683835c6c53971d9933388ef483"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/matcher/core.py",
+      "destination": "vendor/slidify/slidify/patterns/matcher/core.py",
+      "sha256": "1f1bdf5a61d6ec57047bf3afd4f2b838a4cfe8ef41ef7ea648b5bce06ba8b585"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/recipes.py",
+      "destination": "vendor/slidify/slidify/patterns/recipes.py",
+      "sha256": "e4d19e936ed93bf86b77562307cc4978838d4e00e0ac2108cc58f4e46362c63e"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/signatures.py",
+      "destination": "vendor/slidify/slidify/patterns/signatures.py",
+      "sha256": "d263a8a6ed77219f97bdffddd8507fec51bb38a88fb947b9bc2d5128dc8d294b"
+    },
+    {
+      "source": "engines/slidify/slidify/patterns/tailwind.py",
+      "destination": "vendor/slidify/slidify/patterns/tailwind.py",
+      "sha256": "6edea5ea54ed023c2a38bcbea85e3c43bc80e1e00c09eecd7b8f2130a5a72e8a"
+    },
+    {
+      "source": "engines/slidify/slidify/preset_shapes.py",
+      "destination": "vendor/slidify/slidify/preset_shapes.py",
+      "sha256": "be9278a22fb0ca0525f1edd34b658a35c99c81278584271f08f367cf0b11bc46"
+    },
+    {
+      "source": "engines/slidify/slidify/progress.py",
+      "destination": "vendor/slidify/slidify/progress.py",
+      "sha256": "db4989e96f34d3168bb6cb37c8439e149a42737f2d197c297c351b2e84f60a82"
+    },
+    {
+      "source": "engines/slidify/slidify/promotion.py",
+      "destination": "vendor/slidify/slidify/promotion.py",
+      "sha256": "d77a0700aba25dd21726cfbd275ef16d50d9c1b650d74a92bf141ee8f218db83"
+    },
+    {
+      "source": "engines/slidify/slidify/renderer.py",
+      "destination": "vendor/slidify/slidify/renderer.py",
+      "sha256": "082df7850e6de42d80a16ada10bcfbc88fca73309f370633f5dacf86479f9759"
+    },
+    {
+      "source": "engines/slidify/slidify/reporting/__init__.py",
+      "destination": "vendor/slidify/slidify/reporting/__init__.py",
+      "sha256": "3b3910b1529286dc37a0056b3849b13b6a89f40a3e45403ad8ecb5ed5edf6399"
+    },
+    {
+      "source": "engines/slidify/slidify/reporting/compatibility.py",
+      "destination": "vendor/slidify/slidify/reporting/compatibility.py",
+      "sha256": "df75e01841d26f4bbf3609d48cd4ba4d15cfc0d19a930eb1a7ee5b15e18c2c7d"
+    },
+    {
+      "source": "engines/slidify/slidify/reporting/progress.py",
+      "destination": "vendor/slidify/slidify/reporting/progress.py",
+      "sha256": "5f2d1610351a9c82c03c4dcb8388467b5211bffe1299a73d4251d28190a9dac1"
+    },
+    {
+      "source": "engines/slidify/slidify/roundtrip.py",
+      "destination": "vendor/slidify/slidify/roundtrip.py",
+      "sha256": "01cc25dfcf0b6c2d8a4acabced75490e1af0ea9a8c62f871e41eac754ecd8425"
+    },
+    {
+      "source": "engines/slidify/slidify/shadows.py",
+      "destination": "vendor/slidify/slidify/shadows.py",
+      "sha256": "e455f16f2d310f2019dd10d8ce92552b669b778fc7097babdf0e60a905a9c47c"
+    },
+    {
+      "source": "engines/slidify/slidify/splitter.py",
+      "destination": "vendor/slidify/slidify/splitter.py",
+      "sha256": "15ddf1d01fc88a9c73c2cdfc6e2449c0d8c0e31021e038d16533a8b1b20fc5fe"
+    },
+    {
+      "source": "engines/slidify/slidify/subjective_oracle.py",
+      "destination": "vendor/slidify/slidify/subjective_oracle.py",
+      "sha256": "09b9b9e571ad9e2f4aaf192ffafae27183721bae81590b6cf8ee52bfa4031597"
+    },
+    {
+      "source": "engines/slidify/slidify/svg/__init__.py",
+      "destination": "vendor/slidify/slidify/svg/__init__.py",
+      "sha256": "93ab0f2f9649ee974aed3fea19ed93ed3df804a5c9ff12f8f6e7e219b01ee771"
+    },
+    {
+      "source": "engines/slidify/slidify/svg/path.py",
+      "destination": "vendor/slidify/slidify/svg/path.py",
+      "sha256": "f1ac2546603a0456a5a5e7aceb1b14118480368084aae1a0fa668febc2cc90d3"
+    },
+    {
+      "source": "engines/slidify/slidify/svg/path_parser.py",
+      "destination": "vendor/slidify/slidify/svg/path_parser.py",
+      "sha256": "97ab8f3773005ddbe8f4adafc7c9c3caf889598fce586c66d3a95b9581a27e08"
+    },
+    {
+      "source": "engines/slidify/slidify/svg/shapes.py",
+      "destination": "vendor/slidify/slidify/svg/shapes.py",
+      "sha256": "ca77f7a09e9faf58f1c821cf1efafb385e12e39c43e556d978dcb840c93f9ced"
+    },
+    {
+      "source": "engines/slidify/slidify/svg_path.py",
+      "destination": "vendor/slidify/slidify/svg_path.py",
+      "sha256": "aada8a006471a25ed34d30b7a31f9d0f13eba2c0b99bda73fbfd1b96c71b1902"
+    },
+    {
+      "source": "engines/slidify/slidify/svg_shapes.py",
+      "destination": "vendor/slidify/slidify/svg_shapes.py",
+      "sha256": "362de03392a902f5500a522f0e8af451017c9f7213ecf788d379dcc0ac9bd6e0"
+    },
+    {
+      "source": "engines/slidify/slidify/text_metrics.py",
+      "destination": "vendor/slidify/slidify/text_metrics.py",
+      "sha256": "6f6bdfd4dfcb9337f72765c49eee43804928bb5f5bc7b74cac1c29f1173b270d"
+    },
+    {
+      "source": "engines/slidify/slidify/theme.py",
+      "destination": "vendor/slidify/slidify/theme.py",
+      "sha256": "c486df319246fd5349b2932b92bf23127b28edf3dca47a1748c0e782cad3c196"
+    },
+    {
+      "source": "engines/slidify/slidify/unit_coverage.py",
+      "destination": "vendor/slidify/slidify/unit_coverage.py",
+      "sha256": "bd0903f12b76b7fece95b59054eca2a92ba9ba708453b9a6d1b40d9869709fb7"
+    },
+    {
+      "source": "engines/slidify/slidify/units.py",
+      "destination": "vendor/slidify/slidify/units.py",
+      "sha256": "0fe44ea78456cb63122cbfb4189b1104f82ea101b27f892e3d518e67d952d858"
+    },
+    {
+      "source": "engines/slidify/tests/__init__.py",
+      "destination": "vendor/slidify/tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "engines/slidify/tests/fixtures/differential_demo.html",
+      "destination": "vendor/slidify/tests/fixtures/differential_demo.html",
+      "sha256": "a8b45e4ac7eeb369eb0be9028a0cd3763fac6b16fd6205e755cd0f51c83bce5e"
+    },
+    {
+      "source": "engines/slidify/tests/fixtures/qa/duotone-svg-gradient-fill.html",
+      "destination": "vendor/slidify/tests/fixtures/qa/duotone-svg-gradient-fill.html",
+      "sha256": "119fed85583bd90bfc9b5d6308a2efca27042bc5525a56d45fa9aaa2a70c4d52"
+    },
+    {
+      "source": "engines/slidify/tests/fixtures/qa/font-unknown-display-fallback.html",
+      "destination": "vendor/slidify/tests/fixtures/qa/font-unknown-display-fallback.html",
+      "sha256": "9f21058f8c831576abaaa3552b5266be57a70b319a86384ede300a6006d584a3"
+    },
+    {
+      "source": "engines/slidify/tests/fixtures/sample_deck.html",
+      "destination": "vendor/slidify/tests/fixtures/sample_deck.html",
+      "sha256": "80da5e931619139f42f35f6a20315dd718aee007ca86c3c5fa93abbc819fdac7"
+    },
+    {
+      "source": "engines/slidify/tests/fixtures/svg_quality_stress.html",
+      "destination": "vendor/slidify/tests/fixtures/svg_quality_stress.html",
+      "sha256": "753cfb68c99ce2a8486f895b6484be057bb7cd749f62388f6972130fed238275"
+    },
+    {
+      "source": "engines/slidify/tests/fixtures/table_deck.html",
+      "destination": "vendor/slidify/tests/fixtures/table_deck.html",
+      "sha256": "1933622db4f35a2934ca991bd46fb9d88308158b4eec36a1fe56e7562faaefd3"
+    },
+    {
+      "source": "engines/slidify/tests/integration/test_anim_capture_e2e.py",
+      "destination": "vendor/slidify/tests/integration/test_anim_capture_e2e.py",
+      "sha256": "534e0bdc131ed2501fce74325af8aeb474ff3a14d9cb366b1e0367f0ea6a6755"
+    },
+    {
+      "source": "engines/slidify/tests/integration/test_compile_ir.py",
+      "destination": "vendor/slidify/tests/integration/test_compile_ir.py",
+      "sha256": "e00c7ba19fc9e0c17e3d989359e9563e09e4d32d86c3525eee6249ad49fadd42"
+    },
+    {
+      "source": "engines/slidify/tests/integration/test_differential_render.py",
+      "destination": "vendor/slidify/tests/integration/test_differential_render.py",
+      "sha256": "60844e7885b1467cd947d47415ed245811c27f30aa6b2a758d0b3f84d2ba92e9"
+    },
+    {
+      "source": "engines/slidify/tests/integration/test_end_to_end.py",
+      "destination": "vendor/slidify/tests/integration/test_end_to_end.py",
+      "sha256": "15d8e7597e800e1e9374a1e6fe5ab7d68f31e5d6288594f6a38ddf0410eeaefe"
+    },
+    {
+      "source": "engines/slidify/tests/integration/test_native_lines_e2e.py",
+      "destination": "vendor/slidify/tests/integration/test_native_lines_e2e.py",
+      "sha256": "680620f4124090701d2d37c47f5ff9388eb1b01fb51d0a60ed9f261a054e4c14"
+    },
+    {
+      "source": "engines/slidify/tests/integration/test_native_table_e2e.py",
+      "destination": "vendor/slidify/tests/integration/test_native_table_e2e.py",
+      "sha256": "d2c09e19e1b9280899f5ce987b95fd9db4a4383c8bed657e2495c3766bede168"
+    },
+    {
+      "source": "engines/slidify/tests/integration/test_streaming_inputs.py",
+      "destination": "vendor/slidify/tests/integration/test_streaming_inputs.py",
+      "sha256": "d5e04e360c0713ac095a3b4cfd256c9a8a3f94dd12edab25da237ef2415c0a38"
+    },
+    {
+      "source": "engines/slidify/tests/integration/test_svg_quality_stress.py",
+      "destination": "vendor/slidify/tests/integration/test_svg_quality_stress.py",
+      "sha256": "053b3f722300f5bd83c6ea41b507568a13f91d47f5496c8280c2d6bd91827821"
+    },
+    {
+      "source": "engines/slidify/tests/patterns/__init__.py",
+      "destination": "vendor/slidify/tests/patterns/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "engines/slidify/tests/patterns/expected.yaml",
+      "destination": "vendor/slidify/tests/patterns/expected.yaml",
+      "sha256": "0b335df2560cf3850fe7318bc2d2e3a14ac6de52c09f4971c72f3afcec0b629e"
+    },
+    {
+      "source": "engines/slidify/tests/patterns/test_round_trip.py",
+      "destination": "vendor/slidify/tests/patterns/test_round_trip.py",
+      "sha256": "e9c7f6e17098099941f49965daec60f2fa2e42919925362552ac84905ec7d667"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_anim_capture.py",
+      "destination": "vendor/slidify/tests/unit/test_anim_capture.py",
+      "sha256": "3dfb87d05d0b0ba94afb20aa170fecf96f76cc1ee5a1cec25065ff9ebd6342c0"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_atom_inference.py",
+      "destination": "vendor/slidify/tests/unit/test_atom_inference.py",
+      "sha256": "6343d261108e9469f2df4c207b0d60c1e768228231c76745d6850f3fa8e7d525"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_atom_priming_cli.py",
+      "destination": "vendor/slidify/tests/unit/test_atom_priming_cli.py",
+      "sha256": "78ff968960142f82a44172d73a94582e6d09f6fb55c414ed86b09a0b864ebe3b"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_checker.py",
+      "destination": "vendor/slidify/tests/unit/test_checker.py",
+      "sha256": "9d2e7a87189e93bb8253420881eb09a75914325525cde8a1cc28eef4d3ffb025"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_cli_harvest.py",
+      "destination": "vendor/slidify/tests/unit/test_cli_harvest.py",
+      "sha256": "e0262090c6d23125741a2d38c71b3fceab1bdaa87baa2a754d302188179124bb"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_codex_review_round3.py",
+      "destination": "vendor/slidify/tests/unit/test_codex_review_round3.py",
+      "sha256": "d1629cd2b9a0e1c508a4b4d2e9bdb2b619b6f8deecc9df78fa2d7dbbb4238c2c"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_compat_matrix.py",
+      "destination": "vendor/slidify/tests/unit/test_compat_matrix.py",
+      "sha256": "a8c62f736a911a38e7b1d10d16471f59539187139e6d66f8083b08f5e5315770"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_compile_multishadow.py",
+      "destination": "vendor/slidify/tests/unit/test_compile_multishadow.py",
+      "sha256": "91cb942efb0192de3024cf0ed26678f30b4c69213d6d86a6a4633a7f31a098c0"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_compile_path.py",
+      "destination": "vendor/slidify/tests/unit/test_compile_path.py",
+      "sha256": "7ae4b0069c8b2e1d5b54f120e6b2f2f910a69b787022ed9dd653172b32c53c6e"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_compile_patterns.py",
+      "destination": "vendor/slidify/tests/unit/test_compile_patterns.py",
+      "sha256": "fa567e7ae7a4b820061ea24f2b3209eb0a0af810400361489aba4e7784b69f29"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_compile_picture_clip.py",
+      "destination": "vendor/slidify/tests/unit/test_compile_picture_clip.py",
+      "sha256": "da2a571df826ff699a61bfd113bc5798764bfb277e9b6fee7e19d7d5ee5180df"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_compile_presets.py",
+      "destination": "vendor/slidify/tests/unit/test_compile_presets.py",
+      "sha256": "a57c402f6a6317d5914b2e521e7e58a7ef7aea256926ef7c82685f87c6bf9079"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_compile_review_fixes.py",
+      "destination": "vendor/slidify/tests/unit/test_compile_review_fixes.py",
+      "sha256": "fce4a220efd06d8571b65cebe17d1a6f53beadca23be06acf0f4129db0ac0346"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_cost_model.py",
+      "destination": "vendor/slidify/tests/unit/test_cost_model.py",
+      "sha256": "5948bbfb3325100b20c9856235a7dbd709915e66e42946d0823a07fad9dacd1f"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_decorations.py",
+      "destination": "vendor/slidify/tests/unit/test_decorations.py",
+      "sha256": "133a9a6d53efefde57be7502936278a21c9bc41f9cc203e922605544f9bf654f"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_emit_exclusivity.py",
+      "destination": "vendor/slidify/tests/unit/test_emit_exclusivity.py",
+      "sha256": "a1e50aa98d6e0fd51f738aff26efcecc22ac4150847a0c36c8de62b877c06891"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_emitter_color.py",
+      "destination": "vendor/slidify/tests/unit/test_emitter_color.py",
+      "sha256": "ea260fc9c8124fdb294df6e83e6f8add746bfeca7f45877f18860a2eca32c6ec"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_emitter_genre_autofit.py",
+      "destination": "vendor/slidify/tests/unit/test_emitter_genre_autofit.py",
+      "sha256": "da98b961c1a4b5ba91f58ee7cd9a535702b8a485520486911c412e1a8fda4b6f"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_emitter_hygiene.py",
+      "destination": "vendor/slidify/tests/unit/test_emitter_hygiene.py",
+      "sha256": "2c7390808b418e28688558e0d077ec7ccb111ebe7692dd574b3ec0c153bbe4c2"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_emitter_raster.py",
+      "destination": "vendor/slidify/tests/unit/test_emitter_raster.py",
+      "sha256": "b0cebbca705ca33520e3ab31c1f5347b82d3a49dc07e253d99df535d6722b755"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_emitter_text_metrics.py",
+      "destination": "vendor/slidify/tests/unit/test_emitter_text_metrics.py",
+      "sha256": "0a5b8735b6704b62f69edcface5ace8b769aeda71dfa83343fc867cb33313964"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_escape_hatch.py",
+      "destination": "vendor/slidify/tests/unit/test_escape_hatch.py",
+      "sha256": "664df93f778a94c1c3f246defbc26b68650a3bacf51666809f46438831348f20"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_font_embed.py",
+      "destination": "vendor/slidify/tests/unit/test_font_embed.py",
+      "sha256": "56d319fca27602fa6d5ebbb626fcbfed2b4968b6cb43bbd7d7d88e37961d69ab"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_font_resolver.py",
+      "destination": "vendor/slidify/tests/unit/test_font_resolver.py",
+      "sha256": "1549434a24af89a0f8169ec2a239400cdf2414189718d3e6d4c17aba7be98bde"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_fonts.py",
+      "destination": "vendor/slidify/tests/unit/test_fonts.py",
+      "sha256": "74324905cd7626a00a91ff92121e28b67da1d0558f3c750b357fc214731736c8"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_geom.py",
+      "destination": "vendor/slidify/tests/unit/test_geom.py",
+      "sha256": "946d4b669de937f99ffe4d823e9eb0ca94e89a551e80b0c2c1e5bbf8b54dace7"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_gradients.py",
+      "destination": "vendor/slidify/tests/unit/test_gradients.py",
+      "sha256": "f1c41baa3cf5c6bbba426619f27b1f8b594eb962cee23215522afde50dd8377d"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_harvest_promote.py",
+      "destination": "vendor/slidify/tests/unit/test_harvest_promote.py",
+      "sha256": "429b9547fb42c79d60f8bc83bb899cb6e672b45e1575eef6b0dc20df234010d8"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_harvester.py",
+      "destination": "vendor/slidify/tests/unit/test_harvester.py",
+      "sha256": "8de99b30184621faf397513c0310533cf4c4d1379180e9c503dd17d5dfc179b2"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_inline_local_images.py",
+      "destination": "vendor/slidify/tests/unit/test_inline_local_images.py",
+      "sha256": "c2a16b48be517c9974071b17d3e129d4612675f0062e953b837592816dff26a8"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_llm_provider.py",
+      "destination": "vendor/slidify/tests/unit/test_llm_provider.py",
+      "sha256": "7bcf6b09768b13d7d84211968585a86ecc79d263b780c8d2485e9327bbd85842"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_logging.py",
+      "destination": "vendor/slidify/tests/unit/test_logging.py",
+      "sha256": "efa3b79c0449f45e600d4d1b9800a2b696c0cc8fada5a90e3e15e94152f74a0e"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_matcher_predicates.py",
+      "destination": "vendor/slidify/tests/unit/test_matcher_predicates.py",
+      "sha256": "f13db60ffdbfbefff439961dff477f7ff3f5ba574c33f3d1f6d87bbb5e546736"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_mesh.py",
+      "destination": "vendor/slidify/tests/unit/test_mesh.py",
+      "sha256": "9b04a53e2bb64645f0584e5b67313f0818ec6b9936da73375daef836fd5dad09"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_native_table.py",
+      "destination": "vendor/slidify/tests/unit/test_native_table.py",
+      "sha256": "01fa8f68871b662d70142df9eb5a319ec6c8071318d9697c523d2a9358736338"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_new_recipes.py",
+      "destination": "vendor/slidify/tests/unit/test_new_recipes.py",
+      "sha256": "b57c092401a8035f4c6cd436bd7a8da0294ca977bdfe538805fccdb17b8e7b27"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_oklch.py",
+      "destination": "vendor/slidify/tests/unit/test_oklch.py",
+      "sha256": "8235c794f96e7da867cfb47208f18e3f95afc1a327d3b2fea33d53caec7b5c7a"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_oracle_attribution.py",
+      "destination": "vendor/slidify/tests/unit/test_oracle_attribution.py",
+      "sha256": "c95e02e36427a192afda5c14f30760d8063785d8322736db8d2824ecd3328922"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_oracle_raster_descendants.py",
+      "destination": "vendor/slidify/tests/unit/test_oracle_raster_descendants.py",
+      "sha256": "c1120737caa6de37af24352719b3d33689d3f0e9e1ab3978d34c09a6d2c32846"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_oracle_text_regions.py",
+      "destination": "vendor/slidify/tests/unit/test_oracle_text_regions.py",
+      "sha256": "f4a26038393ec551f641c1de769864ced079af730e17706b618a5405e41edcb3"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_overflow_detector.py",
+      "destination": "vendor/slidify/tests/unit/test_overflow_detector.py",
+      "sha256": "44ee1c398b23fc45686c39d396d9ea90733109a67d6c59205f011c72e2160033"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_pattern_db.py",
+      "destination": "vendor/slidify/tests/unit/test_pattern_db.py",
+      "sha256": "7a7be5a80bef691e0bb4c5f4562b7fe21858bbefa81e08edeaeffd614b4fdc12"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_preset_shapes.py",
+      "destination": "vendor/slidify/tests/unit/test_preset_shapes.py",
+      "sha256": "d6088a6b09fdc4109457ce6597644ae711feb65e8c052196e4973187142289c3"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_promotion_backplates.py",
+      "destination": "vendor/slidify/tests/unit/test_promotion_backplates.py",
+      "sha256": "5635e3ec9da11f75467e70694a22a6869713b8d6d16d12fc5e84c7df3f767e38"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_qa_round2.py",
+      "destination": "vendor/slidify/tests/unit/test_qa_round2.py",
+      "sha256": "a685de1169aebdde439ba5d677aeaae490631ee71eded905653c405ff3eebffd"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_roundtrip.py",
+      "destination": "vendor/slidify/tests/unit/test_roundtrip.py",
+      "sha256": "270fbe29f8e837b75ae6126a604e0ba1103375e3d5dbe5d72c099cec995b30af"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_shadows.py",
+      "destination": "vendor/slidify/tests/unit/test_shadows.py",
+      "sha256": "f0469977d38684fe7c2bb4377cb43b797aad37624af0384c7d9c6093dbc192af"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_signatures.py",
+      "destination": "vendor/slidify/tests/unit/test_signatures.py",
+      "sha256": "23c241e3ed2141f1cff179ba6ac69957e1dea50de79bc43a190e54c73ed5db84"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_splitter.py",
+      "destination": "vendor/slidify/tests/unit/test_splitter.py",
+      "sha256": "9f5eee0f070f505d06a23325585d929091bcaf546aba1385e915d120a8e6dcdf"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_subjective_oracle.py",
+      "destination": "vendor/slidify/tests/unit/test_subjective_oracle.py",
+      "sha256": "ac4986b4b6d3e2cc2d480c3b19130a8f274e34f8f2fb01f01e84f7665a354c5f"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_svg_path.py",
+      "destination": "vendor/slidify/tests/unit/test_svg_path.py",
+      "sha256": "733d3ecb53d311b01cfc990983f31ec74d2f1d30dc8dae725290656c4a1e38b8"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_svg_shapes.py",
+      "destination": "vendor/slidify/tests/unit/test_svg_shapes.py",
+      "sha256": "2978e7c9367ccac564a8170944029a22507a12ed72baede9c861bd8bc6627249"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_text_metrics.py",
+      "destination": "vendor/slidify/tests/unit/test_text_metrics.py",
+      "sha256": "0b4df2e92bd7ed6163bbb6eb2c93097d26cbc9e29f8cd9332606b1c66dff420c"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_theme.py",
+      "destination": "vendor/slidify/tests/unit/test_theme.py",
+      "sha256": "45f76c9e84731868d1bf3104ab35c0ded37e994eac254493732f78c954508a9b"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_tier1_animation.py",
+      "destination": "vendor/slidify/tests/unit/test_tier1_animation.py",
+      "sha256": "0a0cf600257208188f2ac446340e1aca7c67b2e1c4163cdfe9009e0939d88560"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_tier1_clip_path.py",
+      "destination": "vendor/slidify/tests/unit/test_tier1_clip_path.py",
+      "sha256": "ebb7ab639080f0edbbf6005945603d7b4c572a83d797281bc01d42538e0f54d0"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_tier1_svg_threshold.py",
+      "destination": "vendor/slidify/tests/unit/test_tier1_svg_threshold.py",
+      "sha256": "7d5f9126751b6c6d26e41209cd8aff6da5ddd90e1182e7392868d161301cbca9"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_tier1_transform.py",
+      "destination": "vendor/slidify/tests/unit/test_tier1_transform.py",
+      "sha256": "56cac5d8735d8df91f4afabcf9c4163543ee5e23ab78852c4f5b5778f31949fa"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_unit_coverage.py",
+      "destination": "vendor/slidify/tests/unit/test_unit_coverage.py",
+      "sha256": "3950d2c183453f8802eb465af5af4ed90950ba3aed7bc124d320f07aa6144458"
+    },
+    {
+      "source": "engines/slidify/tests/unit/test_units.py",
+      "destination": "vendor/slidify/tests/unit/test_units.py",
+      "sha256": "17a652981a03cd16b6b46d3d1abf5e8d4c7c0fb6b6a425f579cef1831d87ed3b"
+    },
+    {
+      "source": "engines/slidify/_bench/corpus/slide-21-dotmatrix-ladder.html",
+      "destination": "vendor/slidify/tests/fixtures/slide-21-dotmatrix-ladder.html",
+      "sha256": "14aedcade57ab3900770e7121b58a9f3ea83516bdb877da87987cb84812ea0ad"
+    },
+    {
+      "source": "pyproject.toml",
+      "destination": "vendor/slidify/pyproject.toml",
+      "sha256": "708a98710dd12d390bd36bd77177cff6112a014b70ef8db351db1406f5dcfbca"
+    },
+    {
+      "source": "LICENSE",
+      "destination": "vendor/slidify/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    },
+    {
+      "source": "LICENSE",
+      "destination": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+    }
+  ]
+}

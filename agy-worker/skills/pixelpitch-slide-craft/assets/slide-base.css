@@ -1,0 +1,170 @@
+/* Pixelpitch slide shell. Copy into the slide's inline <style> and edit the
+   custom properties. Nothing here is decoration; every rule enforces a clause
+   of the output contract or a readability floor in SKILL.md.
+
+   Colours below are placeholders. Replace every one with a value from
+   brand-contract.json's palette, or brand_gate.py will flag the slide. */
+
+:root {
+  --ink: #141414;
+  --paper: #faf9f7;
+  --muted: #8a857d;
+  --accent: #b4472a;
+  --rule: #dfdbd4;
+
+  /* The type scale starts at the floors. Going down from here is the one
+     move that is never allowed to solve an overflow. */
+  --display: 96px; /* hero only */
+  --title: 44px; /*  floor 40px */
+  --lead: 28px;
+  --body: 24px; /*  floor 24px */
+  --label: 18px; /*  floor 18px */
+
+  --pad: 72px;
+
+  /* Every text block gets a measure. Display and title were the two that did
+     not have one, and they are the two a model gets wrong in both directions:
+     unmeasured it runs the headline full-bleed as a single strip, and told to
+     "wrap onto several lines" it narrows until each word sits alone. State the
+     width and the line break falls out of it. */
+  --measure-display: 1000px;
+  --measure-title: 880px;
+}
+
+/* 1280x720 is pinned on all three, not inherited. A slide that only pins
+   .slide still converts against the browser's default viewport. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.slide {
+  position: relative;
+  box-sizing: border-box;
+  width: 1280px;
+  height: 720px;
+  padding: var(--pad);
+  overflow: hidden;
+}
+
+/* Head, content, foot. The content row is the ~510px budget; when display
+   type will not fit it, shrink the type and keep the row. */
+.slide--stack {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 24px;
+}
+
+h1[data-pptx-role="title"] {
+  margin: 0;
+  font-size: var(--title);
+  line-height: 1.12;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  max-width: var(--measure-title);
+}
+
+/* The one accent keyword inside a takeaway title. Weight and colour, never a
+   highlighter block. */
+.key {
+  color: var(--accent);
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--lead);
+  line-height: 1.35;
+  max-width: 22em;
+}
+
+.body {
+  margin: 0;
+  font-size: var(--body);
+  line-height: 1.45;
+  max-width: 34em;
+}
+
+/* Exhibit caption and source line. Italic and muted carries the demotion, so
+   the size stays on the floor rather than dropping below it. */
+.caption,
+.source {
+  margin: 0;
+  font-size: var(--label);
+  line-height: 1.4;
+  font-style: italic;
+  color: var(--muted);
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+/* Hero ground. Atmospheric treatment belongs to hero, section, and closing
+   slides; a body slide using this stops being editable in PowerPoint. */
+.slide--hero {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.slide--hero .display {
+  margin: 0;
+  font-size: var(--display);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  max-width: var(--measure-display);
+}
+
+/* Declarative ground: cover, section marker, statement, closing. The block
+   sits on the floor and the space above it is the composition. Do not reach
+   for this on a slide that argues; those keep the .slide--stack head-content-
+   foot rhythm with the base open. See references/composition.md. */
+.slide--field {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  row-gap: 28px;
+}
+
+/* Frame chrome. Both edges or neither, one size for everything in it, and no
+   frame at all on .slide--field. Suppressing it is what lets the type own the
+   field; a top bar on its own reads as a stranded header. */
+.chrome {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: var(--label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.slide--stack > .chrome:first-child {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.slide--stack > .chrome:last-child {
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+}
+
+.hero-ground {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.slide--hero > :not(.hero-ground) {
+  position: relative;
+  z-index: 1;
+}

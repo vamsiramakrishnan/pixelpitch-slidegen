@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Round-2 QA fixture — display fonts substitute via _FONT_MAP</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin:0; padding:0; width:1280px; height:720px;
+               background:#0a0a0a; color:#eaeaea; }
+  .slide { position:relative; width:1280px; height:720px;
+           padding:64px; overflow:hidden; }
+
+  /* Display families that previously emitted as `<a:latin
+     typeface="Helvetica Neue"/>` etc. and silently substituted at
+     render time. Each MUST resolve to a `_FONT_MAP` entry now: */
+
+  .h-cond { font-family: 'Bebas Neue', Anton, Impact, sans-serif; }    /* → Impact */
+  .h-sans { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; } /* → Arial */
+  .h-serif { font-family: 'Playfair Display', 'Spectral', Georgia, serif; } /* → Cambria */
+  .h-mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; } /* → Consolas */
+</style>
+</head>
+<body>
+  <div class="slide">
+    <h1 class="h-cond"
+        style="font-size:148px; line-height:0.86; font-weight:900;
+               letter-spacing:-0.005em; margin:0;">A FIELD GUIDE</h1>
+
+    <h2 class="h-sans"
+        style="font-size:64px; font-weight:900; letter-spacing:-0.012em;
+               margin:24px 0 0;">EVERY SHAPE IS EDITABLE.</h2>
+
+    <p class="h-serif"
+       style="font-size:36px; font-style:italic; font-weight:400;
+              margin:24px 0 0;">An essay on the discipline of editing.</p>
+
+    <p class="h-mono"
+       style="font-size:14px; letter-spacing:0.18em;
+              text-transform:uppercase; margin:32px 0 0; color:#a1a1a1;">
+      Native ratio · 87% · embedded fonts · slide 1 of 1
+    </p>
+  </div>
+</body>
+</html>

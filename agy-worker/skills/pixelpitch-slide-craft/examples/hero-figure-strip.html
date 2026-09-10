@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A skipped calibration put 3,100 units into the field out of spec</title>
+    <style>
+      :root {
+        --ink: #1a1a1a;
+        --paper: #f2f1ee;
+        --muted: #8b8b85;
+        --accent: #d2521e;
+        --rule: #dcdad4;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--paper); color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px;
+        padding: 72px; overflow: hidden;
+      }
+      h1 {
+        margin: 0; font-size: 44px; line-height: 1.14;
+        font-weight: 700; letter-spacing: -0.015em;
+      }
+      .key { color: var(--accent); }
+      .caption, .source {
+        margin: 0; font-size: 18px; line-height: 1.4;
+        font-style: italic; color: var(--muted);
+      }
+      .body { margin: 0; font-size: 24px; line-height: 1.45; }
+      svg text { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+
+      .slide--open {
+        background: var(--ink); color: var(--paper);
+        display: grid; grid-template-rows: auto 1fr auto; row-gap: 40px;
+      }
+      .open-title {
+        margin: 0; align-self: center; max-width: 16em;
+        font-size: 66px; line-height: 1.06; font-weight: 700;
+        letter-spacing: -0.028em;
+      }
+      .open-title em { font-style: normal; color: #f08a52; }
+      .where { margin: 0; font-size: 20px; color: #a9a9a2; }
+      .figs {
+        display: flex; gap: 88px; margin: 0; padding-top: 28px;
+        border-top: 1px solid #3a3a37;
+      }
+      .figs span { display: block; }
+      .figs b { display: block; font-size: 40px; font-weight: 700; line-height: 1.1; }
+      .figs i { font-style: normal; font-size: 18px; color: #a9a9a2; }
+    </style>
+  </head>
+  <body>
+    <section class="slide slide--open">
+      <p class="where">Line 3 bracket cell &middot; Operations review, 30 August 2026</p>
+
+      <h1 class="open-title" data-pptx-role="title">
+        One calibration was skipped, and we found out from a
+        <em>customer</em>
+      </h1>
+
+      <p class="figs">
+        <span><b>3,100</b><i>units shipped out of spec</i></span>
+        <span><b>38 days</b><i>from drift to detection</i></span>
+        <span><b>1 of 4</b><i>controls that measure torque at all</i></span>
+      </p>
+    </section>
+  </body>
+</html>

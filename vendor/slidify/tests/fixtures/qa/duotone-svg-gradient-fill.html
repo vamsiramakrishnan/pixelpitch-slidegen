@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Round-2 QA fixture — SVG fill="url(#)" gradient routes to raster</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin:0; padding:0; width:1280px; height:720px;
+               background:#0a0a0a; }
+  .slide { position:relative; width:1280px; height:720px;
+           overflow:hidden; }
+</style>
+</head>
+<body>
+  <div class="slide">
+    <!-- Full-bleed duotone composition.  Each <rect fill="url(#X)"/>
+         is a real gradient via a <defs> entry.  Walker captures the
+         literal "url(#duo-bg)" string; without the tier-1 raster
+         fallback, the SVG emitter's `parse_color("url(#duo-bg)")`
+         silently fails and the rect renders with no fill — dropping
+         the entire duotone layer.  This fixture pins that case.  -->
+    <svg viewBox="0 0 1280 720" width="1280" height="720"
+         preserveAspectRatio="xMidYMid slice"
+         style="position:absolute; inset:0;">
+      <defs>
+        <linearGradient id="duo-bg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"  stop-color="#0F1311"/>
+          <stop offset="55%" stop-color="#1F2924"/>
+          <stop offset="100%" stop-color="#8A4530"/>
+        </linearGradient>
+        <radialGradient id="duo-glow" cx="0.66" cy="0.62" r="0.34">
+          <stop offset="0%"  stop-color="#FFECC4" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="#FF7A59" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="1280" height="720" fill="url(#duo-bg)"/>
+      <rect width="1280" height="720" fill="url(#duo-glow)"/>
+      <text x="64" y="120" font-family="Inter" font-size="64"
+            font-weight="800" fill="#FFECC4">Duotone</text>
+    </svg>
+  </div>
+</body>
+</html>

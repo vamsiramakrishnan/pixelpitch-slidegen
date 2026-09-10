@@ -1,0 +1,7 @@
+*
+!workstation-relay/
+!workstation-relay/relay.py
+!workstation-relay/Dockerfile
+!workstation-relay/cloudbuild.yaml
+__pycache__/
+*.pyc

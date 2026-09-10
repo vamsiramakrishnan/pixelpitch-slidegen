@@ -1,0 +1,3280 @@
+# Atom catalog — recipes keyed off the `data-atom` author hint.
+#
+# When an HTML element carries `data-atom="bg.mesh"`, the matcher's
+# `anchor.data_atom_id` predicate fires and routes the unit to the recipe
+# below. This bypasses signature inference entirely: the deck author is
+# declaring "this cluster is exactly this atom — emit it natively." The
+# trade-off the author opts into is that the recipe assumes the markup
+# matches the atom's canonical structure (see `examples/landing/atoms.html`
+# for the reference shapes).
+#
+# Atoms are organised by axis (10 total):
+#   comp.*    composition gestures        (centered, split, golden, …)
+#   bg.*      background fields           (mesh, conic, halftone, …)
+#   surf.*    surfaces                    (glass, hero, sticker, …)
+#   type.*    type treatments             (gfill, stroke, echo, …)
+#   mask.*    media masks                 (disc, arch, hex, …)
+#   dec.*     decorative tokens           (brackets, registration, …)
+#   data.*    data primitives             (ring, gauge, sparkline, …)
+#   motion.*  motion implication          (echo, marquee, particles, …)
+#   ui.*      UI mocks                    (browser, toolbar, toast, …)
+#   anno.*    annotation primitives       (leader, dimension, reticle, …)
+#
+# Priority sits in the 50–80 band — *after* the must-raster gates (1–9)
+# and the typography/decoration tier-0 rules (10–48), so authoring an
+# atom doesn't override a hard constraint, but *before* the generic
+# fall-through patterns (priority ≥ 100) so the atom recipe wins by
+# declaration.
+#
+# Every recipe routes to a native emit kind:
+#   - bg.*, surf.*, mask.*    → NativeShape (gradient/clip-path → custGeom)
+#   - type.*                  → NativeText  (per-run font/weight/color)
+#   - data.*, dec.*, anno.*   → NativeSvg   (primitives stay as shapes)
+#   - ui.*                    → NativeShape composite (cluster of shapes)
+#   - comp.*                  → observe-only (layout hint, not an emit)
+#
+# Authors compose recipes in `examples/landing/recipes.html` by stacking
+# atoms across axes. The matcher resolves each `data-atom`-tagged anchor
+# independently — the composition emerges from z-ordered stacking, not
+# from a meta-recipe.
+
+patterns:
+
+  # ── composition gestures: structural-only (no decision override) ────────
+  - id: atom-comp-any
+    priority: 50
+    match:
+      anchor.data_atom_namespace: comp
+    tag: structural
+    emit:
+      kind: observe
+      metadata: { recipe: atom_comp, namespace: comp }
+
+  # Specific composition atoms — bento (2/3 up, 12-col) and the magazine /
+  # brutalist rule conventions. Priority sits *before* the namespace-wide
+  # `atom-comp-any` (50) so the specific recipe wins on ties.
+  - id: atom-comp-bento-3up
+    priority: 49
+    tag: structural
+    match:
+      anchor.data_atom_id: comp.bento-3up
+    emit:
+      kind: observe
+      metadata: { recipe: atom_comp_bento_3up, axis: comp, layout: bento-3-up }
+
+  - id: atom-comp-bento-2up
+    priority: 49
+    tag: structural
+    match:
+      anchor.data_atom_id: comp.bento-2up
+    emit:
+      kind: observe
+      metadata: { recipe: atom_comp_bento_2up, axis: comp, layout: bento-2-up }
+
+  - id: atom-comp-12col
+    priority: 49
+    tag: structural
+    match:
+      anchor.data_atom_id: comp.12col
+    emit:
+      kind: observe
+      metadata: { recipe: atom_comp_12col, axis: comp, layout: 12-col }
+
+  - id: atom-comp-magazine-left-rule
+    priority: 49
+    tag: structural
+    match:
+      anchor.data_atom_id: comp.magazine-left-rule
+    emit:
+      kind: observe
+      metadata: { recipe: atom_comp_magazine_left_rule, axis: comp, decorate: left-rule }
+
+  - id: atom-comp-brutalist-top-rule
+    priority: 49
+    tag: structural
+    match:
+      anchor.data_atom_id: comp.brutalist-top-rule
+    emit:
+      kind: observe
+      metadata: { recipe: atom_comp_brutalist_top_rule, axis: comp, decorate: top-rule }
+
+  # ── background fields → NativeShape (gradient / repeating gradient) ─────
+  - id: atom-bg-mesh
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.mesh
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_mesh, axis: bg, layers: 4, fill: radial-mesh }
+
+  - id: atom-bg-conic
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.conic
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_conic, axis: bg, fill: conic }
+
+  - id: atom-bg-stripes
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.stripes
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_stripes, axis: bg, fill: repeating-linear }
+
+  - id: atom-bg-scanline
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.scanline
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_bg_scanline, axis: bg, fill: scanline }
+
+  - id: atom-bg-duotone
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.duotone
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_duotone, axis: bg, fill: linear-2stop }
+
+  - id: atom-bg-vignette
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.vignette
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_vignette, axis: bg, fill: radial-ellipse }
+
+  - id: atom-bg-aurora-band
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.aurora-band
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_bg_aurora_band, axis: bg, fill: linear-5stop }
+
+  - id: atom-bg-dot-lattice
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.dot-lattice
+    emit:
+      kind: NativeSvg
+      confidence: 0.95
+      metadata: { recipe: atom_bg_dot_lattice, axis: bg, fill: svg-circles }
+
+  - id: atom-bg-grid-overlay
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.grid-overlay
+    emit:
+      kind: NativeSvg
+      confidence: 0.95
+      metadata: { recipe: atom_bg_grid_overlay, axis: bg, fill: svg-grid-lines }
+
+  # ── surfaces (use existing decoration grammar where it overlaps) ────────
+  - id: atom-surf-glass
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.glass
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_glass, axis: surf, decorate: glass }
+
+  - id: atom-surf-hero
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.hero
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_hero, axis: surf, decorate: hero }
+
+  - id: atom-surf-spotlight
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.spotlight
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_spotlight, axis: surf, decorate: spotlight }
+
+  - id: atom-surf-aurora
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.aurora
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_aurora, axis: surf, decorate: aurora }
+
+  - id: atom-surf-tactile
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.tactile
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_tactile, axis: surf, decorate: tactile }
+
+  - id: atom-surf-recessed
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.recessed
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_recessed, axis: surf, decorate: recessed }
+
+  - id: atom-surf-sticker
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.sticker
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_surf_sticker, axis: surf, rotation: native-2d }
+
+  - id: atom-surf-polaroid
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.polaroid
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_surf_polaroid, axis: surf, kind: framed-photo }
+
+  # Elevated stack — the multi-shadow elevation recipe rendered as native
+  # PPTX outerShdw layers (matches the brutalist-top-rule / elevated-card
+  # patterns in patterns.yaml).
+  - id: atom-surf-elevated-stack
+    priority: 56
+    match:
+      anchor.data_atom_id: surf.elevated-stack
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_elevated_stack, axis: surf, decorate: elevation-multi-shadow }
+
+  # ── type treatments → NativeText (per-run styling) ──────────────────────
+  - id: atom-type-any
+    priority: 60
+    match:
+      anchor.data_atom_namespace: type
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_type, axis: type }
+
+  - id: atom-type-gfill-2
+    priority: 58
+    match:
+      anchor.data_atom_id: type.gfill-2
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_gfill, axis: type, stops: 2 }
+
+  - id: atom-type-gfill-4
+    priority: 58
+    match:
+      anchor.data_atom_id: type.gfill-4
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_gfill, axis: type, stops: 4 }
+
+  - id: atom-type-stroke
+    priority: 58
+    match:
+      anchor.data_atom_id:
+        - type.stroke
+        - type.stroke-thick
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_type_stroke, axis: type, fill: outline-only }
+
+  - id: atom-type-echo
+    priority: 58
+    match:
+      anchor.data_atom_id: type.echo
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_type_echo, axis: type, layers: ghost-stack }
+
+  - id: atom-type-longshadow
+    priority: 58
+    match:
+      anchor.data_atom_id: type.longshadow
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_type_longshadow, axis: type, layers: 8 }
+
+  - id: atom-type-mixed
+    priority: 58
+    match:
+      anchor.data_atom_id: type.mixed
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_type_mixed, axis: type, runs: per-span }
+
+  - id: atom-type-kinetic-baseline
+    priority: 58
+    match:
+      anchor.data_atom_id: type.kinetic-baseline
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_type_kinetic, axis: type, baseline: y-offset-per-glyph }
+
+  - id: atom-type-marquee
+    priority: 58
+    match:
+      anchor.data_atom_id: type.marquee
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_type_marquee, axis: type, repeat: static-frame }
+
+  - id: atom-type-dropcap
+    priority: 58
+    match:
+      anchor.data_atom_id: type.dropcap
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_type_dropcap, axis: type, first-letter: oversized-gradient }
+
+  # Display-tight, editorial-serif, mono-tag, vertical-rail — register cues
+  # that the standalone matcher catches via font-family + tracking, but
+  # author-tagged atoms get their own canonical recipes here.
+  - id: atom-type-display-tight
+    priority: 58
+    match:
+      anchor.data_atom_id: type.display-tight
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_display_tight, axis: type, register: display-tight }
+
+  - id: atom-type-editorial-serif
+    priority: 58
+    match:
+      anchor.data_atom_id: type.editorial-serif
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_editorial_serif, axis: type, register: editorial-serif }
+
+  - id: atom-type-mono-tag
+    priority: 58
+    match:
+      anchor.data_atom_id: type.mono-tag
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_mono_tag, axis: type, register: mono }
+
+  - id: atom-type-vertical-rail
+    priority: 58
+    match:
+      anchor.data_atom_id: type.vertical-rail
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_vertical_rail, axis: type, register: vertical-rail }
+
+  # ── media masks → NativeShape (clip-path polygon / radius) ──────────────
+  - id: atom-mask-disc
+    priority: 62
+    match:
+      anchor.data_atom_id: mask.disc
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_disc, axis: mask, preset: oval }
+
+  - id: atom-mask-arch
+    priority: 62
+    match:
+      anchor.data_atom_id: mask.arch
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_arch, axis: mask, preset: round-top-rect }
+
+  - id: atom-mask-hex
+    priority: 62
+    match:
+      anchor.data_atom_id: mask.hex
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_hex, axis: mask, preset: hexagon }
+
+  - id: atom-mask-parallelogram
+    priority: 62
+    match:
+      anchor.data_atom_id: mask.parallelogram
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_para, axis: mask, preset: parallelogram }
+
+  - id: atom-mask-triangle
+    priority: 62
+    match:
+      anchor.data_atom_id: mask.triangle
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_triangle, axis: mask, preset: triangle }
+
+  - id: atom-mask-diamond
+    priority: 62
+    match:
+      anchor.data_atom_id: mask.diamond
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_diamond, axis: mask, preset: diamond }
+
+  - id: atom-mask-rounded
+    priority: 62
+    match:
+      anchor.data_atom_id: mask.rounded
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_rounded, axis: mask, preset: rounded-rect }
+
+  - id: atom-mask-mosaic
+    priority: 62
+    match:
+      anchor.data_atom_id: mask.mosaic
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_mask_mosaic, axis: mask, layers: 4-quadrants }
+
+  # ── decorative tokens → NativeSvg (small primitive groups) ──────────────
+  - id: atom-dec-any
+    priority: 66
+    match:
+      anchor.data_atom_namespace: dec
+    emit:
+      kind: NativeSvg
+      confidence: 0.95
+      metadata: { recipe: atom_dec, axis: dec }
+
+  # Specific decorative rules — top hairline and left hairline. Priority 65
+  # so they win over the namespace-wide `atom-dec-any` (66).
+  - id: atom-dec-top-rule
+    priority: 65
+    match:
+      anchor.data_atom_id: dec.top-rule
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_top_rule, axis: dec, kind: hairline-top }
+
+  - id: atom-dec-left-rule
+    priority: 65
+    match:
+      anchor.data_atom_id: dec.left-rule
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_left_rule, axis: dec, kind: hairline-left }
+
+  # ── data primitives → NativeSvg (chart-like) ────────────────────────────
+  - id: atom-data-ring
+    priority: 70
+    match:
+      anchor.data_atom_id: data.ring
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_data_ring, axis: data, primitive: progress-ring }
+
+  - id: atom-data-gauge
+    priority: 70
+    match:
+      anchor.data_atom_id: data.gauge
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_data_gauge, axis: data, primitive: half-arc }
+
+  - id: atom-data-sparkline
+    priority: 70
+    match:
+      anchor.data_atom_id: data.sparkline
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_data_sparkline, axis: data, primitive: polyline }
+
+  - id: atom-data-sparkbars
+    priority: 70
+    match:
+      anchor.data_atom_id: data.sparkbars
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_data_sparkbars, axis: data, primitive: rect-grid }
+
+  - id: atom-data-heatmap
+    priority: 70
+    match:
+      anchor.data_atom_id: data.heatmap
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_data_heatmap, axis: data, primitive: cell-grid }
+
+  - id: atom-data-kpi-delta
+    priority: 70
+    match:
+      anchor.data_atom_id: data.kpi-delta
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_data_kpi, axis: data, primitive: number-arrow-pct }
+
+  - id: atom-data-ticker
+    priority: 70
+    match:
+      anchor.data_atom_id: data.ticker
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_data_ticker, axis: data, primitive: ribbon }
+
+  - id: atom-data-logo-cloud
+    priority: 70
+    match:
+      anchor.data_atom_id: data.logo-cloud
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_data_logo_cloud, axis: data, primitive: wordmark-row }
+
+  # ── motion implication: same emit shape as type/data depending on substrate
+  - id: atom-motion-echo
+    priority: 74
+    match:
+      anchor.data_atom_id: motion.echo
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_motion_echo, axis: motion, layers: ghost-stack }
+
+  - id: atom-motion-shutter
+    priority: 74
+    match:
+      anchor.data_atom_id: motion.shutter
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_motion_shutter, axis: motion, fill: vertical-stripes }
+
+  - id: atom-motion-speed-lines
+    priority: 74
+    match:
+      anchor.data_atom_id: motion.speed-lines
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_motion_speed, axis: motion, primitive: stacked-lines }
+
+  - id: atom-motion-particles
+    priority: 74
+    match:
+      anchor.data_atom_id: motion.particles
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_motion_particles, axis: motion, primitive: scatter-dots }
+
+  - id: atom-motion-marquee
+    priority: 74
+    match:
+      anchor.data_atom_id: motion.marquee
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_motion_marquee, axis: motion, transform: skew-x }
+
+  - id: atom-motion-kinetic
+    priority: 74
+    match:
+      anchor.data_atom_id: motion.kinetic
+    emit:
+      kind: NativeText
+      confidence: 0.95
+      metadata: { recipe: atom_motion_kinetic, axis: motion, baseline: per-glyph-translate }
+
+  # ── UI mocks → composite shape stacks ──────────────────────────────────
+  - id: atom-ui-browser-chrome
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.browser-chrome
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_ui_browser, axis: ui, layers: window+bar+url+body }
+
+  - id: atom-ui-tab-strip
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.tab-strip
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_ui_tabs, axis: ui }
+
+  - id: atom-ui-search
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.search
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_ui_search, axis: ui, kind: pill-input }
+
+  - id: atom-ui-toolbar
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.toolbar
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_ui_toolbar, axis: ui }
+
+  - id: atom-ui-avatar-cluster
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.avatar-cluster
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_ui_avatars, axis: ui, layers: stacked-discs }
+
+  - id: atom-ui-toast
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.toast
+    emit:
+      kind: NativeShape
+      confidence: 0.95
+      metadata: { recipe: atom_ui_toast, axis: ui }
+
+  # ── annotation primitives → NativeSvg (line + circle + label) ───────────
+  - id: atom-anno-leader-line
+    priority: 82
+    match:
+      anchor.data_atom_id: anno.leader-line
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_anno_leader, axis: anno }
+
+  - id: atom-anno-dimension
+    priority: 82
+    match:
+      anchor.data_atom_id: anno.dimension
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_anno_dimension, axis: anno }
+
+  - id: atom-anno-target-reticle
+    priority: 82
+    match:
+      anchor.data_atom_id: anno.target-reticle
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_anno_reticle, axis: anno }
+
+  - id: atom-anno-callout-pill
+    priority: 82
+    match:
+      anchor.data_atom_id: anno.callout-pill
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_anno_pill, axis: anno }
+
+  # ── catch-all telemetry: any data-atom we DO know to be valid ──────────
+  # Fires only if no specific atom rule above matched. Tagged structural so
+  # it doesn't clobber a real decision; it's the "we saw an unknown atom"
+  # observability signal.
+  - id: atom-unrecognised
+    priority: 95
+    match:
+      anchor.data_atom_id: "*"
+    tag: structural
+    emit:
+      kind: observe
+      metadata: { recipe: atom_unrecognised }
+
+  # ============================================================
+  # Wave-2B-v2 vocabulary expansion (CONTRACT-v2 §A.4)
+  # 95 new atoms added across 10 axes for comprehensive coverage.
+  # Per-batch grouped by axis for easy review.
+  # ============================================================
+
+  # ── bg.* additions (8 → 18) — pattern fills, spotlights, scrims, mesh ──
+
+  - id: atom-bg-dot-lattice-fine
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.dot-lattice-fine
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_dot_lattice_fine, axis: bg, fill: pattern-dots, tile: 8 }
+    renderer:
+      component: BgDotLatticeFine
+      tier: B
+      primitive: surface.pattern-tile
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        color:       { type: color,  default: 'tokens.palette.ruler' }
+        bgColor:     { type: color,  required: false }
+        tilePx:      { type: number, default: 8 }
+        dotRadiusPx: { type: number, default: 0.75 }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.dot-lattice-fine" style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.10) 0.75px,transparent 0.75px);background-size:8px 8px;"></div>
+      expected_recipe_id: bg.dot-lattice-fine
+
+  - id: atom-bg-dot-lattice-coarse
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.dot-lattice-coarse
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_dot_lattice_coarse, axis: bg, fill: pattern-dots, tile: 24 }
+    renderer:
+      component: BgDotLatticeCoarse
+      tier: B
+      primitive: surface.pattern-tile
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        color:       { type: color,  default: 'tokens.palette.ruler' }
+        tilePx:      { type: number, default: 24 }
+        dotRadiusPx: { type: number, default: 1.5 }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.dot-lattice-coarse" style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.14) 1.5px,transparent 1.5px);background-size:24px 24px;"></div>
+      expected_recipe_id: bg.dot-lattice-coarse
+
+  - id: atom-bg-line-grid
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.line-grid
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_line_grid, axis: bg, fill: pattern-lines-grid }
+    renderer:
+      component: BgLineGrid
+      tier: B
+      primitive: surface.pattern-tile
+      version: 1.0.0
+      props:
+        bbox:         { type: bbox,   required: true }
+        color:        { type: color,  default: 'tokens.palette.ruler' }
+        spacingPx:    { type: number, default: 32 }
+        strokeWidthPx: { type: number, default: 1 }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.line-grid" style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px);background-size:32px 32px;"></div>
+      expected_recipe_id: bg.line-grid
+
+  - id: atom-bg-crosshatch
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.crosshatch
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_crosshatch, axis: bg, fill: pattern-crosshatch }
+    renderer:
+      component: BgCrosshatch
+      tier: B
+      primitive: surface.pattern-tile
+      version: 1.0.0
+      props:
+        bbox:      { type: bbox,   required: true }
+        color:     { type: color,  default: 'tokens.palette.ruler' }
+        spacingPx: { type: number, default: 12 }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.crosshatch" style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.07) 0 1px,transparent 1px 12px),repeating-linear-gradient(135deg,rgba(255,255,255,0.07) 0 1px,transparent 1px 12px);"></div>
+      expected_recipe_id: bg.crosshatch
+
+  - id: atom-bg-diagonal
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.diagonal
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_diagonal, axis: bg, fill: pattern-diagonal }
+    renderer:
+      component: BgDiagonal
+      tier: B
+      primitive: surface.pattern-tile
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        color:       { type: color,  default: 'tokens.palette.ruler' }
+        spacingPx:   { type: number, default: 16 }
+        angleDeg:    { type: number, default: 45 }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.diagonal" style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.10) 0 1px,transparent 1px 16px);"></div>
+      expected_recipe_id: bg.diagonal
+
+  - id: atom-bg-spotlight-tight
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.spotlight-tight
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_spotlight_tight, axis: bg, fill: radial }
+    renderer:
+      component: BgSpotlightTight
+      tier: B
+      primitive: surface.radial-blob
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,   required: true }
+        cx:    { type: number, min: 0, max: 1, default: 0.5 }
+        cy:    { type: number, min: 0, max: 1, default: 0.4 }
+        color: { type: color,  default: 'tokens.palette.accent' }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.spotlight-tight" style="position:absolute;inset:0;background:radial-gradient(circle 320px at 50% 40%,rgba(167,139,250,0.45),transparent 70%);"></div>
+      expected_recipe_id: bg.spotlight-tight
+
+  - id: atom-bg-spotlight-soft
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.spotlight-soft
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_spotlight_soft, axis: bg, fill: radial }
+    renderer:
+      component: BgSpotlightSoft
+      tier: B
+      primitive: surface.radial-blob
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,   required: true }
+        cx:    { type: number, min: 0, max: 1, default: 0.5 }
+        cy:    { type: number, min: 0, max: 1, default: 0.4 }
+        color: { type: color,  default: 'tokens.palette.accent' }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.spotlight-soft" style="position:absolute;inset:0;background:radial-gradient(circle 720px at 50% 40%,rgba(167,139,250,0.22),transparent 70%);"></div>
+      expected_recipe_id: bg.spotlight-soft
+
+  - id: atom-bg-scrim-bottom
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.scrim-bottom
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_scrim_bottom, axis: bg, fill: linear-grad }
+    renderer:
+      component: BgScrimBottom
+      tier: B
+      primitive: surface.linear-fade
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        color:   { type: color,  default: 'tokens.palette.surface-1' }
+        opacity: { type: number, default: 0.7 }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.scrim-bottom" style="position:absolute;left:0;right:0;bottom:0;height:50%;background:linear-gradient(180deg,transparent,rgba(7,7,16,0.7));"></div>
+      expected_recipe_id: bg.scrim-bottom
+
+  - id: atom-bg-scrim-top
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.scrim-top
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_scrim_top, axis: bg, fill: linear-grad }
+    renderer:
+      component: BgScrimTop
+      tier: B
+      primitive: surface.linear-fade
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        color:   { type: color,  default: 'tokens.palette.surface-1' }
+        opacity: { type: number, default: 0.7 }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.scrim-top" style="position:absolute;left:0;right:0;top:0;height:50%;background:linear-gradient(0deg,transparent,rgba(7,7,16,0.7));"></div>
+      expected_recipe_id: bg.scrim-top
+
+  - id: atom-bg-aurora-corners
+    priority: 52
+    match:
+      anchor.data_atom_id: bg.aurora-corners
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_bg_aurora_corners, axis: bg, fill: radial-mesh, layers: 4 }
+    renderer:
+      component: BgAuroraCorners
+      tier: B
+      primitive: surface.radial-blob
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,  required: true }
+        colorTL: { type: color, default: 'tokens.palette.accent' }
+        colorTR: { type: color, required: false }
+        colorBL: { type: color, required: false }
+        colorBR: { type: color, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="bg.aurora-corners" style="position:absolute;inset:0;background:radial-gradient(circle at 0% 0%,rgba(99,102,241,0.30),transparent 50%),radial-gradient(circle at 100% 0%,rgba(236,72,153,0.30),transparent 50%),radial-gradient(circle at 0% 100%,rgba(59,130,246,0.25),transparent 50%),radial-gradient(circle at 100% 100%,rgba(168,85,247,0.30),transparent 50%);"></div>
+      expected_recipe_id: bg.aurora-corners
+
+  # ── surf.* additions (8 → 18) — card variants, bento, paper, frames ────
+
+  - id: atom-surf-card-flat
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.card-flat
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_card_flat, axis: surf, elevation: flat }
+    renderer:
+      component: SurfCardFlat
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,  required: true }
+        bgColor: { type: color, default: 'tokens.palette.surface-2' }
+        radius:  { type: number, default: 16 }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.card-flat" style="position:absolute;background:#0e0e1a;border-radius:16px;"></div>
+      expected_recipe_id: surf.card-flat
+
+  - id: atom-surf-card-raised
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.card-raised
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_card_raised, axis: surf, elevation: raised }
+    renderer:
+      component: SurfCardRaised
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,  required: true }
+        bgColor: { type: color, default: 'tokens.palette.surface-2' }
+        radius:  { type: number, default: 16 }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.card-raised" style="position:absolute;background:#0e0e1a;border-radius:16px;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 4px 12px rgba(0,0,0,0.08);"></div>
+      expected_recipe_id: surf.card-raised
+
+  - id: atom-surf-card-floating
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.card-floating
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_card_floating, axis: surf, elevation: floating }
+    renderer:
+      component: SurfCardFloating
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,  required: true }
+        bgColor: { type: color, default: 'tokens.palette.surface-2' }
+        radius:  { type: number, default: 16 }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.card-floating" style="position:absolute;background:#0e0e1a;border-radius:16px;box-shadow:0 2px 4px rgba(0,0,0,0.06),0 12px 32px rgba(0,0,0,0.18);"></div>
+      expected_recipe_id: surf.card-floating
+
+  - id: atom-surf-card-depth
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.card-depth
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_card_depth, axis: surf, elevation: overlay, layered: true }
+    renderer:
+      component: SurfCardDepth
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,  required: true }
+        bgColor:     { type: color, default: 'tokens.palette.surface-3' }
+        accentColor: { type: color, default: 'tokens.palette.accent' }
+        radius:      { type: number, default: 18 }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.card-depth" style="position:absolute;background:#16162a;border-radius:18px;border:1px solid rgba(255,255,255,0.10);box-shadow:0 8px 16px rgba(0,0,0,0.35),0 24px 48px rgba(0,0,0,0.55),inset 0 1px 0 rgba(167,139,250,0.45);"></div>
+      expected_recipe_id: surf.card-depth
+
+  - id: atom-surf-card-bordered
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.card-bordered
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_card_bordered, axis: surf, elevation: flat, border: 2 }
+    renderer:
+      component: SurfCardBordered
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,  required: true }
+        bgColor:     { type: color, default: 'tokens.palette.surface-1' }
+        borderColor: { type: color, default: 'tokens.palette.ink-1' }
+        borderPx:    { type: number, default: 2 }
+        radius:      { type: number, default: 0 }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.card-bordered" style="position:absolute;background:#070710;border:2px solid #f5f5f7;"></div>
+      expected_recipe_id: surf.card-bordered
+
+  - id: atom-surf-card-paper
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.card-paper
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_card_paper, axis: surf, elevation: raised, palette: paper }
+    renderer:
+      component: SurfCardPaper
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,  required: true }
+        bgColor: { type: color, default: 'tokens.palette.surface-1' }
+        radius:  { type: number, default: 12 }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.card-paper" style="position:absolute;background:#f5f1e8;border-radius:12px;box-shadow:0 1px 2px rgba(26,20,16,0.06),0 6px 16px rgba(26,20,16,0.10);"></div>
+      expected_recipe_id: surf.card-paper
+
+  - id: atom-surf-bento-cell
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.bento-cell
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_bento_cell, axis: surf, role: bento-cell }
+    renderer:
+      component: SurfBentoCell
+      tier: B
+      # Route to surface.shape-fill (renders a real filled rounded shape)
+      # not frame.bento (which is the grid-layout primitive — it lays
+      # children out but doesn't paint a card surface).
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        # surface-3 (#16162a) has visible contrast against the
+        # surface-1 (#070710) slide background; surface-2 was too close
+        # to the slide bg and the cards disappeared in the rendered PNG.
+        bgColor: { type: color,  default: 'tokens.palette.surface-3' }
+        radius:  { type: number, default: 24 }
+        padding: { type: number, default: 32 }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.bento-cell" style="position:absolute;background:#0e0e1a;border-radius:24px;padding:32px;border:1px solid rgba(255,255,255,0.06);"></div>
+      expected_recipe_id: surf.bento-cell
+
+  - id: atom-surf-section-band
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.section-band
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_section_band, axis: surf, role: section-divider }
+    renderer:
+      component: SurfSectionBand
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox: { type: bbox,  required: true }
+        fill: { type: fill,  default: 'tokens.gradient.accent-grad' }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.section-band" style="position:absolute;left:0;right:0;background:linear-gradient(135deg,#818cf8,#c084fc 50%,#f472b6);"></div>
+      expected_recipe_id: surf.section-band
+
+  - id: atom-surf-frame-letterbox
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.frame-letterbox
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_frame_letterbox, axis: surf, role: letterbox }
+    renderer:
+      component: SurfFrameLetterbox
+      tier: B
+      primitive: frame.letterbox
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        bandPx:  { type: number, default: 96 }
+        bgColor: { type: color,  default: 'tokens.palette.surface-1' }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.frame-letterbox" style="position:absolute;inset:0;"><div style="position:absolute;left:0;right:0;top:0;height:96px;background:#000"></div><div style="position:absolute;left:0;right:0;bottom:0;height:96px;background:#000"></div></div>
+      expected_recipe_id: surf.frame-letterbox
+
+  - id: atom-surf-tape-band
+    priority: 60
+    match:
+      anchor.data_atom_id: surf.tape-band
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_surf_tape_band, axis: surf, shape: parallelogram }
+    renderer:
+      component: SurfTapeBand
+      tier: B
+      primitive: annotation.badge
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        skewDeg: { type: number, default: -12 }
+        fill:    { type: fill,   default: 'tokens.gradient.accent-grad' }
+        label:   { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="surf.tape-band" style="position:absolute;background:linear-gradient(135deg,#818cf8,#f472b6);transform:skewX(-12deg);padding:14px 28px;color:#fff;font-weight:700;">NEW</div>
+      expected_recipe_id: surf.tape-band
+
+  # ── type.* additions (10 → 18) — big numbers, eyebrows, pullquotes ─────
+
+  - id: atom-type-big-number
+    priority: 70
+    match:
+      anchor.data_atom_id: type.big-number
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_big_number, axis: type, scale: numeral-md }
+    renderer:
+      component: TypeBigNumber
+      tier: B
+      primitive: slot.numeral
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        value:   { type: string, required: true }
+        unit:    { type: string, required: false }
+        gradient: { type: boolean, default: false }
+    fixture:
+      sample_html: |
+        <div data-atom="type.big-number" style="font-size:88px;font-weight:800;line-height:1;letter-spacing:-0.045em;color:#f5f5f7;">87<span style="font-size:40px;color:#a78bfa;">%</span></div>
+      expected_recipe_id: type.big-number
+
+  - id: atom-type-big-number-xl
+    priority: 70
+    match:
+      anchor.data_atom_id: type.big-number-xl
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_big_number_xl, axis: type, scale: numeral-xl }
+    renderer:
+      component: TypeBigNumberXl
+      tier: B
+      primitive: slot.numeral
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        value:   { type: string, required: true }
+        unit:    { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="type.big-number-xl" style="font-size:168px;font-weight:800;line-height:0.88;letter-spacing:-0.05em;color:#f5f5f7;">240</div>
+      expected_recipe_id: type.big-number-xl
+
+  - id: atom-type-big-number-gradient
+    priority: 70
+    match:
+      anchor.data_atom_id: type.big-number-gradient
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_big_number_gradient, axis: type, scale: numeral-md, fill: linear-grad }
+    renderer:
+      component: TypeBigNumberGradient
+      tier: B
+      primitive: slot.numeral
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        value:   { type: string, required: true }
+        unit:    { type: string, required: false }
+        gradient: { type: gradient, default: 'tokens.gradient.accent-grad' }
+    fixture:
+      sample_html: |
+        <div data-atom="type.big-number-gradient" style="font-size:240px;font-weight:800;line-height:0.85;letter-spacing:-0.06em;background:linear-gradient(135deg,#f5f5f7,#818cf8 35%,#c084fc 65%,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent;">87</div>
+      expected_recipe_id: type.big-number-gradient
+
+  - id: atom-type-eyebrow-ruled
+    priority: 70
+    match:
+      anchor.data_atom_id: type.eyebrow-ruled
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_eyebrow_ruled, axis: type, scale: eyebrow }
+    renderer:
+      component: TypeEyebrowRuled
+      tier: B
+      primitive: slot.eyebrow
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        label:    { type: string, required: true }
+        ruleSide: { type: enum,   values: [right, left, both, none], default: right }
+        color:    { type: color,  default: 'tokens.palette.accent' }
+    fixture:
+      sample_html: |
+        <div data-atom="type.eyebrow-ruled" style="display:flex;align-items:center;gap:14px;"><span style="font-size:13px;letter-spacing:0.42em;text-transform:uppercase;color:#a78bfa;font-weight:600;">Q2 2026</span><span style="flex:1;height:1px;background:rgba(255,255,255,0.10);"></span></div>
+      expected_recipe_id: type.eyebrow-ruled
+
+  - id: atom-type-eyebrow-tape
+    priority: 70
+    match:
+      anchor.data_atom_id: type.eyebrow-tape
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_type_eyebrow_tape, axis: type, decoration: tape }
+    renderer:
+      component: TypeEyebrowTape
+      tier: B
+      primitive: slot.eyebrow
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        label:   { type: string, required: true }
+        skewDeg: { type: number, default: -8 }
+        fill:    { type: fill,   default: 'tokens.gradient.accent-grad' }
+    fixture:
+      sample_html: |
+        <span data-atom="type.eyebrow-tape" style="display:inline-block;background:linear-gradient(135deg,#818cf8,#f472b6);transform:skewX(-8deg);padding:4px 14px;color:#fff;font-size:12px;letter-spacing:0.18em;font-weight:700;">NEW</span>
+      expected_recipe_id: type.eyebrow-tape
+
+  - id: atom-type-pullquote-serif
+    priority: 70
+    match:
+      anchor.data_atom_id: type.pullquote-serif
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_pullquote_serif, axis: type, family: serif }
+    renderer:
+      component: TypePullquoteSerif
+      tier: B
+      primitive: slot.quote
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        quote:       { type: string, required: true }
+        attribution: { type: string, required: false }
+        size:        { type: enum,   values: [sm, lg], default: lg }
+    fixture:
+      sample_html: |
+        <blockquote data-atom="type.pullquote-serif" style="font-family:'Tiempos','Iowan Old Style',serif;font-size:48px;line-height:1.2;font-style:italic;color:#f5f5f7;margin:0;">"The compiler does the boring work; the designer keeps the brief."</blockquote>
+      expected_recipe_id: type.pullquote-serif
+
+  - id: atom-type-pullquote-brutalist
+    priority: 70
+    match:
+      anchor.data_atom_id: type.pullquote-brutalist
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_pullquote_brutalist, axis: type, palette: brutalist }
+    renderer:
+      component: TypePullquoteBrutalist
+      tier: B
+      primitive: slot.quote
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        quote:       { type: string, required: true }
+        attribution: { type: string, required: false }
+    fixture:
+      sample_html: |
+        <blockquote data-atom="type.pullquote-brutalist" style="font-family:Inter,sans-serif;font-size:56px;font-weight:900;line-height:1.0;text-transform:uppercase;color:#000;background:#fff;border:4px solid #000;padding:24px;margin:0;">"NO COMPROMISES."</blockquote>
+      expected_recipe_id: type.pullquote-brutalist
+
+  - id: atom-type-numerals-tabular
+    priority: 70
+    match:
+      anchor.data_atom_id: type.numerals-tabular
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_type_numerals_tabular, axis: type, family: mono, tabular: true }
+    renderer:
+      component: TypeNumeralsTabular
+      tier: B
+      primitive: slot.caption
+      version: 1.0.0
+      props:
+        bbox:   { type: bbox,   required: true }
+        digits: { type: string, required: true }
+    fixture:
+      sample_html: |
+        <span data-atom="type.numerals-tabular" style="font-family:'JetBrains Mono','SF Mono',monospace;font-variant-numeric:tabular-nums;font-size:16px;color:#d4d4d8;">2,487 → 3,612</span>
+      expected_recipe_id: type.numerals-tabular
+
+  # ── mask.* additions (8 → 12) — octagon, callout, gradient-fade ────────
+
+  - id: atom-mask-octagon
+    priority: 70
+    match:
+      anchor.data_atom_id: mask.octagon
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_octagon, axis: mask, shape: octagon }
+    renderer:
+      component: MaskOctagon
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox: { type: bbox, required: true }
+        src:  { type: string, required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="mask.octagon" style="position:absolute;clip-path:polygon(30% 0,70% 0,100% 30%,100% 70%,70% 100%,30% 100%,0 70%,0 30%);overflow:hidden;"><img src="..." style="width:100%;height:100%;object-fit:cover"/></div>
+      expected_recipe_id: mask.octagon
+
+  - id: atom-mask-callout
+    priority: 70
+    match:
+      anchor.data_atom_id: mask.callout
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_callout, axis: mask, shape: callout-bubble }
+    renderer:
+      component: MaskCallout
+      tier: B
+      primitive: frame.safe-area
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        src:         { type: string, required: true }
+        pointerSide: { type: enum,   values: [top, right, bottom, left], default: bottom }
+    fixture:
+      sample_html: |
+        <div data-atom="mask.callout" style="position:absolute;border-radius:24px;overflow:hidden;"><img src="..." style="width:100%;height:100%;object-fit:cover"/></div>
+      expected_recipe_id: mask.callout
+
+  - id: atom-mask-gradient-fade-edge
+    priority: 70
+    match:
+      anchor.data_atom_id: mask.gradient-fade-edge
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_gradient_fade, axis: mask, mask: linear-grad }
+    renderer:
+      component: MaskGradientFadeEdge
+      tier: B
+      primitive: surface.linear-fade
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        src:     { type: string, required: true }
+        edge:    { type: enum,   values: [top, right, bottom, left, all], default: bottom }
+        fadePct: { type: number, default: 30 }
+    fixture:
+      sample_html: |
+        <div data-atom="mask.gradient-fade-edge" style="position:absolute;mask-image:linear-gradient(180deg,#000 70%,transparent);-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);"><img src="..." style="width:100%;height:100%;object-fit:cover"/></div>
+      expected_recipe_id: mask.gradient-fade-edge
+
+  - id: atom-mask-rounded-rect-clip
+    priority: 70
+    match:
+      anchor.data_atom_id: mask.rounded-rect-clip
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_mask_rounded_rect, axis: mask, clip: rounded-rect }
+    renderer:
+      component: MaskRoundedRectClip
+      tier: B
+      primitive: frame.safe-area
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        src:      { type: string, required: true }
+        radiusPx: { type: number, default: 24 }
+    fixture:
+      sample_html: |
+        <div data-atom="mask.rounded-rect-clip" style="position:absolute;border-radius:24px;overflow:hidden;"><img src="..." style="width:100%;height:100%;object-fit:cover"/></div>
+      expected_recipe_id: mask.rounded-rect-clip
+
+  # ── dec.* additions (1 → 18) — braces, plus, stars, arrows, rules ──────
+
+  - id: atom-dec-brace-left
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.brace-left
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_dec_brace_left, axis: dec, shape: brace-left }
+    renderer:
+      component: DecBraceLeft
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.ink-3' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.brace-left" viewBox="0 0 24 240"><path d="M16 0 C 4 60 4 60 4 120 C 4 180 4 180 16 240" fill="none" stroke="#a1a1aa" stroke-width="2"/></svg>
+      expected_recipe_id: dec.brace-left
+
+  - id: atom-dec-brace-right
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.brace-right
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_dec_brace_right, axis: dec, shape: brace-right }
+    renderer:
+      component: DecBraceRight
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.ink-3' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.brace-right" viewBox="0 0 24 240"><path d="M8 0 C 20 60 20 60 20 120 C 20 180 20 180 8 240" fill="none" stroke="#a1a1aa" stroke-width="2"/></svg>
+      expected_recipe_id: dec.brace-right
+
+  - id: atom-dec-brace-top
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.brace-top
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_dec_brace_top, axis: dec, shape: brace-top }
+    renderer:
+      component: DecBraceTop
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.ink-3' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.brace-top" viewBox="0 0 240 24"><path d="M0 16 C 60 4 60 4 120 4 C 180 4 180 4 240 16" fill="none" stroke="#a1a1aa" stroke-width="2"/></svg>
+      expected_recipe_id: dec.brace-top
+
+  - id: atom-dec-brace-bottom
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.brace-bottom
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_dec_brace_bottom, axis: dec, shape: brace-bottom }
+    renderer:
+      component: DecBraceBottom
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.ink-3' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.brace-bottom" viewBox="0 0 240 24"><path d="M0 8 C 60 20 60 20 120 20 C 180 20 180 20 240 8" fill="none" stroke="#a1a1aa" stroke-width="2"/></svg>
+      expected_recipe_id: dec.brace-bottom
+
+  - id: atom-dec-plus
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.plus
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_plus, axis: dec, shape: plus }
+    renderer:
+      component: DecPlus
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.ink-3' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.plus" viewBox="0 0 24 24"><path d="M10 2h4v8h8v4h-8v8h-4v-8H2v-4h8z" fill="#a1a1aa"/></svg>
+      expected_recipe_id: dec.plus
+
+  - id: atom-dec-star-5
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.star-5
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_star_5, axis: dec, shape: star-5 }
+    renderer:
+      component: DecStar5
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.accent' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.star-5" viewBox="0 0 24 24"><polygon points="12,2 15,9 22,10 17,15 18,22 12,18 6,22 7,15 2,10 9,9" fill="#a78bfa"/></svg>
+      expected_recipe_id: dec.star-5
+
+  - id: atom-dec-star-6
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.star-6
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_star_6, axis: dec, shape: star-6 }
+    renderer:
+      component: DecStar6
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.accent' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.star-6" viewBox="0 0 24 24"><path d="M12 2 L14 8 L20 8 L15 12 L17 18 L12 14 L7 18 L9 12 L4 8 L10 8 Z" fill="#a78bfa"/></svg>
+      expected_recipe_id: dec.star-6
+
+  - id: atom-dec-arrow-right
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.arrow-right
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_arrow_right, axis: dec, shape: arrow-right }
+    renderer:
+      component: DecArrowRight
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.ink-1' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.arrow-right" viewBox="0 0 24 24"><path d="M2 10h12V6l8 6-8 6v-4H2z" fill="#f5f5f7"/></svg>
+      expected_recipe_id: dec.arrow-right
+
+  - id: atom-dec-arrow-left
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.arrow-left
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_arrow_left, axis: dec, shape: arrow-left }
+    renderer:
+      component: DecArrowLeft
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.ink-1' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.arrow-left" viewBox="0 0 24 24"><path d="M22 10H10V6L2 12l8 6v-4h12z" fill="#f5f5f7"/></svg>
+      expected_recipe_id: dec.arrow-left
+
+  - id: atom-dec-arrow-up
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.arrow-up
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_arrow_up, axis: dec, shape: arrow-up }
+    renderer:
+      component: DecArrowUp
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.success' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.arrow-up" viewBox="0 0 24 24"><path d="M14 22h-4V10H6l6-8 6 8h-4z" fill="#10b981"/></svg>
+      expected_recipe_id: dec.arrow-up
+
+  - id: atom-dec-arrow-down
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.arrow-down
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_arrow_down, axis: dec, shape: arrow-down }
+    renderer:
+      component: DecArrowDown
+      tier: B
+      primitive: decoration.shape-preset
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.danger' }
+    fixture:
+      sample_html: |
+        <svg data-atom="dec.arrow-down" viewBox="0 0 24 24"><path d="M14 2h-4v12H6l6 8 6-8h-4z" fill="#ef4444"/></svg>
+      expected_recipe_id: dec.arrow-down
+
+  - id: atom-dec-hairline-rule
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.hairline-rule
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_hairline_rule, axis: dec, shape: line }
+    renderer:
+      component: DecHairlineRule
+      tier: B
+      primitive: decoration.line-stroke
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        orientation: { type: enum,   values: [h, v], default: h }
+        color:       { type: color,  default: 'tokens.palette.ruler' }
+        thicknessPx: { type: number, default: 1 }
+    fixture:
+      sample_html: |
+        <hr data-atom="dec.hairline-rule" style="border:none;border-top:1px solid rgba(255,255,255,0.10);margin:0;"/>
+      expected_recipe_id: dec.hairline-rule
+
+  - id: atom-dec-dotted-rule
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.dotted-rule
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_dotted_rule, axis: dec, shape: line, dash: dotted }
+    renderer:
+      component: DecDottedRule
+      tier: B
+      primitive: decoration.line-stroke
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,  required: true }
+        orientation: { type: enum,  values: [h, v], default: h }
+        color:       { type: color, default: 'tokens.palette.ruler' }
+    fixture:
+      sample_html: |
+        <hr data-atom="dec.dotted-rule" style="border:none;border-top:1px dotted rgba(255,255,255,0.20);margin:0;"/>
+      expected_recipe_id: dec.dotted-rule
+
+  # ── tag-name fallback for bare <hr> ───────────────────────────────────
+  # Authors who don't stamp `data-atom` on their hairlines still get the
+  # native dec.hairline-rule emit.  Priority 60 (below the explicit
+  # data-atom version at 75) so an author hint always wins.  Harvester
+  # surfaced this as the second-highest-frequency miss in the bench.
+  - id: atom-dec-hairline-rule-bare
+    priority: 60
+    match:
+      anchor.tag_in: [hr]
+    emit:
+      kind: NativeShape
+      confidence: 0.92
+      metadata: { recipe: atom_dec_hairline_rule, axis: dec, shape: line, source: tag-fallback }
+    renderer:
+      component: DecHairlineRule
+      tier: B
+      primitive: decoration.line-stroke
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        orientation: { type: enum,   values: [h, v], default: h }
+        color:       { type: color,  default: 'tokens.palette.ruler' }
+        thicknessPx: { type: number, default: 1 }
+    fixture:
+      sample_html: |
+        <hr style="border:none;border-top:1px solid rgba(17,17,17,0.10);margin:0;"/>
+      expected_recipe_id: dec.hairline-rule
+
+
+  - id: atom-dec-corner-crop
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.corner-crop
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_corner_crop, axis: dec, shape: triangle }
+    renderer:
+      component: DecCornerCrop
+      tier: B
+      primitive: frame.safe-area
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,  required: true }
+        corners: { type: enum,  values: [tl, tr, bl, br, all], default: tr }
+        sizePx:  { type: number, default: 24 }
+        color:   { type: color, default: 'tokens.palette.surface-1' }
+    fixture:
+      sample_html: |
+        <div data-atom="dec.corner-crop" style="position:absolute;top:0;right:0;width:0;height:0;border-style:solid;border-width:24px 24px 0 0;border-color:#070710 transparent transparent transparent;"></div>
+      expected_recipe_id: dec.corner-crop
+
+  - id: atom-dec-section-divider
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.section-divider
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_section_divider, axis: dec, role: chapter-break }
+    renderer:
+      component: DecSectionDivider
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox: { type: bbox, required: true }
+        fill: { type: fill, default: 'tokens.gradient.accent-grad' }
+    fixture:
+      sample_html: |
+        <div data-atom="dec.section-divider" style="position:absolute;left:0;right:0;height:6px;background:linear-gradient(90deg,#818cf8,#c084fc 50%,#f472b6);"></div>
+      expected_recipe_id: dec.section-divider
+
+  - id: atom-dec-numeral-chapter
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.numeral-chapter
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_dec_numeral_chapter, axis: dec, scale: numeral-2xl }
+    renderer:
+      component: DecNumeralChapter
+      tier: B
+      primitive: slot.numeral
+      version: 1.0.0
+      props:
+        bbox:   { type: bbox,   required: true }
+        digits: { type: string, required: true }
+    fixture:
+      sample_html: |
+        <span data-atom="dec.numeral-chapter" style="font-size:240px;font-weight:800;line-height:0.85;letter-spacing:-0.06em;color:#a78bfa;opacity:0.18;">01</span>
+      expected_recipe_id: dec.numeral-chapter
+
+  - id: atom-dec-bullet-dot
+    priority: 75
+    match:
+      anchor.data_atom_id: dec.bullet-dot
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_dec_bullet_dot, axis: dec, shape: oval }
+    renderer:
+      component: DecBulletDot
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.accent' }
+        sizePx: { type: number, default: 8 }
+    fixture:
+      sample_html: |
+        <span data-atom="dec.bullet-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a78bfa;"></span>
+      expected_recipe_id: dec.bullet-dot
+
+  # ── data.* additions (8 → 18) — connectors, bars, donuts, KPIs, table ──
+
+  - id: atom-data-connector
+    priority: 76
+    match:
+      anchor.data_atom_id: data.connector
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_data_connector, axis: data, shape: path }
+    renderer:
+      component: DataConnector
+      tier: B
+      primitive: diagram.connector
+      version: 1.0.0
+      props:
+        bbox:   { type: bbox,   required: true }
+        from:   { type: object, required: true }
+        to:     { type: object, required: true }
+        kind:   { type: enum,   values: [straight, orthogonal, curved], default: straight }
+        head:   { type: enum,   values: [none, arrow, dot, diamond, bar], default: arrow }
+        dashed: { type: boolean, default: false }
+        color:  { type: color,  default: 'tokens.palette.ink-3' }
+    fixture:
+      sample_html: |
+        <svg data-atom="data.connector" viewBox="0 0 240 80"><line x1="10" y1="40" x2="220" y2="40" stroke="#a1a1aa" stroke-width="2"/><polygon points="220,40 210,34 210,46" fill="#a1a1aa"/></svg>
+      expected_recipe_id: data.connector
+
+  - id: atom-data-bar-set-h
+    priority: 76
+    match:
+      anchor.data_atom_id: data.bar-set-h
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_data_bar_set_h, axis: data, chart: bar }
+    renderer:
+      component: DataBarSetH
+      tier: B
+      primitive: data.bar
+      version: 1.0.0
+      props:
+        bbox: { type: bbox, required: true }
+        bars: { type: array, required: true }
+        max:  { type: number, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="data.bar-set-h" style="display:flex;flex-direction:column;gap:8px;"><div style="height:24px;background:#a78bfa;width:80%;"></div><div style="height:24px;background:#a78bfa;width:55%;"></div></div>
+      expected_recipe_id: data.bar-set-h
+
+  - id: atom-data-bar-set-v
+    priority: 76
+    match:
+      anchor.data_atom_id: data.bar-set-v
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_data_bar_set_v, axis: data, chart: bar }
+    renderer:
+      component: DataBarSetV
+      tier: B
+      primitive: data.bar
+      version: 1.0.0
+      props:
+        bbox: { type: bbox, required: true }
+        bars: { type: array, required: true }
+        max:  { type: number, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="data.bar-set-v" style="display:flex;align-items:flex-end;gap:8px;height:200px;"><div style="width:24px;background:#a78bfa;height:80%;"></div><div style="width:24px;background:#a78bfa;height:55%;"></div></div>
+      expected_recipe_id: data.bar-set-v
+
+  - id: atom-data-donut
+    priority: 76
+    match:
+      anchor.data_atom_id: data.donut
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_data_donut, axis: data, chart: donut }
+    renderer:
+      component: DataDonut
+      tier: B
+      primitive: data.donut
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        segments:    { type: array,  required: true }
+        thicknessPx: { type: number, default: 24 }
+        startDeg:    { type: number, default: 0 }
+    fixture:
+      sample_html: |
+        <svg data-atom="data.donut" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#a78bfa" stroke-width="20" stroke-dasharray="180 251"/></svg>
+      expected_recipe_id: data.donut
+
+  - id: atom-data-donut-multi-segment
+    priority: 76
+    match:
+      anchor.data_atom_id: data.donut-multi-segment
+    emit:
+      kind: NativeSvg
+      confidence: 0.99
+      metadata: { recipe: atom_data_donut_multi, axis: data, chart: donut, segments: many }
+    renderer:
+      component: DataDonutMultiSegment
+      tier: B
+      primitive: data.donut
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        segments:    { type: array,  required: true }
+        thicknessPx: { type: number, default: 24 }
+        startDeg:    { type: number, default: -90 }
+        gapDeg:      { type: number, default: 2 }
+    fixture:
+      sample_html: |
+        <svg data-atom="data.donut-multi-segment" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#a78bfa" stroke-width="20" stroke-dasharray="100 251"/><circle cx="50" cy="50" r="40" fill="none" stroke="#f472b6" stroke-width="20" stroke-dasharray="80 251" stroke-dashoffset="-100"/></svg>
+      expected_recipe_id: data.donut-multi-segment
+
+  - id: atom-data-kpi-row
+    priority: 76
+    match:
+      anchor.data_atom_id: data.kpi-row
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_data_kpi_row, axis: data, layout: row }
+    renderer:
+      component: DataKpiRow
+      tier: B
+      primitive: data.kpi-row
+      version: 1.0.0
+      props:
+        bbox: { type: bbox,  required: true }
+        kpis: { type: array, required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="data.kpi-row" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;"><div><div style="color:#a1a1aa;font-size:12px;text-transform:uppercase;letter-spacing:0.18em;">MAU</div><div style="font-size:48px;font-weight:800;color:#f5f5f7;">2.1M</div></div></div>
+      expected_recipe_id: data.kpi-row
+
+  - id: atom-data-data-table
+    priority: 76
+    match:
+      anchor.data_atom_id: data.data-table
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_data_data_table, axis: data, layout: table }
+    renderer:
+      component: DataDataTable
+      tier: B
+      primitive: data.table
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,    required: true }
+        headers: { type: array,   required: true }
+        rows:    { type: array,   required: true }
+        zebra:   { type: boolean, default: true }
+        align:   { type: array,   required: false }
+    fixture:
+      sample_html: |
+        <table data-atom="data.data-table" style="width:100%;border-collapse:collapse;color:#e4e4e7;font-size:14px;"><thead><tr><th style="text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,0.10);">Region</th><th style="text-align:right;padding:8px;border-bottom:1px solid rgba(255,255,255,0.10);">MAU</th></tr></thead><tbody><tr><td style="padding:8px;">NA</td><td style="text-align:right;padding:8px;">820k</td></tr></tbody></table>
+      expected_recipe_id: data.data-table
+
+  - id: atom-data-mini-heatmap
+    priority: 76
+    match:
+      anchor.data_atom_id: data.mini-heatmap
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_data_mini_heatmap, axis: data, chart: heatmap }
+    renderer:
+      component: DataMiniHeatmap
+      tier: B
+      primitive: data.heatmap
+      version: 1.0.0
+      props:
+        bbox:       { type: bbox,  required: true }
+        cells:      { type: array, required: true }
+        colorScale: { type: array, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="data.mini-heatmap" style="display:grid;grid-template-columns:repeat(7,16px);gap:2px;">
+          <div style="width:16px;height:16px;background:rgba(167,139,250,0.2)"></div>
+          <div style="width:16px;height:16px;background:rgba(167,139,250,0.5)"></div>
+          <div style="width:16px;height:16px;background:rgba(167,139,250,0.9)"></div>
+        </div>
+      expected_recipe_id: data.mini-heatmap
+
+  - id: atom-data-bullet-bar
+    priority: 76
+    match:
+      anchor.data_atom_id: data.bullet-bar
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_data_bullet_bar, axis: data, chart: bullet }
+    renderer:
+      component: DataBulletBar
+      tier: B
+      primitive: frame.safe-area
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        value:   { type: number, required: true }
+        target:  { type: number, required: true }
+        max:     { type: number, required: true }
+        ranges:  { type: array,  required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="data.bullet-bar" style="position:relative;height:20px;background:rgba(255,255,255,0.06);border-radius:4px;"><div style="position:absolute;left:0;top:0;bottom:0;width:64%;background:#a78bfa;border-radius:4px;"></div><div style="position:absolute;left:80%;top:-4px;bottom:-4px;width:2px;background:#f5f5f7;"></div></div>
+      expected_recipe_id: data.bullet-bar
+
+  - id: atom-data-delta-badge
+    priority: 76
+    match:
+      anchor.data_atom_id: data.delta-badge
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_data_delta_badge, axis: data, badge: delta }
+    renderer:
+      component: DataDeltaBadge
+      tier: B
+      primitive: data.delta-badge
+      version: 1.0.0
+      props:
+        bbox:      { type: bbox,   required: true }
+        value:     { type: string, required: true }
+        direction: { type: enum,   values: [up, down, flat], default: up }
+        size:      { type: enum,   values: [sm, md], default: md }
+    fixture:
+      sample_html: |
+        <span data-atom="data.delta-badge" style="display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:9999px;background:rgba(16,185,129,0.18);color:#86efac;font-size:12px;font-weight:600;">▲ +29.4%</span>
+      expected_recipe_id: data.delta-badge
+
+  # ── anno.* additions (4 → 14) — callouts, hotspots, stamps, highlights ─
+
+  - id: atom-anno-callout-bubble
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.callout-bubble
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_anno_callout_bubble, axis: anno, shape: callout-bubble }
+    renderer:
+      component: AnnoCalloutBubble
+      tier: B
+      primitive: annotation.badge
+      version: 1.0.0
+      props:
+        bbox:          { type: bbox,   required: true }
+        body:          { type: string, required: true }
+        pointerSide:   { type: enum,   values: [top, right, bottom, left], default: bottom }
+        pointerOffset: { type: number, min: 0, max: 1, default: 0.5 }
+        bgColor:       { type: color,  default: 'tokens.palette.surface-3' }
+    fixture:
+      sample_html: |
+        <div data-atom="anno.callout-bubble" style="position:relative;background:#16162a;border-radius:12px;padding:12px 16px;color:#f5f5f7;"><span>tip</span><div style="position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);width:0;height:0;border-style:solid;border-width:8px 8px 0 8px;border-color:#16162a transparent transparent transparent;"></div></div>
+      expected_recipe_id: anno.callout-bubble
+
+  - id: atom-anno-numbered-hotspot
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.numbered-hotspot
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_anno_numbered_hotspot, axis: anno, kind: hotspot }
+    renderer:
+      component: AnnoNumberedHotspot
+      tier: B
+      # Composite (no single primitive): a filled circle behind a centered
+      # numeral. The leader-line is intentionally NOT included here —
+      # callers compose it separately via `data.connector` when they
+      # need the leader (e.g., comp.annotated-screenshot stacks the
+      # connector + the hotspot atom). Decoupling avoids the previous
+      # mis-routing where the atom mapped to annotation.leader-line and
+      # rendered only the line, no circle.
+      composes:
+        - atom: surface.shape-fill
+          props:
+            bbox:    { x: 0.0, y: 0.0, w: 1.0, h: 1.0 }
+            shape:   oval
+            bgColor: '@parent.bgColor'
+        - atom: slot.numeral
+          props:
+            bbox:   { x: 0.0, y: 0.05, w: 1.0, h: 0.95 }
+            digits: '@parent.n'
+            scale:  numeral-md
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        # Hotspot label (typically '1','2','3'). Stored as a string so it
+        # threads cleanly into slot.numeral.digits (which is always a string).
+        n:       { type: string, required: true }
+        anchor:  { type: object, required: true }
+        bgColor: { type: color,  default: 'tokens.palette.accent' }
+    fixture:
+      sample_html: |
+        <span data-atom="anno.numbered-hotspot" style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#a78bfa;color:#0a0a0f;font-weight:700;font-size:14px;">3</span>
+      expected_recipe_id: anno.numbered-hotspot
+
+  - id: atom-anno-tooltip
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.tooltip
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_anno_tooltip, axis: anno, kind: tooltip-with-leader }
+    renderer:
+      component: AnnoTooltip
+      tier: B
+      primitive: annotation.leader-line
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        body:        { type: string, required: true }
+        leaderTo:    { type: object, required: true }
+        bgColor:     { type: color,  default: 'tokens.palette.surface-3' }
+    fixture:
+      sample_html: |
+        <div data-atom="anno.tooltip" style="position:relative;background:#16162a;border:1px solid rgba(255,255,255,0.10);border-radius:10px;padding:10px 14px;color:#f5f5f7;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,0.35);">87% native ratio</div>
+      expected_recipe_id: anno.tooltip
+
+  - id: atom-anno-stamp-draft
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.stamp-draft
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_anno_stamp_draft, axis: anno, stamp: draft }
+    renderer:
+      component: AnnoStampDraft
+      tier: B
+      primitive: annotation.badge
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        rotateDeg: { type: number, default: -12 }
+    fixture:
+      sample_html: |
+        <span data-atom="anno.stamp-draft" style="display:inline-block;border:3px solid #ef4444;color:#ef4444;font-weight:900;font-size:32px;letter-spacing:0.2em;padding:6px 16px;transform:rotate(-12deg);font-family:Inter,sans-serif;">DRAFT</span>
+      expected_recipe_id: anno.stamp-draft
+
+  - id: atom-anno-stamp-new
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.stamp-new
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_anno_stamp_new, axis: anno, stamp: new }
+    renderer:
+      component: AnnoStampNew
+      tier: B
+      primitive: annotation.badge
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        rotateDeg: { type: number, default: -8 }
+    fixture:
+      sample_html: |
+        <span data-atom="anno.stamp-new" style="display:inline-block;border:3px solid #10b981;color:#10b981;font-weight:900;font-size:28px;letter-spacing:0.2em;padding:6px 14px;transform:rotate(-8deg);">NEW</span>
+      expected_recipe_id: anno.stamp-new
+
+  - id: atom-anno-stamp-internal
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.stamp-internal
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_anno_stamp_internal, axis: anno, stamp: internal }
+    renderer:
+      component: AnnoStampInternal
+      tier: B
+      primitive: annotation.badge
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        rotateDeg: { type: number, default: -10 }
+    fixture:
+      sample_html: |
+        <span data-atom="anno.stamp-internal" style="display:inline-block;border:2px solid #71717a;color:#71717a;font-weight:700;font-size:22px;letter-spacing:0.18em;padding:4px 12px;transform:rotate(-10deg);">INTERNAL</span>
+      expected_recipe_id: anno.stamp-internal
+
+  - id: atom-anno-highlighter-mark
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.highlighter-mark
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_anno_highlighter_mark, axis: anno, blend: multiply }
+    renderer:
+      component: AnnoHighlighterMark
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,  required: true }
+        color:   { type: color, default: 'tokens.palette.warn' }
+        opacity: { type: number, default: 0.4 }
+    fixture:
+      sample_html: |
+        <span data-atom="anno.highlighter-mark" style="background:rgba(245,158,11,0.4);padding:0 4px;mix-blend-mode:multiply;">87% native</span>
+      expected_recipe_id: anno.highlighter-mark
+
+  - id: atom-anno-redaction-bar
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.redaction-bar
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_anno_redaction_bar, axis: anno, kind: redact }
+    renderer:
+      component: AnnoRedactionBar
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        color: { type: color, default: 'tokens.palette.ink-1' }
+    fixture:
+      sample_html: |
+        <span data-atom="anno.redaction-bar" style="display:inline-block;background:#000;color:#000;">CONFIDENTIAL</span>
+      expected_recipe_id: anno.redaction-bar
+
+  - id: atom-anno-brace-labeled
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.brace-labeled
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_anno_brace_labeled, axis: anno, kind: brace-with-label }
+    renderer:
+      component: AnnoBraceLabeled
+      tier: B
+      primitive: frame.safe-area
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,   required: true }
+        side:  { type: enum,   values: [left, right, top, bottom], default: right }
+        label: { type: string, required: true }
+        color: { type: color,  default: 'tokens.palette.ink-3' }
+    fixture:
+      sample_html: |
+        <div data-atom="anno.brace-labeled" style="display:flex;align-items:center;gap:8px;color:#a1a1aa;"><svg viewBox="0 0 24 240" width="12" height="120"><path d="M16 0 C 4 60 4 60 4 120 C 4 180 4 180 16 240" fill="none" stroke="#a1a1aa" stroke-width="2"/></svg><span style="font-size:13px;">six pillars</span></div>
+      expected_recipe_id: anno.brace-labeled
+
+  - id: atom-anno-sticker
+    priority: 80
+    match:
+      anchor.data_atom_id: anno.sticker
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_anno_sticker, axis: anno, kind: sticker }
+    renderer:
+      component: AnnoSticker
+      tier: B
+      primitive: annotation.badge
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        body:    { type: string, required: true }
+        rotateDeg: { type: number, default: -4 }
+        bgColor: { type: color,  default: 'tokens.palette.warn' }
+    fixture:
+      sample_html: |
+        <span data-atom="anno.sticker" style="display:inline-block;background:#f59e0b;color:#0a0a0f;padding:8px 14px;border-radius:6px;transform:rotate(-4deg);box-shadow:0 4px 8px rgba(0,0,0,0.25);font-weight:700;">v1.0 ✓</span>
+      expected_recipe_id: anno.sticker
+
+  # ── ui.* additions (6 → 18) — code, terminal, devices, browsers, status ─
+
+  - id: atom-ui-code-block
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.code-block
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_ui_code_block, axis: ui, family: mono }
+    renderer:
+      component: UiCodeBlock
+      tier: B
+      primitive: slot.code
+      version: 1.0.0
+      props:
+        bbox:            { type: bbox,   required: true }
+        code:            { type: string, required: true }
+        language:        { type: string, required: false }
+        showLineNumbers: { type: boolean, default: false }
+    fixture:
+      sample_html: |
+        <pre data-atom="ui.code-block" style="background:#0e0e1a;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:20px;color:#e4e4e7;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.55;"><code>const x = 1;</code></pre>
+      expected_recipe_id: ui.code-block
+
+  - id: atom-ui-code-block-syntax
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.code-block-syntax
+    emit:
+      kind: NativeText
+      confidence: 0.99
+      metadata: { recipe: atom_ui_code_block_syntax, axis: ui, family: mono, syntax: true }
+    renderer:
+      component: UiCodeBlockSyntax
+      tier: B
+      primitive: slot.code
+      version: 1.0.0
+      props:
+        bbox:            { type: bbox,   required: true }
+        code:            { type: string, required: true }
+        language:        { type: string, required: true }
+        showLineNumbers: { type: boolean, default: true }
+        theme:           { type: enum,   values: [dark, light], default: dark }
+    fixture:
+      sample_html: |
+        <pre data-atom="ui.code-block-syntax" data-language="typescript" style="background:#0e0e1a;border-radius:12px;padding:20px;font-family:'JetBrains Mono',monospace;font-size:14px;color:#e4e4e7;"><span style="color:#c084fc">const</span> <span style="color:#60a5fa">x</span> = <span style="color:#86efac">1</span>;</pre>
+      expected_recipe_id: ui.code-block-syntax
+
+  - id: atom-ui-terminal-window
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.terminal-window
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_ui_terminal_window, axis: ui, chrome: terminal }
+    renderer:
+      component: UiTerminalWindow
+      tier: B
+      primitive: chrome.window-frame
+      version: 1.0.0
+      props:
+        bbox: { type: bbox,   required: true }
+        body: { type: string, required: true }
+        prompt: { type: string, default: '$' }
+    fixture:
+      sample_html: |
+        <div data-atom="ui.terminal-window" style="background:#0a0a0f;border-radius:12px;overflow:hidden;font-family:'JetBrains Mono',monospace;color:#e4e4e7;"><div style="background:#16162a;padding:8px 14px;display:flex;gap:8px;"><span style="width:12px;height:12px;border-radius:50%;background:#ef4444;"></span><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;"></span><span style="width:12px;height:12px;border-radius:50%;background:#10b981;"></span></div><pre style="padding:14px;margin:0;font-size:13px;">$ slidify deck.html out.pptx</pre></div>
+      expected_recipe_id: ui.terminal-window
+
+  - id: atom-ui-device-phone
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.device-phone
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_ui_device_phone, axis: ui, chrome: phone }
+    renderer:
+      component: UiDevicePhone
+      tier: B
+      primitive: chrome.device-frame
+      version: 1.0.0
+      props:
+        bbox:           { type: bbox,    required: true }
+        screenshotSrc:  { type: string,  required: false }
+        notch:          { type: boolean, default: true }
+    fixture:
+      sample_html: |
+        <div data-atom="ui.device-phone" style="border:8px solid #0a0a0f;border-radius:36px;background:#16162a;padding:28px 4px 4px;width:240px;height:480px;position:relative;"><div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:80px;height:18px;background:#0a0a0f;border-radius:0 0 12px 12px;"></div></div>
+      expected_recipe_id: ui.device-phone
+
+  - id: atom-ui-device-laptop
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.device-laptop
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_ui_device_laptop, axis: ui, chrome: laptop }
+    renderer:
+      component: UiDeviceLaptop
+      tier: B
+      primitive: chrome.device-frame
+      version: 1.0.0
+      props:
+        bbox:          { type: bbox,   required: true }
+        screenshotSrc: { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="ui.device-laptop" style="position:relative;"><div style="background:#0a0a0f;border-radius:12px 12px 4px 4px;border:6px solid #16162a;border-bottom:14px solid #16162a;height:280px;"></div><div style="background:#16162a;height:6px;border-radius:0 0 24px 24px;width:120%;margin-left:-10%;"></div></div>
+      expected_recipe_id: ui.device-laptop
+
+  - id: atom-ui-browser-mac
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.browser-mac
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_ui_browser_mac, axis: ui, chrome: browser-mac }
+    renderer:
+      component: UiBrowserMac
+      tier: B
+      primitive: chrome.window-frame
+      version: 1.0.0
+      props:
+        bbox: { type: bbox,   required: true }
+        url:  { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="ui.browser-mac" style="border-radius:10px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,0.10);"><div style="background:#f1f1f4;padding:10px 14px;display:flex;align-items:center;gap:8px;"><span style="width:12px;height:12px;border-radius:50%;background:#ef4444;"></span><span style="width:12px;height:12px;border-radius:50%;background:#f59e0b;"></span><span style="width:12px;height:12px;border-radius:50%;background:#10b981;"></span><span style="margin-left:14px;font-family:Inter,sans-serif;font-size:12px;color:#6b7280;background:#fff;padding:4px 12px;border-radius:6px;">slidify.dev</span></div></div>
+      expected_recipe_id: ui.browser-mac
+
+  - id: atom-ui-browser-win
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.browser-win
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_ui_browser_win, axis: ui, chrome: browser-win }
+    renderer:
+      component: UiBrowserWin
+      tier: B
+      primitive: chrome.window-frame
+      version: 1.0.0
+      props:
+        bbox: { type: bbox,   required: true }
+        url:  { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="ui.browser-win" style="background:#fff;border:1px solid #d4d4d8;"><div style="background:#e4e4e7;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;"><span style="font-family:Segoe UI,sans-serif;font-size:13px;color:#1f2937;">Slidify</span><span style="font-size:14px;color:#6b7280;">_ □ ✕</span></div></div>
+      expected_recipe_id: ui.browser-win
+
+  - id: atom-ui-browser-minimal
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.browser-minimal
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_ui_browser_minimal, axis: ui, chrome: browser-minimal }
+    renderer:
+      component: UiBrowserMinimal
+      tier: B
+      primitive: chrome.window-frame
+      version: 1.0.0
+      props:
+        bbox: { type: bbox,   required: true }
+        url:  { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="ui.browser-minimal" style="background:#0e0e1a;border:1px solid rgba(255,255,255,0.08);border-radius:8px;overflow:hidden;"><div style="padding:8px 14px;font-family:Inter,sans-serif;font-size:12px;color:#71717a;">slidify.dev</div></div>
+      expected_recipe_id: ui.browser-minimal
+
+  - id: atom-ui-status-dot
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.status-dot
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_ui_status_dot, axis: ui, kind: status }
+    renderer:
+      component: UiStatusDot
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:   { type: bbox,  required: true }
+        status: { type: enum,  values: [live, idle, error, offline], default: live }
+        sizePx: { type: number, default: 8 }
+    fixture:
+      sample_html: |
+        <span data-atom="ui.status-dot" style="display:inline-flex;align-items:center;gap:8px;color:#86efac;font-size:13px;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:#10b981;"></span>live</span>
+      expected_recipe_id: ui.status-dot
+
+  - id: atom-ui-stepper
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.stepper
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_ui_stepper, axis: ui, kind: stepper }
+    renderer:
+      component: UiStepper
+      tier: B
+      primitive: frame.safe-area
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        steps:   { type: array,  required: true }
+        current: { type: number, required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="ui.stepper" style="display:flex;align-items:center;gap:8px;color:#a1a1aa;font-size:14px;"><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#a78bfa;color:#0a0a0f;font-weight:700;">1</span><span>→</span><span style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:2px solid rgba(255,255,255,0.20);">2</span></div>
+      expected_recipe_id: ui.stepper
+
+  - id: atom-ui-progress-bar
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.progress-bar
+    emit:
+      kind: NativeShape
+      confidence: 0.99
+      metadata: { recipe: atom_ui_progress_bar, axis: ui, kind: progress }
+    renderer:
+      component: UiProgressBar
+      tier: B
+      primitive: surface.shape-fill
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,   required: true }
+        value: { type: number, required: true }
+        max:   { type: number, default: 100 }
+        color: { type: color,  default: 'tokens.palette.accent' }
+    fixture:
+      sample_html: |
+        <div data-atom="ui.progress-bar" style="position:relative;height:8px;background:rgba(255,255,255,0.08);border-radius:4px;overflow:hidden;"><div style="position:absolute;left:0;top:0;bottom:0;width:64%;background:#a78bfa;"></div></div>
+      expected_recipe_id: ui.progress-bar
+
+  - id: atom-ui-checklist
+    priority: 78
+    match:
+      anchor.data_atom_id: ui.checklist
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_ui_checklist, axis: ui, kind: checklist }
+    renderer:
+      component: UiChecklist
+      tier: B
+      primitive: slot.list
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        items: { type: array, required: true }
+    fixture:
+      sample_html: |
+        <ul data-atom="ui.checklist" style="list-style:none;padding:0;margin:0;color:#d4d4d8;font-size:15px;"><li style="display:flex;align-items:center;gap:12px;padding:6px 0;"><span style="color:#10b981;">✓</span><span>F1 IR primitives</span></li><li style="display:flex;align-items:center;gap:12px;padding:6px 0;"><span style="color:#10b981;">✓</span><span>F2 token system</span></li><li style="display:flex;align-items:center;gap:12px;padding:6px 0;color:#71717a;"><span>○</span><span>M2 codegen</span></li></ul>
+      expected_recipe_id: ui.checklist
+
+  # ── tag-name fallback for bare <button> (shadcn / Tailwind buttons) ──
+  # Highest-frequency miss in the bench harvester (4 instances) — every
+  # <button> with bg or border-radius routes to ui.button-rounded.
+  # Priority 60 (below the explicit data-atom version) so an author hint
+  # always wins.  Width/height bounds keep this from catching huge
+  # button-like containers; real buttons are 80–360 px wide, ≤ 64 px tall.
+  - id: atom-ui-button-rounded
+    priority: 60
+    match:
+      anchor.tag_in:  [button]
+      bbox.h_max:     64
+      bbox.w_min:     80
+      bbox.w_max:     360
+    emit:
+      kind: NativeShape
+      confidence: 0.92
+      metadata: { recipe: atom_ui_button_rounded, axis: ui, kind: button, source: tag-fallback }
+    renderer:
+      component: UiButtonRounded
+      tier: B
+      primitive: slot.cta
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        label:   { type: string, required: true }
+        variant: { type: enum,   values: [primary, secondary, outline, ghost], default: primary }
+    fixture:
+      sample_html: |
+        <button style="height:40px;padding:0 16px;border-radius:8px;background:#a78bfa;color:#0a0a0f;border:0;font-weight:600;font-size:14px;font-family:Inter,sans-serif;">Get the CLI →</button>
+      expected_recipe_id: ui.button-rounded
+
+  # ── comp.* additions (1 → 15) — composite slide templates ──────────────
+  # These compose other atoms via `renderer.composes:` (CONTRACT-v2 §A.6).
+  # They REPLACE the v1 "templates" crew with manifest-driven slide blocks.
+
+  - id: atom-comp-hero-investor
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.hero-investor
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_hero_investor, axis: comp, role: hero }
+    renderer:
+      component: CompHeroInvestor
+      tier: B
+      composes:
+        # Backgrounds overlay at full bbox (no layout).
+        - { atom: bg.aurora-band }
+        - { atom: bg.aurora-corners, props: { intensity: low } }
+        # Eyebrow at the top, single line.
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.12, w: 0.85, h: 0.04 }
+            label: '@parent.eyebrow'
+        # Display headline, large block in the upper-middle.
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.20, w: 0.85, h: 0.45 }
+            value: '@parent.headline'
+        # Lede paragraph below the headline.
+        - atom: type.pullquote-serif
+          props:
+            bbox:  { x: 0.075, y: 0.72, w: 0.70, h: 0.18 }
+            quote: '@parent.lede'
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        eyebrow:  { type: string, required: true }
+        headline: { type: string, required: true }
+        lede:     { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.hero-investor" data-pptx-role="slide" style="position:absolute;inset:0;background:radial-gradient(ellipse 1100px 760px at 80% 12%,#1e1b4b,#0a0a14 55%,#050510);"></div>
+      expected_recipe_id: comp.hero-investor
+
+  - id: atom-comp-hero-product
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.hero-product
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_hero_product, axis: comp, role: hero }
+    renderer:
+      component: CompHeroProduct
+      tier: B
+      composes:
+        - { atom: bg.aurora-corners, props: { intensity: med } }
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.10, w: 0.85, h: 0.04 }
+            label: '@parent.eyebrow'
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.20, w: 0.85, h: 0.45 }
+            value: '@parent.headline'
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        eyebrow:  { type: string, required: true }
+        headline: { type: string, required: true }
+        cta:      { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.hero-product" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.hero-product
+
+  - id: atom-comp-agenda-2col
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.agenda-2col
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_agenda_2col, axis: comp, role: agenda }
+    renderer:
+      component: CompAgenda2col
+      tier: B
+      composes:
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.12, w: 0.85, h: 0.04 }
+            label: 'Agenda'
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.18, w: 0.85, h: 0.18 }
+            value: '@parent.headline'
+        - atom: dec.hairline-rule
+          props:
+            bbox: { x: 0.075, y: 0.40, w: 0.85, h: 0.005 }
+        - atom: type.numerals-tabular
+          props:
+            bbox:   { x: 0.075, y: 0.45, w: 0.85, h: 0.40 }
+            digits: '01 · 02 · 03 · 04 · 05 · 06'
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        headline: { type: string, required: true }
+        items:    { type: array,  required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.agenda-2col" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;padding:96px;"></div>
+      expected_recipe_id: comp.agenda-2col
+
+  - id: atom-comp-agenda-toc
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.agenda-toc
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_agenda_toc, axis: comp, role: agenda }
+    renderer:
+      component: CompAgendaToc
+      tier: B
+      composes:
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.12, w: 0.85, h: 0.04 }
+            label: 'Today'
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.18, w: 0.85, h: 0.16 }
+            value: 'What we will cover'
+        - atom: dec.hairline-rule
+          props:
+            bbox: { x: 0.075, y: 0.42, w: 0.85, h: 0.005 }
+        # foreach: one row per item, vertically stacked below the rule.
+        - foreach: '@parent.items'
+          as: item
+          atom: type.numerals-tabular
+          props:
+            bbox:
+              x: 0.075
+              y: '0.46 + i * 0.075'
+              w: 0.10
+              h: 0.06
+            digits: '@item.num'
+        - foreach: '@parent.items'
+          as: item
+          atom: type.eyebrow-ruled
+          props:
+            bbox:
+              x: 0.18
+              y: '0.46 + i * 0.075'
+              w: 0.75
+              h: 0.06
+            label: '@item.title'
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        items: { type: array, required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.agenda-toc" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.agenda-toc
+
+  - id: atom-comp-big-stat-hero
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.big-stat-hero
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_big_stat_hero, axis: comp, role: stat-hero }
+    renderer:
+      component: CompBigStatHero
+      tier: B
+      composes:
+        # Side card behind the big stat — overlay-style background.
+        - atom: surf.card-depth
+          props:
+            bbox: { x: 0.55, y: 0.20, w: 0.40, h: 0.60 }
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.10, w: 0.85, h: 0.04 }
+            label: '@parent.eyebrow'
+        - atom: type.big-number-gradient
+          props:
+            bbox:     { x: 0.075, y: 0.18, w: 0.45, h: 0.55 }
+            value:    '@parent.value'
+            unit:     '@parent.unit'
+            gradient: 'tokens.gradient.accent-grad'
+        - atom: data.delta-badge
+          props:
+            bbox:  { x: 0.60, y: 0.62, w: 0.15, h: 0.06 }
+            value: '@parent.delta'
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        eyebrow:  { type: string, required: true }
+        value:    { type: string, required: true }
+        unit:     { type: string, required: false }
+        headline: { type: string, required: true }
+        delta:    { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.big-stat-hero" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.big-stat-hero
+
+  - id: atom-comp-three-up-stats
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.three-up-stats
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_three_up_stats, axis: comp, role: stats-grid }
+    renderer:
+      component: CompThreeUpStats
+      tier: B
+      composes:
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.10, w: 0.85, h: 0.04 }
+            label: '@parent.eyebrow'
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.18, w: 0.85, h: 0.10 }
+            value: '@parent.headline'
+        # foreach: one card per kpi, fan out across the row.
+        # The card itself is just a surface; the value/eyebrow/delta land
+        # on top via subsequent foreach entries that share the same array.
+        - foreach: '@parent.kpis'
+          as: kpi
+          atom: surf.card-raised
+          props:
+            bbox: { x: '0.075 + i * 0.295', y: 0.40, w: 0.265, h: 0.45 }
+        - foreach: '@parent.kpis'
+          as: kpi
+          atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: '0.10 + i * 0.295', y: 0.44, w: 0.215, h: 0.04 }
+            label: '@kpi.label'
+        - foreach: '@parent.kpis'
+          as: kpi
+          atom: type.big-number
+          props:
+            bbox:  { x: '0.10 + i * 0.295', y: 0.50, w: 0.215, h: 0.20 }
+            value: '@kpi.value'
+        - foreach: '@parent.kpis'
+          as: kpi
+          atom: data.delta-badge
+          props:
+            bbox:  { x: '0.10 + i * 0.295', y: 0.74, w: 0.215, h: 0.06 }
+            value: '@kpi.delta'
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        eyebrow:  { type: string, required: true }
+        headline: { type: string, required: true }
+        kpis:     { type: array,  required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.three-up-stats" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.three-up-stats
+
+  - id: atom-comp-quote-editorial
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.quote-editorial
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_quote_editorial, axis: comp, role: quote }
+    renderer:
+      component: CompQuoteEditorial
+      tier: B
+      composes:
+        - atom: type.pullquote-serif
+          props:
+            bbox:        { x: 0.10, y: 0.20, w: 0.80, h: 0.45 }
+            quote:       '@parent.quote'
+            attribution: '@parent.attribution'
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        quote:       { type: string, required: true }
+        attribution: { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.quote-editorial" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.quote-editorial
+
+  - id: atom-comp-section-divider-mesh
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.section-divider-mesh
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_section_divider_mesh, axis: comp, role: section-divider }
+    renderer:
+      component: CompSectionDividerMesh
+      tier: B
+      composes:
+        - { atom: bg.aurora-corners, props: { intensity: high } }
+        - atom: dec.numeral-chapter
+          props:
+            bbox:   { x: 0.05, y: 0.15, w: 0.55, h: 0.55 }
+            digits: '@parent.chapter'
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.05, y: 0.78, w: 0.85, h: 0.04 }
+            label: '@parent.title'
+      version: 1.0.0
+      props:
+        bbox:    { type: bbox,   required: true }
+        chapter: { type: string, required: true }
+        title:   { type: string, required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.section-divider-mesh" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.section-divider-mesh
+
+  - id: atom-comp-roadmap-quarterly
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.roadmap-quarterly
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_roadmap_quarterly, axis: comp, role: roadmap }
+    renderer:
+      component: CompRoadmapQuarterly
+      tier: B
+      composes:
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.10, w: 0.85, h: 0.04 }
+            label: '@parent.eyebrow'
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.18, w: 0.85, h: 0.12 }
+            value: 'Roadmap'
+        - atom: ui.stepper
+          props:
+            bbox: { x: 0.10, y: 0.45, w: 0.80, h: 0.20 }
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        eyebrow:  { type: string, required: true }
+        quarters: { type: array,  required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.roadmap-quarterly" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.roadmap-quarterly
+
+  - id: atom-comp-team-grid
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.team-grid
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_team_grid, axis: comp, role: team }
+    renderer:
+      component: CompTeamGrid
+      tier: B
+      composes:
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.10, w: 0.85, h: 0.04 }
+            label: 'Team'
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.18, w: 0.85, h: 0.12 }
+            value: '@parent.headline'
+        # foreach: lay each member into a 3-column row. After 3 members
+        # the row wraps. `Math.floor(i/3)` and `i%3` are written via
+        # bbox string expressions evaluated at runtime.
+        - foreach: '@parent.members'
+          as: member
+          atom: surf.card-raised
+          props:
+            bbox:
+              x: '0.075 + (i % 3) * 0.295'
+              y: '0.40 + Math.floor(i / 3) * 0.245'
+              w: 0.265
+              h: 0.20
+        - foreach: '@parent.members'
+          as: member
+          atom: type.eyebrow-ruled
+          props:
+            bbox:
+              x: '0.10 + (i % 3) * 0.295'
+              y: '0.43 + Math.floor(i / 3) * 0.245'
+              w: 0.215
+              h: 0.04
+            label: '@member.role'
+        - foreach: '@parent.members'
+          as: member
+          atom: type.big-number
+          props:
+            bbox:
+              x: '0.10 + (i % 3) * 0.295'
+              y: '0.49 + Math.floor(i / 3) * 0.245'
+              w: 0.215
+              h: 0.10
+            value: '@member.name'
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        headline: { type: string, required: true }
+        members:  { type: array,  required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.team-grid" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.team-grid
+
+  - id: atom-comp-closing-cta
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.closing-cta
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_closing_cta, axis: comp, role: closing }
+    renderer:
+      component: CompClosingCta
+      tier: B
+      composes:
+        - { atom: bg.aurora-corners, props: { intensity: high } }
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.32, w: 0.85, h: 0.36 }
+            value: '@parent.headline'
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.74, w: 0.85, h: 0.04 }
+            label: '@parent.cta'
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        headline: { type: string, required: true }
+        cta:      { type: string, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.closing-cta" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.closing-cta
+
+  - id: atom-comp-bento-mixed
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.bento-mixed
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_bento_mixed, axis: comp, role: bento }
+    renderer:
+      component: CompBentoMixed
+      tier: B
+      composes:
+        # 4-cell bento layout: tall card on left, three smaller on right.
+        - atom: surf.bento-cell
+          props: { bbox: { x: 0.075, y: 0.10, w: 0.42, h: 0.80 } }
+        - atom: surf.bento-cell
+          props: { bbox: { x: 0.520, y: 0.10, w: 0.405, h: 0.38 } }
+        - atom: surf.bento-cell
+          props: { bbox: { x: 0.520, y: 0.52, w: 0.193, h: 0.38 } }
+        - atom: surf.bento-cell
+          props: { bbox: { x: 0.732, y: 0.52, w: 0.193, h: 0.38 } }
+        # Code block fills the tall left card.
+        - atom: ui.code-block-syntax
+          props:
+            bbox: { x: 0.10, y: 0.13, w: 0.37, h: 0.74 }
+            code: 'await convert(\"deck.html\", \"out.pptx\")'
+            language: 'typescript'
+      version: 1.0.0
+      props:
+        bbox:  { type: bbox,  required: true }
+        cells: { type: array, required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.bento-mixed" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:24px;padding:48px;"></div>
+      expected_recipe_id: comp.bento-mixed
+
+  - id: atom-comp-annotated-screenshot
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.annotated-screenshot
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_annotated_screenshot, axis: comp, role: annotated-figure }
+    renderer:
+      component: CompAnnotatedScreenshot
+      tier: B
+      composes:
+        - atom: ui.browser-mac
+          props:
+            bbox: { x: 0.075, y: 0.10, w: 0.85, h: 0.75 }
+            url:  '@parent.url'
+        - atom: anno.numbered-hotspot
+          props:
+            bbox: { x: 0.20, y: 0.30, w: 0.05, h: 0.07 }
+        - atom: anno.numbered-hotspot
+          props:
+            bbox: { x: 0.55, y: 0.50, w: 0.05, h: 0.07 }
+        - atom: anno.tooltip
+          props:
+            bbox: { x: 0.27, y: 0.30, w: 0.18, h: 0.07 }
+      version: 1.0.0
+      props:
+        bbox:        { type: bbox,   required: true }
+        url:         { type: string, required: false }
+        screenshot:  { type: string, required: true }
+        annotations: { type: array,  required: true }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.annotated-screenshot" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.annotated-screenshot
+
+  - id: atom-comp-data-overview
+    priority: 80
+    match:
+      anchor.data_atom_id: comp.data-overview
+    emit:
+      kind: Composite
+      confidence: 0.99
+      metadata: { recipe: atom_comp_data_overview, axis: comp, role: data-dashboard }
+    renderer:
+      component: CompDataOverview
+      tier: B
+      composes:
+        - atom: type.eyebrow-ruled
+          props:
+            bbox:  { x: 0.075, y: 0.08, w: 0.85, h: 0.04 }
+            label: 'Data overview'
+        - atom: type.big-number-gradient
+          props:
+            bbox:  { x: 0.075, y: 0.14, w: 0.85, h: 0.10 }
+            value: '@parent.headline'
+        # Top row: donut, horizontal bars, sparkline.
+        - atom: data.donut
+          props: { bbox: { x: 0.075, y: 0.30, w: 0.20, h: 0.30 } }
+        - atom: data.bar-set-h
+          props: { bbox: { x: 0.32, y: 0.30, w: 0.32, h: 0.30 } }
+        - atom: data.sparkline
+          props: { bbox: { x: 0.66, y: 0.30, w: 0.27, h: 0.30 } }
+        # Bottom row: KPI strip across full width.
+        - atom: data.kpi-row
+          props: { bbox: { x: 0.075, y: 0.68, w: 0.85, h: 0.22 } }
+      version: 1.0.0
+      props:
+        bbox:     { type: bbox,   required: true }
+        headline: { type: string, required: true }
+        kpis:     { type: array,  required: true }
+        chart:    { type: object, required: false }
+    fixture:
+      sample_html: |
+        <div data-atom="comp.data-overview" data-pptx-role="slide" style="position:absolute;inset:0;background:#070710;"></div>
+      expected_recipe_id: comp.data-overview
+  # ==========================================================================
+  # Crew M6 — chrome.escape-hatch (Wave-2B-v2, CONTRACT-v2 §F)
+  # --------------------------------------------------------------------------
+  # The first-class metered escape valve. When an LLM (or designer) needs a
+  # treatment that no Tier-A primitive or Tier-B recipe expresses, they reach
+  # for this atom — instead of silently rasterizing further upstream. The CSS
+  # payload + intent label travel through the IR (see
+  # components/src/primitives/EscapeHatch.tsx) and land in the slide via
+  # slidify/compile_ir.py, which screenshots the payload and stamps the
+  # metadata onto the shape's extLst for the harvester to find.
+  #
+  # AXIS NOTE — `chrome.*` pseudo-axis:
+  #   The 10 axes (`comp`, `bg`, `surf`, `type`, `mask`, `dec`, `data`,
+  #   `motion`, `ui`, `anno`) are frozen per CONTRACT-v2 §A.3. `chrome.*`
+  #   is an explicit exception: it isn't visual content, it's pipeline
+  #   infrastructure. Per CONTRACT-v2 §B.1 Tier-A roster, the atom id is
+  #   `chrome.escape-hatch`. If review feedback prefers a different axis
+  #   (e.g., `comp.escape-hatch` or `ui.escape-hatch`), the rename is
+  #   one line — change the `id:` and the `anchor.data_atom_id:` below.
+  #
+  # KIND NOTE — `Raster` (not `NativeRaster`):
+  #   CONTRACT-v2 §F.2 sketched `kind: NativeRaster`, but the matcher's
+  #   actual emit-kind enum (slidify/models.py::DecisionKind) only knows
+  #   the values produced by `_camel_to_snake` lookup. `Raster` is the
+  #   canonical raster-fallback kind. The escape-hatch is deliberately a
+  #   raster: it ships an opaque PNG screenshot of the CSS payload.
+  #
+  # METERING NOTE — `excludeFromNativeRatio`:
+  #   Per CONTRACT-v1 §9.5, escape-hatch rasters are excluded from the
+  #   `native_area_ratio` denominator (they are deliberate native skips,
+  #   not failures). The flag is stamped into the IR metadata, not into
+  #   this row, because the matcher writes Decision.metadata at runtime
+  #   from the renderer-emitted IR.
+  #
+  # Single addition placed at the end of the file to minimize merge
+  # conflicts with Crew M1's parallel work on the rest of atoms.yaml.
+  # ==========================================================================
+  - id: chrome.escape-hatch
+    priority: 90
+    match:
+      anchor.data_atom_id: chrome.escape-hatch
+    emit:
+      kind: Raster
+      confidence: 1.00
+      metadata:
+        recipe: chrome_escape_hatch
+        axis: chrome
+        structural: true
+        tier: A
+        excludeFromNativeRatio: true
+    renderer:
+      component: EscapeHatch
+      tier: A
+      primitive: chrome.escape-hatch     # self-references; Tier-A only
+      version: 1.0.0
+      props:
+        bbox: { type: bbox, required: true }
+        cssPayload: { type: string, required: true }
+        body: { type: string, required: false, default: '' }
+        intent: { type: string, required: true }
+        attempted: { type: string, required: false }
+      metering:
+        enabled: true
+        capture_payload: true
+        classify_intent: true
+    fixture:
+      sample_html: |
+        <div data-atom="chrome.escape-hatch"
+             data-intent="non-rect-clip"
+             data-attempted="surf.glass">...</div>
+      expected_recipe_id: chrome.escape-hatch

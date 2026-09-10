@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Commitments and owners</title>
+    <style>
+      :root {
+        --ink: #1a1a1a;
+        --paper: #f2f1ee;
+        --muted: #8b8b85;
+        --accent: #d2521e;
+        --rule: #dcdad4;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--paper); color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px;
+        padding: 72px; overflow: hidden;
+      }
+      h1 {
+        margin: 0; font-size: 44px; line-height: 1.14;
+        font-weight: 700; letter-spacing: -0.015em;
+      }
+      .key { color: var(--accent); }
+      .caption, .source {
+        margin: 0; font-size: 18px; line-height: 1.4;
+        font-style: italic; color: var(--muted);
+      }
+      .body { margin: 0; font-size: 24px; line-height: 1.45; }
+      svg text { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+
+      .slide--close { display: grid; grid-template-rows: auto 1fr auto; row-gap: 32px; }
+      table { width: 100%; border-collapse: collapse; font-size: 23px; text-align: left; }
+      th {
+        font-size: 18px; font-weight: 400; color: var(--muted);
+        padding: 0 24px 12px 0; border-bottom: 1px solid var(--ink);
+      }
+      td {
+        padding: 21px 24px 21px 0; border-bottom: 1px solid var(--rule);
+        vertical-align: top; line-height: 1.35;
+      }
+      td.when { white-space: nowrap; font-weight: 700; color: var(--accent); }
+      .note { margin: 0; font-size: 20px; line-height: 1.45; color: var(--muted); max-width: 48em; }
+    </style>
+  </head>
+  <body>
+    <section class="slide slide--close">
+      <h1 data-pptx-role="title">
+        Three commitments, <span class="key">named owners</span>, dated
+      </h1>
+
+      <table>
+        <thead>
+          <tr><th>Commitment</th><th>Owner</th><th>Done by</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Recall and rework the 3,100 units, customer contact first</td>
+            <td>Quality, D. Okonkwo</td>
+            <td class="when">30 September</td>
+          </tr>
+          <tr>
+            <td>Inline transducer audit live on line 3, then lines 1 and 2</td>
+            <td>Manufacturing engineering, S. Beaulieu</td>
+            <td class="when">15 September</td>
+          </tr>
+          <tr>
+            <td>Calibration slots raise a station stop across all torque cells</td>
+            <td>Controls, M. Haruna</td>
+            <td class="when">6 September</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="note">
+        We are not asking for more attention from the line. Every commitment
+        above replaces a human check with a measurement the station takes
+        whether anyone remembers it or not.
+      </p>
+    </section>
+  </body>
+</html>

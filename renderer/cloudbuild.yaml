@@ -1,0 +1,21 @@
+# Built from the repository root so that vendor/slidify is in context.
+# The renderer image is a slidify install plus Chromium, LibreOffice and
+# tesseract; nothing here is specific to one Google Cloud project.
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/slidegen-renderer:${_TAG}
+      - -f
+      - renderer/Dockerfile
+      - .
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/slidegen-renderer:${_TAG}
+substitutions:
+  _TAG: latest
+  _REGION: us-central1
+  _REPO: pixelpitch-agents
+options:
+  machineType: E2_HIGHCPU_8
+  logging: CLOUD_LOGGING_ONLY

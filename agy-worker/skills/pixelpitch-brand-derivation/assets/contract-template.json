@@ -1,0 +1,32 @@
+{
+  "palette": {
+    "base_dark": "",
+    "base_light": "",
+    "ink": "",
+    "brand": "",
+    "data_1": "",
+    "data_2": "",
+    "rule": ""
+  },
+  "palette_source": {
+    "base_dark": "dk2",
+    "base_light": "lt1",
+    "ink": "dk1",
+    "brand": "accent1",
+    "data_1": "accent3",
+    "data_2": "accent4",
+    "rule": "accent6"
+  },
+  "fonts": { "major": "", "minor": "" },
+  "accent_rules": "",
+  "contrast_notes": "",
+  "layout_worlds": [],
+  "decorative_devices": [],
+  "type_hierarchy": "",
+  "photo_treatment": "",
+  "visual_aids_style": "",
+  "protected": [],
+  "dos": [],
+  "donts": [],
+  "design_md": ""
+}

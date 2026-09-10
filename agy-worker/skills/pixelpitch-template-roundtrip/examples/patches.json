@@ -1,0 +1,21 @@
+{
+  "slides": [
+    {
+      "slide_index": 0,
+      "slide_type_id": "statement",
+      "baseline_sha256": "a25b2dcaac2317988a5e1258f274b943aff66bc4f586deb5ac48e57365f78832",
+      "title": "Riverina now carries two thirds of intake",
+      "role": "body",
+      "replacements": [
+        {
+          "seam_id": "title",
+          "html_fragment": "Riverina now carries <em>two thirds</em> of intake"
+        },
+        {
+          "seam_id": "aid",
+          "html_fragment": "<svg viewBox=\"0 0 1088 268\" width=\"1088\" height=\"268\"><text x=\"0\" y=\"30\" font-size=\"20\" fill=\"#1B2A4A\">Riverina</text><rect x=\"220\" y=\"10\" width=\"580\" height=\"28\" fill=\"#C25E2A\"></rect><text x=\"814\" y=\"32\" font-size=\"20\" font-weight=\"700\" fill=\"#1B2A4A\">66%</text><text x=\"0\" y=\"90\" font-size=\"20\" fill=\"#1B2A4A\">Sunraysia</text><rect x=\"220\" y=\"70\" width=\"246\" height=\"28\" fill=\"#C9D2E3\"></rect><text x=\"480\" y=\"92\" font-size=\"20\" font-weight=\"700\" fill=\"#1B2A4A\">28%</text><text x=\"0\" y=\"150\" font-size=\"20\" fill=\"#1B2A4A\">Other</text><rect x=\"220\" y=\"130\" width=\"53\" height=\"28\" fill=\"#C9D2E3\"></rect><text x=\"287\" y=\"152\" font-size=\"20\" font-weight=\"700\" fill=\"#1B2A4A\">6%</text><line x1=\"220\" y1=\"0\" x2=\"220\" y2=\"170\" stroke=\"#C9D2E3\"></line><text x=\"0\" y=\"216\" font-size=\"18\" fill=\"#8A94A6\">Share of tonnes received, season to date.</text></svg>"
+        }
+      ]
+    }
+  ]
+}

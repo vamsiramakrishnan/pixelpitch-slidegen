@@ -1,0 +1,38 @@
+<!--
+  Fixture for differential-render testing.
+
+  The slide has a body wrapper with a `url()` background-image that we
+  cannot translate to native gradient. Tier 0's `slide-gradient-bg`
+  pattern won't fire. Promotion takes the Hybrid path: raster the
+  decoration, native text on top.
+
+  Without differential render: the rastered decoration includes the text
+  pixels, so when we lay native text on top, the user sees it twice
+  (rastered + native).
+
+  With differential render: the second-pass screenshot has all text
+  blanked, so the rastered decoration is text-free. The native text on
+  top has nothing competing with it.
+-->
+<!DOCTYPE html>
+<html>
+<head><style>
+  html, body { margin:0; padding:0; width:1280px; height:720px;
+               font-family: Inter, sans-serif; color:#fff;
+               /* Embedded SVG-as-data-URL: a noisy patterned background that
+                  must rasterize (we don't transpile arbitrary SVGs). */
+               background-color:#1e1b4b;
+               background-image:
+                 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><circle cx='40' cy='40' r='30' fill='%23a78bfa' opacity='0.18'/><circle cx='10' cy='10' r='6' fill='%23f472b6' opacity='0.5'/></svg>"); }
+  .slide { width:1280px; height:720px; padding:96px; box-sizing:border-box;
+           display:flex; flex-direction:column; justify-content:center; }
+  h1 { font-size:88px; font-weight:800; line-height:1; margin:0 0 24px 0; letter-spacing:-0.04em; }
+  p  { font-size:22px; color:#d4d4d8; max-width:760px; line-height:1.5; margin:0; font-weight:500; }
+</style></head>
+<body>
+  <div class="slide">
+    <h1 data-pptx-role="title">Native text on a rastered backdrop.</h1>
+    <p>The url() pattern below cannot translate to OOXML. Differential render strips text from the second-pass screenshot, so the rastered backdrop has no text bleed.</p>
+  </div>
+</body>
+</html>

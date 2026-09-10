@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Seven in ten outages start in the last mile</title>
+    <style>
+      :root {
+        --ink: #1b1b1a;
+        --paper: #f4f2ed;
+        --muted: #8c8880;
+        --accent: #7a4a2b;
+        --rule: #dcd8d0;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box;
+        width: 1280px;
+        height: 720px;
+        padding: 72px;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 520px 1fr;
+        grid-template-rows: 1fr auto;
+        column-gap: 72px;
+        row-gap: 24px;
+      }
+      h1 {
+        margin: 0 0 28px;
+        font-size: 44px;
+        line-height: 1.12;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+      }
+      .key {
+        color: var(--accent);
+      }
+      .body {
+        margin: 0 0 20px;
+        font-size: 24px;
+        line-height: 1.45;
+      }
+      .source {
+        grid-column: 1 / -1;
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.4;
+        font-style: italic;
+        color: var(--muted);
+      }
+      .seg,
+      .pct {
+        font-size: 20px;
+      }
+      .seg {
+        fill: var(--ink);
+      }
+      .pct {
+        fill: var(--ink);
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="slide">
+      <!-- Two columns because the argument is prose and the exhibit is one
+           number. A second chart in the shape of slide two would have made
+           the deck read as a template rather than a case. -->
+      <div>
+        <h1 data-pptx-role="title">
+          Seven in ten outages start in the <span class="key">last mile</span>
+        </h1>
+        <p class="body">
+          Generation and transmission are not where our customers lose supply.
+          The failures are downstream of the primary substation, on the plant
+          we have deferred since 2019.
+        </p>
+        <p class="body">
+          Capex has been following the opposite gradient. Every pound spent
+          upstream buys reliability we already have.
+        </p>
+      </div>
+
+      <svg width="608" height="464" viewBox="0 0 608 464" role="img"
+           aria-label="Origin of outages: last-mile feeder 71 percent, primary substation 18 percent, generation and transmission 11 percent">
+        <rect x="0" y="0" width="176" height="46" fill="#dcd8d0" />
+        <rect x="0" y="47" width="176" height="75" fill="#c4bcb0" />
+        <rect x="0" y="123" width="176" height="297" fill="#7a4a2b" />
+
+        <line x1="176" y1="23" x2="212" y2="23" stroke="#8c8880" stroke-width="1" />
+        <text class="pct" x="224" y="18">11%</text>
+        <text class="seg" x="224" y="44">Generation and transmission</text>
+
+        <line x1="176" y1="84" x2="212" y2="84" stroke="#8c8880" stroke-width="1" />
+        <text class="pct" x="224" y="79">18%</text>
+        <text class="seg" x="224" y="105">Primary substation</text>
+
+        <line x1="176" y1="271" x2="212" y2="271" stroke="#8c8880" stroke-width="1" />
+        <text class="pct" x="224" y="266">71%</text>
+        <text class="seg" x="224" y="292">Last-mile feeder</text>
+
+        <text class="seg" x="0" y="452">Outages by originating asset, FY2026</text>
+      </svg>
+
+      <p class="source">
+        Source: incident cause coding, 11,480 recorded interruptions, FY2026.
+      </p>
+    </section>
+  </body>
+</html>

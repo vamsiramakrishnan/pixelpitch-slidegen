@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-labelledby="title description">
+  <title id="title">Pixelpitch: deck generation and template preparation</title>
+  <desc id="description">Gemini Enterprise opens the MCP App. Its private API saves jobs in Firestore. A separate worker authors slides and calls the renderer, which saves an editable PowerPoint in Cloud Storage. An optional A2A agent uses the same renderer. Separately, a PowerPoint upload triggers Eventarc. The template worker's events endpoint queues a Cloud Task. Its prepare endpoint parses every source slide with the renderer and Antigravity, validates the result, and saves a ready bundle for that file version. Both A2A and MCP read prepared templates.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4c6071"/>
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #162d3d; }
+      .heading { font-size: 28px; font-weight: 700; }
+      .section { font-size: 18px; font-weight: 700; }
+      .name { font-size: 18px; font-weight: 700; }
+      .detail { font-size: 16px; fill: #405667; }
+      .note { font-size: 16px; fill: #405667; }
+      .node { fill: white; stroke: #b8c7d0; stroke-width: 1.5; }
+      .flow { fill: none; stroke: #4c6071; stroke-width: 2; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1200" height="900" rx="16" fill="#ffffff"/>
+  <text x="32" y="46" class="heading">Pixelpitch architecture</text>
+  <text x="32" y="76" class="detail">Generate decks on request. Prepare templates when the source file changes.</text>
+  <rect x="24" y="108" width="1152" height="354" rx="14" fill="#f0f6fa"/>
+  <text x="48" y="145" class="section">1 / A user creates a deck</text>
+  <text x="48" y="171" class="detail">Cloud services are private. The widget calls the API for progress and previews.</text>
+  <rect x="48" y="198" width="226" height="90" rx="8" class="node"/>
+  <text x="66" y="232" class="name">Gemini Enterprise</text>
+  <text x="66" y="260" class="detail">MCP App in chat</text>
+  <rect x="330" y="198" width="226" height="90" rx="8" class="node"/>
+  <text x="348" y="232" class="name">MCP API</text>
+  <text x="348" y="260" class="detail">Checks user; saves job</text>
+  <rect x="612" y="198" width="226" height="90" rx="8" class="node"/>
+  <text x="630" y="232" class="name">Firestore</text>
+  <text x="630" y="260" class="detail">Job queue and status</text>
+  <rect x="894" y="198" width="258" height="90" rx="8" class="node"/>
+  <text x="912" y="232" class="name">MCP deck worker</text>
+  <text x="912" y="260" class="detail">ADK + isolated Antigravity</text>
+  <path d="M274 243 H322" class="flow"/>
+  <path d="M556 243 H604" class="flow"/>
+  <path d="M846 243 H886" class="flow" marker-start="url(#arrow)"/>
+  <rect x="48" y="342" width="508" height="88" rx="8" class="node"/>
+  <text x="66" y="376" class="name">Optional A2A agent</text>
+  <text x="66" y="404" class="detail">Separate GE registration; same authoring and export</text>
+  <rect x="612" y="342" width="226" height="88" rx="8" class="node"/>
+  <text x="630" y="376" class="name">Renderer</text>
+  <text x="630" y="404" class="detail">Slidify + content checks</text>
+  <rect x="894" y="342" width="258" height="88" rx="8" class="node"/>
+  <text x="912" y="376" class="name">Cloud Storage</text>
+  <text x="912" y="404" class="detail">Editable PPTX + previews</text>
+  <path d="M1023 288 V313 H725 V334" class="flow"/>
+  <path d="M556 386 H604" class="flow"/>
+  <path d="M838 386 H886" class="flow"/>
+  <rect x="24" y="490" width="1152" height="342" rx="14" fill="#f1f7f1"/>
+  <text x="48" y="527" class="section">2 / A template file is uploaded or replaced</text>
+  <text x="48" y="553" class="detail">Eventarc reports the upload. It does not parse the PowerPoint.</text>
+  <rect x="48" y="582" width="174" height="112" rx="8" class="node"/>
+  <text x="62" y="614" class="name">Cloud Storage</text>
+  <text x="62" y="642" class="detail">templates/*.pptx</text>
+  <text x="62" y="670" class="detail">New file version</text>
+  <rect x="256" y="582" width="160" height="112" rx="8" class="node"/>
+  <text x="270" y="614" class="name">Eventarc</text>
+  <text x="270" y="642" class="detail">Upload complete</text>
+  <text x="270" y="670" class="detail">notification</text>
+  <rect x="450" y="582" width="200" height="112" rx="8" class="node"/>
+  <text x="464" y="614" class="name">/events</text>
+  <text x="464" y="642" class="detail">Checks file + version</text>
+  <text x="464" y="670" class="detail">Enqueues work</text>
+  <rect x="684" y="582" width="178" height="112" rx="8" class="node"/>
+  <text x="698" y="614" class="name">Cloud Tasks</text>
+  <text x="698" y="642" class="detail">Named tasks</text>
+  <text x="698" y="670" class="detail">Limited retries</text>
+  <rect x="896" y="582" width="256" height="112" rx="8" class="node"/>
+  <text x="910" y="614" class="name">/prepare</text>
+  <text x="910" y="642" class="detail">Extract + validate all slides</text>
+  <text x="910" y="670" class="detail">Renderer + Antigravity</text>
+  <path d="M222 638 H248" class="flow"/>
+  <path d="M416 638 H442" class="flow"/>
+  <path d="M650 638 H676" class="flow"/>
+  <path d="M862 638 H888" class="flow"/>
+  <text x="48" y="752" class="note">/events and /prepare belong to one private template worker.</text>
+  <text x="48" y="780" class="note">This is separate from the MCP deck worker and its Firestore queue.</text>
+  <rect x="684" y="728" width="468" height="80" rx="8" fill="#deeddf" stroke="#77997e" stroke-width="1.5"/>
+  <text x="700" y="760" class="name">Ready template bundle in Cloud Storage</text>
+  <text x="700" y="786" class="detail">Exact source version · read by A2A and MCP</text>
+  <path d="M1024 694 V720" class="flow"/>
+  <text x="32" y="869" class="note">Replacing the same gs:// file creates a new version. Wait for ready: true before selecting it.</text>
+</svg>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Disposition and analysis sets</title>
+    <style>
+      :root {
+        --ink: #14161a;
+        --paper: #fcfcfa;
+        --muted: #767a80;
+        --accent: #2f5d3f;
+        --rule: #dfe1e0;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--paper); color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px;
+        padding: 72px; overflow: hidden;
+      }
+      h1 {
+        margin: 0; font-size: 44px; line-height: 1.14;
+        font-weight: 700; letter-spacing: -0.015em;
+      }
+      .key { color: var(--accent); }
+      .caption, .source {
+        margin: 0; font-size: 18px; line-height: 1.4;
+        font-style: italic; color: var(--muted);
+      }
+      .body { margin: 0; font-size: 24px; line-height: 1.45; }
+      svg text { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+
+      .slide--stack { display: grid; grid-template-rows: auto auto 1fr auto; row-gap: 20px; }
+      .fbox { fill: none; stroke: #c9cdd1; stroke-width: 1; }
+      .fname { font-size: 20px; fill: var(--ink); }
+      .fnum { font-size: 22px; fill: var(--ink); font-weight: 700; }
+      .flost { font-size: 18px; fill: var(--muted); }
+      .fline { stroke: #c9cdd1; stroke-width: 1; fill: none; }
+    </style>
+  </head>
+  <body>
+    <section class="slide slide--stack">
+      <h1 data-pptx-role="title">
+        Attrition was <span class="key">even across arms</span>, so the
+        comparison holds
+      </h1>
+      <p class="caption">
+        Participant flow from screening to the week 24 analysis set
+      </p>
+
+      <svg width="1136" height="376" viewBox="0 0 1136 376" role="img"
+           aria-label="Flow: 587 screened, 175 excluded, 412 randomised into three arms of 137, 138 and 137; 366 analysed at week 24">
+        <rect class="fbox" x="0" y="0" width="300" height="72" />
+        <text class="fnum" x="20" y="34">587</text>
+        <text class="fname" x="20" y="58">assessed for eligibility</text>
+
+        <path class="fline" d="M150 72 V116" />
+        <path class="fline" d="M150 94 H360" />
+        <text class="flost" x="372" y="88">175 excluded</text>
+        <text class="flost" x="372" y="110">142 criteria &middot; 33 declined</text>
+
+        <rect class="fbox" x="0" y="116" width="300" height="72" />
+        <text class="fnum" x="20" y="150">412</text>
+        <text class="fname" x="20" y="174">randomised 1:1:1</text>
+
+        <path class="fline" d="M150 188 V214 M150 214 H1010 M150 214 V240 M580 214 V240 M1010 214 V240" />
+
+        <rect class="fbox" x="20" y="240" width="260" height="64" />
+        <text class="fnum" x="40" y="272">137</text>
+        <text class="fname" x="40" y="294">placebo</text>
+        <text class="flost" x="40" y="340">15 stopped &middot; 122 analysed</text>
+
+        <rect class="fbox" x="450" y="240" width="260" height="64" />
+        <text class="fnum" x="470" y="272">138</text>
+        <text class="fname" x="470" y="294">20mg once daily</text>
+        <text class="flost" x="470" y="340">12 stopped &middot; 126 analysed</text>
+
+        <rect class="fbox" x="880" y="240" width="256" height="64" />
+        <text class="fnum" x="900" y="272">137</text>
+        <text class="fname" x="900" y="294">40mg once daily</text>
+        <text class="flost" x="890" y="340">11 stopped &middot; 126 analysed</text>
+      </svg>
+
+      <p class="source">
+        Source: RA&ndash;214 clinical database, snapshot 14 August 2026.
+      </p>
+    </section>
+  </body>
+</html>

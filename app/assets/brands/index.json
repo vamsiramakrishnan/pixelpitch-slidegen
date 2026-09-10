@@ -1,0 +1,10 @@
+[
+  {"id": "stripe", "name": "Stripe", "category": "Fintech", "description": "Payment infrastructure. Signature purple gradients, weight-300 elegance, blue-tinted shadows."},
+  {"id": "apple", "name": "Apple", "category": "Consumer Tech", "description": "Minimalist product-led design. Generous whitespace, SF-style grotesque type, restrained monochrome palette."},
+  {"id": "airbnb", "name": "Airbnb", "category": "Travel / Marketplace", "description": "Warm, hospitable marketplace feel. Rausch coral accent, rounded shapes, friendly photography."},
+  {"id": "spotify", "name": "Spotify", "category": "Media / Audio", "description": "High-contrast dark surfaces with vivid green accent. Bold display type, duotone imagery."},
+  {"id": "vercel", "name": "Vercel", "category": "Dev Tools", "description": "Geometric minimalism. Pure black and white, precise grids, gradient accents for emphasis."},
+  {"id": "slack", "name": "Slack", "category": "Enterprise SaaS", "description": "Plum aubergine brand color, playful multicolor accents, approachable enterprise tone."},
+  {"id": "starbucks", "name": "Starbucks", "category": "Retail / F&B", "description": "Heritage green, warm neutrals, storytelling-led layouts with lifestyle imagery."},
+  {"id": "tesla", "name": "Tesla", "category": "Automotive / Energy", "description": "Futuristic minimalism. Stark black-and-white contrast, technical typography, cinematic product focus."}
+]

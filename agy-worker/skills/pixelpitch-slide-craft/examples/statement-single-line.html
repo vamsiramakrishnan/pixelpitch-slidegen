@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>The network is sized for one and four tenths per cent of the year</title>
+    <style>
+      :root {
+        --ink: #1b1614;
+        --paper: #f2f1ee;
+        --field: #d2521e;
+        --paper-soft: rgba(242, 241, 238, 0.6);
+        --hair: #332b26;
+        --statement: 66px;
+        --label: 18px;
+        --pad-x: 96px;
+        --pad-y: 56px;
+        /* Narrower than the frame on purpose. The sentence breaks into four
+           lines with the last one short, and the right margin is the rest of
+           the composition. */
+        --measure: 940px;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--ink); color: var(--paper);
+        font-family: Barlow, Inter, "DejaVu Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      /* One sentence, nothing else in the frame. A statement slide that also
+         carries a subtitle, an image, or a takeaway strip is a body slide
+         wearing the wrong clothes. */
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px; overflow: hidden;
+        padding: var(--pad-y) var(--pad-x);
+        display: flex; flex-direction: column; justify-content: center;
+      }
+      .quote {
+        margin: 0; max-width: var(--measure);
+        font-size: var(--statement); font-weight: 600; line-height: 1.08;
+        letter-spacing: -0.03em;
+      }
+      .quote .key { color: var(--field); }
+      .attrib {
+        margin: 44px 0 0; padding-top: 18px;
+        max-width: 560px; border-top: 1px solid var(--hair);
+        font-size: var(--label); letter-spacing: 0.1em;
+        text-transform: uppercase; color: var(--paper-soft);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="slide"
+      data-pptx-notes="Say the sentence, then stop. This slide exists to make the room hold one number for four seconds before the options come up."
+    >
+      <p class="quote" data-pptx-role="title">
+        We size the network for
+        <span class="key">one and four tenths per cent</span>
+        of the year, and pay for it in all of it
+      </p>
+      <p class="attrib">Head of network planning, December review</p>
+    </div>
+  </body>
+</html>

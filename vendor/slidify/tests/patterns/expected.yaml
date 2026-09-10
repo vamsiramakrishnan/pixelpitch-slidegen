@@ -1,0 +1,148 @@
+# Round-trip pattern fixtures.
+#
+# Each entry pairs a synthetic HTML slide with the recipe IDs we expect to
+# fire at least once during conversion. Keeps the manifest honest: changes
+# to pattern definitions or matcher predicates must keep existing fixtures
+# matching, otherwise CI breaks.
+#
+# Slides should be minimal — just enough markup to exhibit the pattern.
+
+fixtures:
+  - id: kicker-pure
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        .kicker{position:absolute;top:80px;left:80px;font-size:12px;letter-spacing:0.42em;text-transform:uppercase;color:#a78bfa;font-weight:600;}
+      </style></head><body>
+        <div class="kicker uppercase tracking-widest">Q2 2026 · INVESTOR UPDATE</div>
+      </body></html>
+    expect_any:
+      - kicker-tailwind
+      - kicker-from-css
+
+  - id: pill-rounded-full
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        .pill{position:absolute;top:80px;left:80px;border-radius:9999px;background:rgba(255,255,255,0.10);padding:6px 14px;font-size:12px;color:#fff;display:inline-block;}
+      </style></head><body>
+        <div class="pill rounded-full">LIVE</div>
+      </body></html>
+    expect_any:
+      - pill-tailwind
+      - pill-from-css
+
+  - id: hero-h1
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        h1{font-size:96px;font-weight:800;color:#fff;margin:96px;line-height:1;}
+      </style></head><body>
+        <h1>Maximum native editability.</h1>
+      </body></html>
+    expect_any:
+      - title-h1
+      - title-large-class
+
+  - id: stat-number-big
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        .num{position:absolute;top:200px;left:200px;font-size:96px;font-weight:800;letter-spacing:-0.05em;color:#fff;}
+      </style></head><body>
+        <div class="num">87%</div>
+      </body></html>
+    expect_any:
+      - stat-number-tailwind
+      - stat-number-from-css
+      - stat-number-with-runs
+
+  - id: gradient-card-no-text
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;}
+        .card{position:absolute;top:80px;left:80px;width:300px;height:200px;background:linear-gradient(135deg,#6366f1,#ec4899);border-radius:16px;}
+      </style></head><body>
+        <div class="card rounded-2xl"></div>
+      </body></html>
+    expect_any:
+      - gradient-card-no-text
+
+  - id: gradient-card-with-text
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        .card{position:absolute;top:80px;left:80px;width:300px;height:200px;background:linear-gradient(135deg,#6366f1,#ec4899);border-radius:16px;padding:32px;box-sizing:border-box;}
+      </style></head><body>
+        <div class="card rounded-2xl">Editable text on gradient</div>
+      </body></html>
+    expect_any:
+      - gradient-card-with-text
+
+  - id: hairline-divider
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;}
+        .rule{position:absolute;top:200px;left:80px;width:600px;height:1px;background:#3f3f46;}
+      </style></head><body>
+        <div class="rule"></div>
+      </body></html>
+    expect_any:
+      - hairline-divider
+
+  - id: avatar-circle
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;}
+        .av{position:absolute;top:200px;left:80px;width:64px;height:64px;background:#6366f1;border-radius:9999px;}
+      </style></head><body>
+        <div class="av rounded-full"></div>
+      </body></html>
+    expect_any:
+      - avatar-circle
+
+  - id: backdrop-blur-rasters
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        .glass{position:absolute;top:80px;left:80px;width:300px;height:200px;background:rgba(255,255,255,0.05);backdrop-filter:blur(12px);border-radius:16px;padding:24px;box-sizing:border-box;}
+      </style></head><body>
+        <div class="glass backdrop-blur-md rounded-2xl">card body</div>
+      </body></html>
+    expect_any:
+      - rasterize-only-class
+
+  - id: page-number-bottom
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        .pg{position:absolute;bottom:24px;right:24px;font-size:12px;color:#a1a1aa;}
+      </style></head><body>
+        <div class="pg">07 / 12</div>
+      </body></html>
+    expect_any:
+      - page-number
+      - footer-text
+
+  - id: section-marker
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        .num{position:absolute;top:160px;left:80px;font-size:160px;font-weight:800;color:#fff;line-height:1;}
+      </style></head><body>
+        <div class="num">03</div>
+      </body></html>
+    expect_any:
+      - section-marker-large-number
+      - stat-number-from-css
+
+  - id: button-solid
+    html: |
+      <!DOCTYPE html><html><head><style>
+        html,body{margin:0;width:1280px;height:720px;font-family:Inter,sans-serif;background:#0a0a0a;color:#fff;}
+        .btn{position:absolute;top:200px;left:80px;background:#6366f1;color:#fff;padding:16px 24px;border-radius:12px;font-size:16px;font-weight:600;display:inline-block;}
+      </style></head><body>
+        <div class="btn rounded-xl bg-indigo-500">Get started →</div>
+      </body></html>
+    expect_any:
+      - button-solid-tailwind

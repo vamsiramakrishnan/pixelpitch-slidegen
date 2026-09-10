@@ -1,0 +1,24 @@
+{
+  "slides": [
+    {
+      "file": "01-saturday-is-the-new-monday.html",
+      "title": "Saturday is the new Monday",
+      "role": "hero"
+    },
+    {
+      "file": "02-weekend-orders-outsell.html",
+      "title": "Weekend orders now outsell every weekday",
+      "role": "body"
+    },
+    {
+      "file": "03-staffing-follows-demand.html",
+      "title": "Staffing still follows a weekday roster",
+      "role": "body"
+    },
+    {
+      "file": "04-move-the-roster.html",
+      "title": "Move the roster before peak season",
+      "role": "closing"
+    }
+  ]
+}

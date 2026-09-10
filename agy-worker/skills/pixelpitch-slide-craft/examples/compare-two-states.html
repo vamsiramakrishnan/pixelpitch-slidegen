@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>What changes on the line</title>
+    <style>
+      :root {
+        --ink: #1a1a1a;
+        --paper: #f2f1ee;
+        --muted: #8b8b85;
+        --accent: #d2521e;
+        --rule: #dcdad4;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--paper); color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px;
+        padding: 72px; overflow: hidden;
+      }
+      h1 {
+        margin: 0; font-size: 44px; line-height: 1.14;
+        font-weight: 700; letter-spacing: -0.015em;
+      }
+      .key { color: var(--accent); }
+      .caption, .source {
+        margin: 0; font-size: 18px; line-height: 1.4;
+        font-style: italic; color: var(--muted);
+      }
+      .body { margin: 0; font-size: 24px; line-height: 1.45; }
+      svg text { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+
+      .slide--split {
+        display: grid; grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr; column-gap: 72px; row-gap: 28px;
+      }
+      .slide--split h1 { grid-column: 1 / -1; }
+      .col h2 {
+        margin: 0 0 20px; padding-bottom: 14px;
+        border-bottom: 1px solid var(--ink);
+        font-size: 20px; font-weight: 400; color: var(--muted);
+      }
+      .col p {
+        margin: 0 0 18px; font-size: 23px; line-height: 1.4;
+        padding-left: 30px; text-indent: -30px;
+      }
+      .col--now p::before { content: "\2022  "; color: var(--muted); }
+      .col--next p::before { content: "\2022  "; color: var(--accent); }
+      .gap { margin: 0; font-size: 20px; color: var(--muted); }
+    </style>
+  </head>
+  <body>
+    <section class="slide slide--split">
+      <h1 data-pptx-role="title">
+        Detection moves from <span class="key">weekly to every 250 units</span>
+      </h1>
+
+      <div class="col col--now">
+        <h2>Today, worst case 38 days</h2>
+        <p>Torque wrench calibrated weekly, by paper sign-off</p>
+        <p>Five-unit audit once a month</p>
+        <p>No station alert when a calibration slot passes unfilled</p>
+        <p class="gap">A missed slot is invisible until someone reads the sheet.</p>
+      </div>
+
+      <div class="col col--next">
+        <h2>From 15 September, worst case 4 hours</h2>
+        <p>Inline torque transducer audits 1 unit in 250, logged to MES</p>
+        <p>Calibration slot raises a station stop if it passes unfilled</p>
+        <p>Audit result out of spec quarantines the batch automatically</p>
+        <p class="gap">Cost: &pound;38k of transducers, 0.4 seconds of cycle time.</p>
+      </div>
+    </section>
+  </body>
+</html>

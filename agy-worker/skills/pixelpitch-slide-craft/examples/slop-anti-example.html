@@ -1,0 +1,109 @@
+<!doctype html>
+<!--
+  DO NOT COPY THIS SLIDE.
+
+  It is the negative control for scripts/lint_slides.py: one document carrying
+  every mechanically detectable tell in references/anti-slop.md, so the gate
+  can be trusted to fire. Each defect is annotated with the rule id it trips.
+  Reading it is the fastest way to recognise the house style of a slide that
+  was generated rather than designed.
+
+  Recorded output is in examples/README.md.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Anti-example: every detectable tell</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 1280px;
+        height: 720px;
+        font-family: Inter, sans-serif;
+        /* stripe_background */
+        background: repeating-linear-gradient(45deg, #f7f7f9, #f7f7f9 12px, #eef0f4 12px, #eef0f4 24px);
+      }
+      .slide {
+        position: relative;
+        box-sizing: border-box;
+        width: 1280px;
+        height: 720px;
+        padding: 64px;
+        overflow: hidden;
+      }
+      /* eyebrow */
+      .kicker {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: #7c8698;
+      }
+      /* gradient_text */
+      h1 {
+        font-size: 52px;
+        background: linear-gradient(90deg, #4f46e5, #06b6d4);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      /* side_stripe */
+      .pullquote {
+        border-left: 4px solid #4f46e5;
+        padding-left: 20px;
+        font-size: 22px;
+      }
+      /* over_rounded + ghost_card + glassmorphism, all on the same panel */
+      .panel {
+        border-radius: 40px;
+        border: 1px solid #dddddd;
+        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+        backdrop-filter: blur(12px);
+        padding: 24px;
+      }
+      /* card_grid: the same class on five identical tiles */
+      .card {
+        display: inline-block;
+        width: 200px;
+        height: 120px;
+        margin: 8px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="slide">
+      <!-- numbered_scaffold: the rail, not the single slide number -->
+      <nav class="rail">02 · Process &nbsp; 03 · Pricing</nav>
+      <div class="kicker">01 · Overview</div>
+      <!-- punchline_title: the reversal is the speaker's line, not a title -->
+      <h1 data-pptx-role="title">It's Not a Portfolio. It's a Platform.</h1>
+
+      <div class="panel">
+        <p class="pullquote">Our platform empowers teams to move faster together.</p>
+      </div>
+
+      <div class="card">Scale</div>
+      <div class="card">Trust</div>
+      <div class="card">Speed</div>
+      <div class="card">Insight</div>
+      <div class="card">Growth</div>
+
+      <!-- hero_metric -->
+      <div class="stat">
+        <div style="font-size:72px">94%</div>
+        <div style="font-size:72px">3.2x</div>
+        <div style="font-size:72px">$1.4M</div>
+      </div>
+
+      <!-- placeholder_text -->
+      <p>Click to edit Master text style</p>
+
+      <!-- sketchy_svg -->
+      <svg class="doodle" width="180" height="80" aria-hidden="true">
+        <path d="M4 60 C 40 10, 80 70, 120 24" stroke="#4f46e5" fill="none" />
+      </svg>
+    </section>
+  </body>
+</html>

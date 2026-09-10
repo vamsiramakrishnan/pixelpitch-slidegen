@@ -1,0 +1,55 @@
+/* Mode A shell: one clean plate, native text above it.
+
+   Every number an overlay uses comes from spec/slide-NN.json. This file holds
+   only the grammar that makes those numbers land where the spec says; it
+   contains no template-specific values, because inventing one is the failure
+   this route exists to prevent.
+
+   Point sizes convert at 96 DPI: px = pt * 4 / 3. A 54pt run is 72px. */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+}
+
+/* The spec's coordinate space is already 1280x720 px, so the slide is the
+   coordinate system. No scaling factor, no transform. */
+.slide {
+  position: relative;
+  box-sizing: border-box;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+}
+
+/* The plate is clean/slide-NN.png, never base/slide-NN.png. The base still
+   carries the template's placeholder copy and will double-expose. */
+.plate {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 720px;
+  display: block;
+}
+
+/* One class per overlay, positioned from the shape's x/y/w. Height is left
+   to the content: the spec rect is where the text starts, and forcing the
+   extracted h clips a line that reflowed. */
+.t {
+  position: absolute;
+  margin: 0;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+}
+
+/* Furniture painted out of the plate has to be re-added as overlay text or it
+   ceases to exist. Same fidelity as the content: it is the template. */
+.furniture {
+  position: absolute;
+  margin: 0;
+}

@@ -1,0 +1,47 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "brand_listing",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Which brands can you use for deck generation? List them."
+          }
+        ]
+      },
+      "reference": {
+        "response": {
+          "role": "model",
+          "parts": [
+            {
+              "text": "Available brands include Stripe, Apple, Airbnb, Spotify, Vercel, Slack, Starbucks and Tesla, each with a short description of its visual style."
+            }
+          ]
+        }
+      }
+    },
+    {
+      "eval_case_id": "intake_form_incomplete_brief",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "I need a deck for our engineering all-hands next month."
+          }
+        ]
+      }
+    },
+    {
+      "eval_case_id": "full_deck_generation",
+      "prompt": {
+        "role": "user",
+        "parts": [
+          {
+            "text": "Generate a 2-slide deck titled 'Cloud Cost Savings' for platform engineers. Goal: secure budget sign-off for FinOps tooling. Use Stripe branding. All details are set, go straight to generation."
+          }
+        ]
+      }
+    }
+  ]
+}

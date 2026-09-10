@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>How thirty-eight days passed</title>
+    <style>
+      :root {
+        --ink: #1a1a1a;
+        --paper: #f2f1ee;
+        --muted: #8b8b85;
+        --accent: #d2521e;
+        --rule: #dcdad4;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--paper); color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px;
+        padding: 72px; overflow: hidden;
+      }
+      h1 {
+        margin: 0; font-size: 44px; line-height: 1.14;
+        font-weight: 700; letter-spacing: -0.015em;
+      }
+      .key { color: var(--accent); }
+      .caption, .source {
+        margin: 0; font-size: 18px; line-height: 1.4;
+        font-style: italic; color: var(--muted);
+      }
+      .body { margin: 0; font-size: 24px; line-height: 1.45; }
+      svg text { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+
+      .slide--stack { display: grid; grid-template-rows: auto auto 1fr auto; row-gap: 22px; }
+      .tl-date { font-size: 20px; fill: var(--muted); }
+      .tl-what { font-size: 20px; fill: var(--ink); }
+      .tl-note { font-size: 22px; fill: var(--ink); }
+      .tl-hot { font-size: 22px; fill: var(--accent); font-weight: 700; }
+      .tl-span { font-size: 20px; fill: var(--accent); font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <section class="slide slide--stack">
+      <h1 data-pptx-role="title">
+        The drift was silent for
+        <span class="key">thirty-eight days</span> because nothing downstream
+        measured torque
+      </h1>
+      <p class="caption">
+        Torque station 3B, from the missed calibration to the warranty claim
+      </p>
+
+      <svg width="1136" height="330" viewBox="0 0 1136 330" role="img"
+           aria-label="Timeline: calibration skipped 14 March, drift begins, 3100 units ship, warranty claim 21 April, line stopped 22 April">
+        <line x1="40" y1="150" x2="1096" y2="150" stroke="#c9c6be" stroke-width="2" />
+
+        <rect x="150" y="140" width="710" height="20" fill="#f2c9b3" />
+        <text class="tl-span" x="505" y="196" text-anchor="middle">38 days shipping out of spec</text>
+
+        <circle cx="150" cy="150" r="9" fill="#d2521e" />
+        <text class="tl-date" x="150" y="98" text-anchor="middle">14 March</text>
+        <text class="tl-hot" x="150" y="70" text-anchor="middle">Calibration skipped</text>
+
+        <circle cx="400" cy="150" r="6" fill="#8b8b85" />
+        <text class="tl-date" x="400" y="98" text-anchor="middle">21 March</text>
+        <text class="tl-what" x="400" y="70" text-anchor="middle">Drift exceeds tolerance</text>
+
+        <circle cx="640" cy="150" r="6" fill="#8b8b85" />
+        <text class="tl-date" x="640" y="98" text-anchor="middle">2 April</text>
+        <text class="tl-what" x="640" y="70" text-anchor="middle">1,000th unit ships</text>
+
+        <circle cx="860" cy="150" r="9" fill="#d2521e" />
+        <text class="tl-date" x="860" y="98" text-anchor="middle">21 April</text>
+        <text class="tl-hot" x="860" y="70" text-anchor="middle">Warranty claim</text>
+
+        <circle cx="1046" cy="150" r="6" fill="#8b8b85" />
+        <text class="tl-date" x="1046" y="98" text-anchor="middle">22 April</text>
+        <text class="tl-what" x="1046" y="70" text-anchor="middle">Line stopped</text>
+
+        <text class="tl-note" x="40" y="284">Every unit in that band left the plant with a bracket</text>
+        <text class="tl-note" x="40" y="314">torqued between 18 and 21 Nm against a 24 to 28 Nm spec.</text>
+      </svg>
+
+      <p class="source">
+        Source: station log 3B, MES ship records, warranty case 2026&ndash;04117.
+      </p>
+    </section>
+  </body>
+</html>

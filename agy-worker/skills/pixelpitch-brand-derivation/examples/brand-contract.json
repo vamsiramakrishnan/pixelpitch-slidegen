@@ -1,0 +1,68 @@
+{
+  "palette": {
+    "base_dark": "#1B2A4A",
+    "base_light": "#FFFFFF",
+    "paper": "#F4F1EA",
+    "ink": "#2E3440",
+    "brand": "#C25E2A",
+    "warm_sand": "#E5C79A",
+    "data_1": "#3F6E8C",
+    "data_2": "#7FA6B8",
+    "data_3": "#A8B8A0",
+    "rule": "#C9D2E3",
+    "link": "#2F6F9F",
+    "link_visited": "#6B5B95"
+  },
+  "palette_source": {
+    "base_dark": "dk2",
+    "base_light": "lt1",
+    "paper": "lt2",
+    "ink": "dk1",
+    "brand": "accent1",
+    "warm_sand": "accent2",
+    "data_1": "accent3",
+    "data_2": "accent4",
+    "data_3": "accent5",
+    "rule": "accent6",
+    "link": "hlink",
+    "link_visited": "folHlink"
+  },
+  "fonts": {
+    "major": "Founders Grotesk",
+    "minor": "Founders Grotesk"
+  },
+  "accent_rules": "Exactly one #C25E2A mark per slide, on the element that carries the argument. warm_sand #E5C79A is a chapter colour, not an accent, and appears only on slides 09-12. Data series use data_1..data_3 in order; everything not being argued about is #C9D2E3.",
+  "layout_worlds": [
+    "Statement (01, 06, 14): full-bleed photograph, #1B2A4A gradient scrim over the lower half, 54pt display and one supporting sentence bottom-left at a 96px margin.",
+    "Ledger (03-05, 07-08, 15-17): #FFFFFF ground, title top-left, 12-column grid, one #C9D2E3 hairline under each row. All data lives here.",
+    "Divider (02, 09, 13): #F4F1EA ground, one 32pt line vertically centred, no artwork."
+  ],
+  "decorative_devices": [
+    "1px #C9D2E3 hairline under each ledger row, full content width.",
+    "4px #C25E2A square to the left of a highlighted numeral, at most once per slide."
+  ],
+  "type_hierarchy": "Founders Grotesk at four steps: statement display 54pt bold, title 32pt bold, body 18pt regular, footer and label 14pt regular. Numerals bold and right-aligned. Sentence case titles; the template uses no all-caps labels anywhere.",
+  "photo_treatment": "Working landscapes and machinery shot wide, people incidental rather than posed. Always full-bleed, never inset or masked, and always under the #1B2A4A scrim where type sits on it. Meaning, not mood.",
+  "visual_aids_style": "Horizontal bars on a #C9D2E3 baseline: category label left in #1B2A4A, series in #3F6E8C, value right-aligned and bold. The bar the slide argues about is #C25E2A; every other bar is #C9D2E3. Axis tops land on a round number. No gridlines, no legend, no chart border. Timelines are the same hairline with dated ticks.",
+  "protected": [
+    {
+      "slides": [
+        "02"
+      ],
+      "reason": "Acknowledgement of Country. Cultural material; never reused, imitated, restyled, or used as a layout reference."
+    }
+  ],
+  "dos": [
+    "Give every slide exactly one #C25E2A mark and make it the argument.",
+    "Put the takeaway in the title and the exhibit name in the caption.",
+    "Keep numerals bold and right-aligned.",
+    "Cite the specimen slide number when copying a layout."
+  ],
+  "donts": [
+    "Introduce any colour not in palette.",
+    "Use warm_sand outside the harvest chapter (09-12).",
+    "Add cards, pills, shadows, or rounded corners; the template has none.",
+    "Reuse or imitate slide 02 in any form."
+  ],
+  "design_md": "# Northwind Group — authoring guideline\n\nDerived from `northwind-master.pptx` (theme1.xml) and the 18 rendered\nspecimens in `refs/`. Every value below is observed, not chosen.\n\n## Palette\n\n| Role | Hex | Where it is used |\n|---|---|---|\n| base_dark | #1B2A4A | Full-bleed statement grounds, chart baselines, all display type on light |\n| base_light | #FFFFFF | Data and text slide grounds |\n| paper | #F4F1EA | Section dividers and quote slides |\n| ink | #2E3440 | Body copy on light grounds |\n| brand | #C25E2A | The single accent. One per slide. |\n| warm_sand | #E5C79A | Photographic overlays and the harvest chapter only (slides 09-12) |\n| data_1 | #3F6E8C | First data series |\n| data_2 | #7FA6B8 | Second data series |\n| data_3 | #A8B8A0 | Third data series |\n| rule | #C9D2E3 | Hairlines, table rules, muted bars |\n| link | #2F6F9F | Hyperlinks |\n| link_visited | #6B5B95 | Followed hyperlinks |\n\nNo colour outside this table appears anywhere in the deck.\n\n## Type\n\nFounders Grotesk throughout, at four steps. Statement display 54pt bold,\ntitle 32pt bold, body 18pt regular, footer and label 14pt regular. Numerals\nare always bold and always right-aligned. Titles are sentence case; the deck\nnever uses all-caps labels.\n\n## Layout worlds\n\n**Statement.** Full-bleed photograph, a #1B2A4A gradient scrim across the\nlower half, display type and one supporting sentence bottom-left at a 96px\nmargin (slides 01, 06, 14).\n\n**Ledger.** White ground, title top-left, content on a 12-column grid with a\n#C9D2E3 hairline under each row. This is where data lives (slides 03-05,\n07-08, 15-17).\n\n**Divider.** #F4F1EA ground, one line of 32pt type, vertically centred, no\nartwork (slides 02, 09, 13).\n\n## Decorative devices\n\nA single 1px #C9D2E3 hairline under every ledger row, full content width. A\n#C25E2A 4px square set to the left of a highlighted numeral, used at most\nonce per slide. Nothing else. The template has no cards, no pills, no\nshadows, and no rounded corners anywhere.\n\n## Photography\n\nWorking landscapes and machinery, shot wide, people incidental rather than\nposed. Always full-bleed, never inset or masked. Always under the #1B2A4A\nscrim when type sits on it.\n\n## Visual aids\n\nHorizontal bars on a #C9D2E3 baseline, category label left in #1B2A4A, bar\nin #3F6E8C, value right-aligned and bold. The one bar the slide is arguing\nabout is #C25E2A and every other bar is #C9D2E3. Axis tops land on a round\nnumber. No gridlines, no legend, no chart border. Timelines are the same\nhairline plus dated ticks.\n\n## Do\n\n- Give every slide exactly one #C25E2A mark, and make it the argument.\n- Put the takeaway in the title and the exhibit name in the caption.\n- Keep numerals bold and right-aligned, always.\n\n## Don't\n\n- Introduce a colour that is not in the palette table above.\n- Use warm_sand outside the harvest chapter.\n- Reuse or imitate slide 02 in any form.\n"
+}

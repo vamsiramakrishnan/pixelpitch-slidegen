@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pixelpitch</title>
+</head>
+<body>
+  <!-- Pixelpitch MCP latency extension. Inherit the existing Material brief.
+  Open before catalog or generation work. Real drafts lead; UI remains quiet.
+  Keep controls immediate, artifact dimensions stable, and progress factual. -->
+  <main>
+    <header><h1 id="heading">Your next presentation</h1><p id="intro">Set the direction. Review slides as they take shape.</p></header>
+    <p id="connection" role="status">Connecting to Pixelpitch…</p>
+    <div id="error" role="alert" hidden></div>
+    <button id="reconnect" class="secondary" hidden>Reconnect to deck</button>
+    <form id="brief">
+      <fieldset id="fields">
+        <label for="topic">What is the presentation about?</label>
+        <textarea id="topic" name="topic" rows="2" required maxlength="4000" placeholder="The decision, story, or idea you want to present"></textarea>
+        <div class="pair audience-row">
+          <div><label for="audience">Audience</label><input id="audience" name="audience" maxlength="1000" value="Leadership team"></div>
+          <div><label for="slide-count">Slides</label><input id="slide-count" name="slide_count" type="number" min="1" max="20" value="6" required></div>
+        </div>
+        <label for="goal">What should the audience take away?</label>
+        <textarea id="goal" name="goal" rows="2" maxlength="2000" placeholder="A clear decision, a shared understanding, a reason to act"></textarea>
+        <h2>Visual direction</h2>
+        <div class="pair">
+          <div><label for="brand">Brand</label><select id="brand" name="brand_id" disabled><option value="">Loading brands…</option></select></div>
+          <div><label for="style">Slide style <span class="optional">optional</span></label><select id="style" name="style_id" disabled><option value="">Loading styles…</option></select></div>
+        </div>
+        <details id="reference"><summary>Use a reference template</summary><p>The template sets the design direction instead of a brand and slide style.</p><label for="template">Reference template</label><select id="template" name="template_revision" disabled><option value="">Loading templates…</option></select></details>
+        <p id="choices-note" class="caption"></p>
+        <button id="reload-choices" class="text-button" type="button" hidden>Reload choices</button>
+        <button id="generate" type="submit" disabled>Generate deck</button>
+        <p class="caption">You can browse drafts while the remaining slides are being built.</p>
+      </fieldset>
+    </form>
+    <section id="work" aria-labelledby="work-title" hidden>
+      <div class="work-heading"><h2 id="work-title" tabindex="-1">Sending your brief</h2><span id="elapsed" class="caption"></span></div>
+      <p id="phase" role="status" aria-live="polite">Waiting for the server to accept your request.</p>
+      <p id="freshness" class="caption"></p>
+      <div class="actions"><button id="download" hidden>Download PowerPoint</button><button id="cancel" class="secondary" hidden>Cancel generation</button><button id="edit" class="secondary" hidden>Edit brief</button></div>
+      <div id="drafts" hidden>
+        <div class="preview-heading"><h3 id="preview-title">Draft preview</h3><span id="draft-count" class="caption"></span></div>
+        <div id="preview-stage"><p id="preview-message">Choose a slide to preview.</p><iframe id="preview" title="Authored slide draft" sandbox="" referrerpolicy="no-referrer" hidden></iframe></div>
+        <p id="preview-kind" class="caption">Authoring draft. Layout and assets may change during export checks.</p>
+        <ol id="slides" aria-label="Available slides"></ol>
+      </div>
+      <div id="waiting"><div class="waiting-rule"></div><p>Drafts will appear here as they become available.</p><p class="caption" id="lane-note">Your first slide is not ready yet.</p></div>
+    </section>
+  </main>
+  <script type="module" src="/src/app.ts"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --build-arg
+      - AGENT_IMAGE=${_AGENT_IMAGE}
+      - -t
+      - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/slidegen-workstation-relay:${_TAG}
+      - -f
+      - workstation-relay/Dockerfile
+      - .
+images:
+  - ${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/slidegen-workstation-relay:${_TAG}
+substitutions:
+  _REGION: us-central1
+  _REPO: pixelpitch-agents
+  _TAG: latest
+options:
+  logging: CLOUD_LOGGING_ONLY

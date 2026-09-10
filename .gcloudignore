@@ -1,0 +1,47 @@
+.gcloudignore
+.git
+.gitignore
+
+# Virtualenv and caches (never needed in the image build context)
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.google-agents-cli/
+
+# Local secrets and state. The glob is load-bearing: a bare `.env` matches that
+# exact name only, so a timestamped `.env.backup-*` left behind by a rotation
+# was still being uploaded into the build context with a live key in it.
+.env*
+deploy.env
+deployment_metadata.json
+.tmp/
+.adk/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.db
+
+# Deployment control plane. Runs on the operator's machine, never in the image.
+mise.toml
+deploy.env.example
+TUTORIAL.md
+.mise/
+
+# Not part of the agent image
+renderer/
+vendor/
+template-worker/
+workstation-relay/
+artifacts/
+tests/
+deployment/
+
+# The MCP preview is a separate, deferred deployment.
+mcp-app/
+app/mcp_*.py
+scripts/dev_mcp.py
+
+# Only the four bundled slide skills belong in the authoring image.
+agy-worker/repository-skills/

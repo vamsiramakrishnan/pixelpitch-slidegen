@@ -1,0 +1,770 @@
+#!/usr/bin/env python3
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""deck - the mechanical substrate of Pixelpitch deck work.
+
+One entry point for every step that is a fact rather than a judgement:
+extraction, clean plates, gates, rasterisation, conversion, perceptual diff,
+and seam admission. Anything this can decide, it decides; anything it cannot,
+it says so rather than implying it passed.
+
+  deck spec    --template template.pptx --out spec-out
+  deck plates  --spec spec-out --out clean
+  deck layouts --spec spec-out --clean clean --out layouts.json
+  deck lint    --slides slides.json [--contract brand-contract.json]
+  deck shot    --slides slides.json --out shots
+  deck stage   --slides slides.json --out deck.html --title "Deck"
+  deck render  --slides slides.json --out out --title "Deck"
+  deck diff    --a out/preview/slide_03.png --b clean/slide-03.png
+  deck patch   --workspace . [--list] [--check]
+  deck check   --workspace .
+
+This file is stdlib-only and re-execs the heavier tools under an interpreter
+that has their dependencies. Resolution order for that interpreter:
+$PIXELPITCH_DECK_PYTHON, the project's renderer/.venv, `uv run --with ...`,
+then this one.
+"""
+
+from __future__ import annotations
+
+import argparse
+import base64
+import importlib.util
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import urllib.error
+import urllib.request
+from pathlib import Path
+
+SKILL_DIR = Path(__file__).resolve().parent.parent
+SKILLS_ROOT = SKILL_DIR.parent
+RENDERER_TIMEOUT = 900
+
+TITLE_FLOOR_PX = 40.0
+BODY_FLOOR_PX = 18.0
+
+RASTER_ROLES = {"hero", "section", "closing"}
+BANNED_ON_BODY = (
+    ("mix-blend-mode", re.compile(r"mix-blend-mode\s*:", re.I)),
+    ("backdrop-filter", re.compile(r"backdrop-filter\s*:", re.I)),
+    ("filter", re.compile(r"(?<!backdrop-)\bfilter\s*:", re.I)),
+    ("mask-image", re.compile(r"mask-image\s*:", re.I)),
+    ("text-shadow", re.compile(r"text-shadow\s*:", re.I)),
+    ("clip-path: path()/url()", re.compile(r"clip-path\s*:\s*(?:path|url)\s*\(", re.I)),
+)
+
+
+# --------------------------------------------------------------------------
+# locating things
+
+
+def _skill_search_roots() -> list[Path]:
+    roots = [SKILLS_ROOT]
+    for entry in (os.getenv("SLIDEGEN_AGY_SKILLS_PATHS") or "").split(os.pathsep):
+        if entry.strip():
+            roots.append(Path(entry.strip()).expanduser())
+    return roots
+
+
+def _sibling_script(skill: str, script: str) -> Path:
+    """A script in another skill's scripts/ directory."""
+    for root in _skill_search_roots():
+        candidate = root / skill / "scripts" / script
+        if candidate.is_file():
+            return candidate
+    raise SystemExit(
+        f"deck: cannot find {skill}/scripts/{script}. Searched: "
+        + ", ".join(str(root) for root in _skill_search_roots())
+    )
+
+
+def _project_root() -> Path | None:
+    """The slidegen checkout, when the skills are running inside it."""
+    explicit = os.getenv("SLIDEGEN_HOME")
+    if explicit and (Path(explicit) / "app").is_dir():
+        return Path(explicit)
+    for parent in [SKILL_DIR, *SKILL_DIR.parents]:
+        if (parent / "app" / "template_policy.py").is_file():
+            return parent
+    return None
+
+
+def _has_modules(python: str, modules: tuple[str, ...]) -> bool:
+    try:
+        return (
+            subprocess.run(
+                [python, "-c", "import " + ", ".join(modules)],
+                capture_output=True,
+                timeout=60,
+            ).returncode
+            == 0
+        )
+    except (OSError, subprocess.SubprocessError):
+        return False
+
+
+def _runner(modules: tuple[str, ...], packages: tuple[str, ...]) -> list[str]:
+    """A command prefix able to import ``modules``."""
+    explicit = os.getenv("PIXELPITCH_DECK_PYTHON")
+    candidates = [explicit] if explicit else []
+    root = _project_root()
+    if root is not None:
+        candidates.append(str(root / "renderer" / ".venv" / "bin" / "python"))
+        candidates.append(str(root / ".venv" / "bin" / "python"))
+    candidates.append(sys.executable)
+    for candidate in candidates:
+        if candidate and Path(candidate).exists() and _has_modules(candidate, modules):
+            return [candidate]
+    if shutil.which("uv"):
+        command = ["uv", "run", "--quiet"]
+        for package in packages:
+            command += ["--with", package]
+        return command + ["python"]
+    raise SystemExit(
+        "deck: no interpreter has " + ", ".join(modules) + ". Set "
+        "$PIXELPITCH_DECK_PYTHON to one that does, or install uv."
+    )
+
+
+def _run(command: list[str]) -> int:
+    print("+ " + " ".join(command), file=sys.stderr)
+    return subprocess.run(command).returncode
+
+
+def _require_tool(name: str, why: str) -> bool:
+    if shutil.which(name):
+        return True
+    print(f"deck: {name} is not on PATH; {why}", file=sys.stderr)
+    return False
+
+
+# --------------------------------------------------------------------------
+# slide documents
+
+
+def _load_slides(path: Path) -> list[dict]:
+    # Delegates to slide-craft, which owns the slide document contract, so the
+    # gates and the workspace deliverable cannot drift apart again.
+    sys.path.insert(0, str(_sibling_script("pixelpitch-slide-craft", "slides_io.py").parent))
+    from slides_io import load_slides  # noqa: PLC0415
+
+    return load_slides(path)
+
+
+def _layout_contract():
+    """The roundtrip skill's layout contract, consuming side.
+
+    Imported rather than re-exec'd. Building the contract needs Pillow and
+    numpy; reading it back needs neither, so the gate runs wherever the author
+    already is instead of behind an install they otherwise would not need.
+    """
+    script = _sibling_script("pixelpitch-template-roundtrip", "layout_contract.py")
+    sys.path.insert(0, str(script.parent))
+    import layout_contract  # noqa: PLC0415
+
+    return layout_contract
+
+
+def _wire(slides: list[dict]) -> list[dict]:
+    """Slide payloads for the renderer, with their assets carried along.
+
+    The renderer gets a string, not a directory, so a relative `src` in it
+    points at nothing. Inlining is what makes the thing that converts the same
+    thing the gate looked at.
+    """
+    sys.path.insert(0, str(_sibling_script("pixelpitch-slide-craft", "slides_io.py").parent))
+    from slides_io import inline_assets  # noqa: PLC0415
+
+    return [{"title": s.get("title", ""), "html": inline_assets(s)} for s in slides]
+
+
+def _renderer_url() -> str:
+    return (os.getenv("SLIDEGEN_RENDERER_URL") or "http://127.0.0.1:18099").rstrip("/")
+
+
+def _renderer_headers(url: str) -> dict[str, str]:
+    headers = {"Content-Type": "application/json"}
+    api_key = os.getenv("SLIDEGEN_RENDERER_API_KEY", "")
+    if api_key:
+        headers["X-API-Key"] = api_key
+        return headers
+    token = os.getenv("SLIDEGEN_RENDERER_ID_TOKEN", "")
+    if not token and not url.startswith(("http://127.0.0.1", "http://localhost")):
+        if shutil.which("gcloud"):
+            result = subprocess.run(
+                ["gcloud", "auth", "print-identity-token", f"--audiences={url}"],
+                capture_output=True,
+                text=True,
+            )
+            token = result.stdout.strip()
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    return headers
+
+
+def _post(path: str, payload: dict) -> dict:
+    url = _renderer_url()
+    request = urllib.request.Request(
+        f"{url}{path}",
+        data=json.dumps(payload).encode("utf-8"),
+        headers=_renderer_headers(url),
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=RENDERER_TIMEOUT) as response:
+            body = json.loads(response.read().decode("utf-8"))
+    except urllib.error.URLError as exc:
+        raise SystemExit(f"deck: renderer at {url} unreachable: {exc}")
+    if body.get("ok") is not True:
+        raise SystemExit(f"deck: renderer rejected the request: {body.get('error')}")
+    return body
+
+
+# --------------------------------------------------------------------------
+# the structural gate
+
+
+def _title_font_px(html: str) -> float | None:
+    match = re.search(
+        r"<[^>]*data-pptx-role\s*=\s*[\"']title[\"'][^>]*>", html, re.I
+    )
+    if not match:
+        return None
+    style = re.search(r"font-size\s*:\s*([\d.]+)px", match.group(0), re.I)
+    return float(style.group(1)) if style else None
+
+
+def structural_defects(slide: dict) -> list[str]:
+    """Contract violations readable from the HTML alone."""
+    html = slide.get("html") or ""
+    role = str(slide.get("role") or "body").lower()
+    defects: list[str] = []
+
+    titles = len(re.findall(r"data-pptx-role\s*=\s*[\"']title[\"']", html, re.I))
+    if titles != 1:
+        defects.append(f"{titles} elements carry data-pptx-role=\"title\", need exactly 1")
+    if "1280px" not in html or "720px" not in html:
+        defects.append("canvas is not pinned to 1280x720px")
+    if re.search(r"<script\b", html, re.I):
+        defects.append("contains <script>")
+    if re.search(r"<link\b", html, re.I):
+        defects.append("contains <link>; all CSS must be one inline <style>")
+    if re.search(r"background-image\s*:\s*url\s*\(", html, re.I):
+        defects.append("uses background-image: url(); inline the artwork instead")
+
+    if role not in RASTER_ROLES:
+        for name, pattern in BANNED_ON_BODY:
+            if pattern.search(html):
+                defects.append(f"body slide uses {name}, which forces a raster")
+
+    small = sorted(
+        {
+            float(value)
+            for value in re.findall(r"font-size\s*:\s*([\d.]+)px", html, re.I)
+            if float(value) < BODY_FLOOR_PX
+        }
+    )
+    if small:
+        defects.append(
+            "font-size below the 18px floor: "
+            + ", ".join(f"{value:g}px" for value in small)
+        )
+    title_px = _title_font_px(html)
+    if title_px is not None and title_px < TITLE_FLOOR_PX:
+        defects.append(f"title is {title_px:g}px, below the 40px floor")
+    return defects
+
+
+# --------------------------------------------------------------------------
+# commands
+
+
+def cmd_spec(args: argparse.Namespace) -> int:
+    script = _sibling_script("pixelpitch-template-roundtrip", "extract_slide_spec.py")
+    command = _runner(("pptx",), ("python-pptx",)) + [
+        str(script), "--template", args.template, "--outdir", args.out
+    ]
+    if not shutil.which("soffice"):
+        print(
+            "deck: soffice is not on PATH, so base renders cannot be produced. "
+            "Geometry will be extracted; base/ will be empty and `deck plates` "
+            "will have nothing to paint. Install LibreOffice or run extraction "
+            "where it exists.",
+            file=sys.stderr,
+        )
+        command.append("--no-base")
+    return _run(command)
+
+
+def cmd_plates(args: argparse.Namespace) -> int:
+    script = _sibling_script("pixelpitch-template-roundtrip", "make_clean_plates.py")
+    return _run(
+        _runner(("PIL", "numpy"), ("pillow", "numpy"))
+        + [
+            str(script), "--spec", args.spec, "--out", args.out,
+            "--grow", str(args.grow), "--reach", str(args.reach),
+            "--blur", str(args.blur),
+        ]
+    )
+
+
+def cmd_layouts(args: argparse.Namespace) -> int:
+    script = _sibling_script("pixelpitch-template-roundtrip", "layout_contract.py")
+    command = (
+        _runner(("PIL", "numpy"), ("pillow", "numpy"))
+        + [str(script), "--spec", args.spec, "--clean", args.clean, "--out", args.out]
+    )
+    if args.contract:
+        command += ["--contract", args.contract]
+    if args.allow_dead_plates:
+        command.append("--allow-dead-plates")
+    return _run(command)
+
+
+def cmd_pick(args: argparse.Namespace) -> int:
+    # Reachable from the CLI an author is already holding. Routed here rather
+    # than duplicated because slide-craft owns the gallery and its metadata.
+    script = _sibling_script("pixelpitch-slide-craft", "pick_exhibit.py")
+    command = [sys.executable, str(script)]
+    if args.claim:
+        command += ["--claim", args.claim]
+    if args.role:
+        command += ["--role", args.role]
+    return _run(command)
+
+
+def cmd_lint(args: argparse.Namespace) -> int:
+    script = _sibling_script("pixelpitch-slide-craft", "lint_slides.py")
+    command = [sys.executable, str(script), args.slides]
+    if args.contract:
+        command.append(args.contract)
+    return _run(command)
+
+
+def cmd_stage(args: argparse.Namespace) -> int:
+    # Stdlib only, so it runs under this interpreter rather than the renderer's.
+    script = Path(__file__).resolve().parent / "stage_deck.py"
+    command = [sys.executable, str(script), args.slides, "--out", args.out]
+    if args.title:
+        command += ["--title", args.title]
+    return _run(command)
+
+
+def cmd_shot(args: argparse.Namespace) -> int:
+    # Local Chromium first. The gate law makes looking mandatory, so the one
+    # command that produces the evidence must not depend on a service being up.
+    if not args.remote:
+        script = Path(__file__).resolve().parent / "shot.py"
+        command = _runner(("playwright", "PIL"), ("playwright", "pillow")) + [
+            str(script), args.slides, "--out", args.out
+        ]
+        return _run(command)
+
+    slides = _load_slides(Path(args.slides))
+    outdir = Path(args.out)
+    outdir.mkdir(parents=True, exist_ok=True)
+    written: list[str] = []
+    for start in range(0, len(slides), 20):
+        batch = slides[start : start + 20]
+        body = _post(
+            "/screenshot",
+            {"slides": _wire(batch)},
+        )
+        for offset, encoded in enumerate(body.get("images_b64") or []):
+            path = outdir / f"slide-{start + offset + 1:02d}.png"
+            path.write_bytes(base64.b64decode(encoded))
+            written.append(str(path))
+    print(json.dumps({"shots": written}, indent=2))
+    print(
+        f"\n{len(written)} PNGs in {outdir}. Open them. A shot you did not "
+        "look at is not evidence.",
+        file=sys.stderr,
+    )
+    return 0 if written else 1
+
+
+def cmd_render(args: argparse.Namespace) -> int:
+    slides = _load_slides(Path(args.slides))
+    if len(slides) > 20:
+        raise SystemExit(f"deck: the renderer accepts at most 20 slides, got {len(slides)}")
+    outdir = Path(args.out)
+    (outdir / "preview").mkdir(parents=True, exist_ok=True)
+    body = _post(
+        "/render",
+        {
+            "deck_title": args.title,
+            "brand_id": args.brand,
+            "slides": _wire(slides),
+            "preview_pages": min(len(slides), 20),
+        },
+    )
+    report = {
+        "gs_uri": body.get("gs_uri"),
+        "slide_count": body.get("slide_count"),
+        "native_area_ratio": body.get("native_area_ratio"),
+        "quality": body.get("quality"),
+    }
+    (outdir / "render.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    for index, encoded in enumerate(body.get("images_b64") or [], start=1):
+        (outdir / "preview" / f"slide-{index:02d}.png").write_bytes(
+            base64.b64decode(encoded)
+        )
+    gs_uri = report.get("gs_uri")
+    if gs_uri and not args.no_download:
+        if _require_tool("gsutil", "the PPTX stays in Cloud Storage"):
+            subprocess.run(["gsutil", "cp", gs_uri, str(outdir / "deck.pptx")])
+    print(json.dumps(report, indent=2))
+    print(
+        f"\nPreviews in {outdir / 'preview'}. Conversion succeeding is not the "
+        "deck being right; open them.",
+        file=sys.stderr,
+    )
+    return 0
+
+
+def cmd_diff(args: argparse.Namespace) -> int:
+    script = SKILL_DIR / "scripts" / "image_diff.py"
+    command = _runner(("PIL", "numpy"), ("pillow", "numpy")) + [
+        str(script), "--a", args.a, "--b", args.b, "--threshold", str(args.threshold)
+    ]
+    if args.out:
+        command += ["--out", args.out]
+    return _run(command)
+
+
+def _load_template_policy():
+    root = _project_root()
+    if root is None:
+        raise SystemExit(
+            "deck: seam admission needs the slidegen checkout; set $SLIDEGEN_HOME"
+        )
+    path = root / "app" / "template_policy.py"
+    spec = importlib.util.spec_from_file_location("pixelpitch_template_policy", path)
+    if spec is None or spec.loader is None:
+        raise SystemExit(f"deck: cannot load {path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    try:
+        spec.loader.exec_module(module)
+    except Exception as exc:
+        raise SystemExit(f"deck: cannot load {path}: {exc}")
+    return module
+
+
+def cmd_patch(args: argparse.Namespace) -> int:
+    policy = _load_template_policy()
+    workspace = Path(args.workspace)
+    plan_path = Path(args.plan) if args.plan else workspace / "authoring-plan.json"
+    plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    slide_types = {
+        item["id"]: policy.AdmittedSlideType.from_dict(item)
+        for item in (plan.get("slide_types") or [])
+    }
+    if not slide_types:
+        raise SystemExit(f"deck: {plan_path} admits no slide types")
+
+    baselines = {}
+    for type_id, slide_type in slide_types.items():
+        baseline_path = workspace / slide_type.baseline_path
+        if not baseline_path.is_file():
+            raise SystemExit(f"deck: missing baseline {baseline_path}")
+        baselines[type_id] = policy.BaselineSpecimen.from_html(
+            slide_type, baseline_path.read_text(encoding="utf-8")
+        )
+
+    if args.list:
+        print(
+            json.dumps(
+                {
+                    "slide_count": plan.get("slide_count"),
+                    "slide_types": [
+                        {
+                            "id": type_id,
+                            "archetype": slide_type.archetype,
+                            "baseline_path": slide_type.baseline_path,
+                            "baseline_sha256": baselines[type_id].sha256,
+                            "seams": [seam.to_dict() for seam in slide_type.seams],
+                        }
+                        for type_id, slide_type in slide_types.items()
+                    ],
+                },
+                indent=2,
+            )
+        )
+        return 0
+
+    patches_path = Path(args.patches) if args.patches else workspace / "patches.json"
+    document = json.loads(patches_path.read_text(encoding="utf-8"))
+    items = document.get("slides") if isinstance(document, dict) else None
+    if not isinstance(items, list) or not items:
+        raise SystemExit(f"deck: {patches_path} has no slides")
+
+    expected = int(args.slides or plan.get("slide_count") or len(items))
+    errors: list[str] = []
+    slides: list[dict] = []
+    seen: set[int] = set()
+    for item in items:
+        index = item.get("slide_index")
+        type_id = str(item.get("slide_type_id") or "")
+        label = f"slide_index {index}"
+        if not isinstance(index, int) or not 0 <= index < expected or index in seen:
+            errors.append(f"{label}: invalid or duplicate index")
+            continue
+        seen.add(index)
+        if type_id not in baselines:
+            errors.append(f"{label}: unknown slide_type_id {type_id!r}")
+            continue
+        replacements = tuple(
+            policy.SeamReplacement(
+                seam_id=str(replacement.get("seam_id") or ""),
+                html_fragment=str(replacement.get("html_fragment") or ""),
+            )
+            for replacement in (item.get("replacements") or [])
+            if isinstance(replacement, dict)
+        )
+        try:
+            html = policy.apply_seam_patch(
+                baselines[type_id],
+                policy.SlidePatch(
+                    baseline_sha256=str(item.get("baseline_sha256") or ""),
+                    replacements=replacements,
+                ),
+            )
+        except policy.TemplatePolicyError as exc:
+            errors.append(f"{label}: {exc}")
+            continue
+        slides.append(
+            {
+                "index": index,
+                "title": str(item.get("title") or f"Slide {index + 1}"),
+                "role": str(item.get("role") or "body"),
+                "slide_type_id": type_id,
+                "html": html,
+            }
+        )
+    if seen != set(range(expected)):
+        missing = sorted(set(range(expected)) - seen)
+        errors.append(
+            "slide indexes are not contiguous; missing "
+            + ", ".join(str(index) for index in missing)
+        )
+
+    if errors:
+        print(json.dumps({"admitted": False, "errors": errors}, indent=2))
+        return 1
+    slides.sort(key=lambda slide: slide["index"])
+    print(json.dumps({"admitted": True, "slides": len(slides)}, indent=2))
+    if not args.check:
+        out_path = Path(args.out) if args.out else workspace / "slides.json"
+        out_path.write_text(json.dumps(slides, indent=2), encoding="utf-8")
+        print(f"wrote {out_path}", file=sys.stderr)
+    return 0
+
+
+def cmd_check(args: argparse.Namespace) -> int:
+    workspace = Path(args.workspace)
+    slides_path = Path(args.slides) if args.slides else workspace / "slides.json"
+    if not slides_path.is_file():
+        raise SystemExit(f"deck: no slides at {slides_path}")
+    slides = _load_slides(slides_path)
+
+    contract_path = Path(args.contract) if args.contract else workspace / "brand-contract.json"
+    findings: dict[str, list[str]] = {}
+    for index, slide in enumerate(slides):
+        defects = structural_defects(slide)
+        if defects:
+            findings.setdefault(str(index), []).extend(defects)
+
+    lint_script = _sibling_script("pixelpitch-slide-craft", "lint_slides.py")
+    lint_command = [sys.executable, str(lint_script), str(slides_path)]
+    if contract_path.is_file():
+        lint_command.append(str(contract_path))
+    lint = subprocess.run(lint_command, capture_output=True, text=True)
+    try:
+        for index, defects in (json.loads(lint.stdout or "{}")).items():
+            findings.setdefault(str(index), []).extend(defects)
+    except ValueError:
+        findings.setdefault("_lint", []).append(
+            (lint.stderr or lint.stdout or "lint produced no JSON").strip()[:400]
+        )
+
+    # The plate gate used to be `re.search(r"<img\b", html)`, which is why three
+    # slides shipped on flat rectangles an authoring turn typed into clean/ and
+    # seventeen more on plates whose artwork had been erased. Both had an image
+    # layer. The contract asks the questions that actually distinguish them.
+    contract = _layout_contract()
+    if (workspace / "clean").is_dir() and not (workspace / "layouts.json").is_file():
+        findings.setdefault("deck", []).append(
+            "clean/ exists but layouts.json does not, so no plate under any "
+            "slide can be told from a rectangle somebody typed. Run `deck "
+            "layouts --spec spec-out --clean clean --out layouts.json`."
+        )
+    for index, defects in contract.plate_findings(workspace, slides).items():
+        findings.setdefault(str(index), []).extend(defects)
+    for problem in contract.bundle_findings(workspace):
+        findings.setdefault("bundle", []).append(problem)
+
+    render_report = workspace / "out" / "render.json"
+    ratio = None
+    if render_report.is_file():
+        try:
+            ratio = json.loads(render_report.read_text(encoding="utf-8")).get(
+                "native_area_ratio"
+            )
+        except ValueError:
+            ratio = None
+    # A zero ratio is not a low score, it is a different artifact. Nothing on
+    # any slide converted to a shape, so the deliverable is a stack of pictures
+    # and the customer cannot edit a word of it. It has been printed here as a
+    # number next to `mechanical: pass` and read as one, which is how a deck of
+    # screenshots ships past a green gate.
+    if ratio == 0:
+        findings.setdefault("deck", []).append(
+            "native_area_ratio is 0: every slide converted to one picture and "
+            "no text in the PPTX is editable. Read the renderer's slidify log "
+            "before touching the slides; this is a conversion failure, not an "
+            "authoring one."
+        )
+
+    print(
+        json.dumps(
+            {
+                "slides": len(slides),
+                "defects": findings,
+                "plates_pinned": (workspace / "layouts.json").is_file(),
+                "native_area_ratio": ratio,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
+    verdict = "pass" if not findings else "fail"
+    print(f"\nmechanical: {verdict}", file=sys.stderr)
+    print(
+        "still owed: open every rendered PNG and compare it against its plate "
+        "and its base. This check reads HTML, geometry and plate hashes. It "
+        "cannot see a double-exposed title or an off-template aid.",
+        file=sys.stderr,
+    )
+    return 0 if verdict == "pass" else 1
+
+
+# --------------------------------------------------------------------------
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="deck",
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    pick = sub.add_parser("pick", help="which slide form carries this claim")
+    pick.add_argument("--claim", help="what the slide has to say, in your own words")
+    pick.add_argument("--role", choices=("hero", "body", "closing"))
+    pick.set_defaults(handler=cmd_pick)
+
+    spec = sub.add_parser("spec", help="extract a PPTX into geometry, media, base renders")
+    spec.add_argument("--template", required=True)
+    spec.add_argument("--out", required=True)
+    spec.set_defaults(handler=cmd_spec)
+
+    plates = sub.add_parser("plates", help="paint text out of base renders")
+    plates.add_argument("--spec", required=True, help="spec-out/ from `deck spec`")
+    plates.add_argument("--out", required=True)
+    plates.add_argument("--grow", type=int, default=4)
+    plates.add_argument("--reach", type=int, default=16)
+    plates.add_argument("--blur", type=float, default=2.0)
+    plates.set_defaults(handler=cmd_plates)
+
+    layouts = sub.add_parser(
+        "layouts", help="join the template's geometry to its plates and pin both"
+    )
+    layouts.add_argument("--spec", required=True, help="spec-out/ from `deck spec`")
+    layouts.add_argument("--clean", required=True, help="clean/ from `deck plates`")
+    layouts.add_argument("--out", required=True, help="path to write layouts.json")
+    layouts.add_argument("--contract", help="brand-contract.json marks protected slides")
+    layouts.add_argument(
+        "--allow-dead-plates",
+        action="store_true",
+        help="emit the contract even when plates lost the template's artwork",
+    )
+    layouts.set_defaults(handler=cmd_layouts)
+
+    lint = sub.add_parser("lint", help="anti-slop, palette and contrast gates")
+    lint.add_argument("--slides", required=True)
+    lint.add_argument("--contract", help="brand-contract.json enables the palette gate")
+    lint.set_defaults(handler=cmd_lint)
+
+    stage = sub.add_parser("stage", help="fold the slides into one presentable deck.html")
+    stage.add_argument("--slides", required=True)
+    stage.add_argument("--out", required=True, help="path to write deck.html")
+    stage.add_argument("--title", default=os.getenv("SLIDEGEN_DECK_TITLE", ""))
+    stage.set_defaults(handler=cmd_stage)
+
+    shot = sub.add_parser("shot", help="rasterise every slide, no PPTX")
+    shot.add_argument("--slides", required=True)
+    shot.add_argument("--out", required=True)
+    shot.add_argument(
+        "--remote", action="store_true",
+        help="use the renderer service instead of local Chromium",
+    )
+    shot.set_defaults(handler=cmd_shot)
+
+    render = sub.add_parser("render", help="build the PPTX plus previews")
+    render.add_argument("--slides", required=True)
+    render.add_argument("--out", required=True)
+    render.add_argument("--title", default=os.getenv("SLIDEGEN_DECK_TITLE", "Deck"))
+    render.add_argument("--brand", default=os.getenv("SLIDEGEN_BRAND_ID", "derived"))
+    render.add_argument("--no-download", action="store_true", help="skip gsutil cp")
+    render.set_defaults(handler=cmd_render)
+
+    diff = sub.add_parser("diff", help="perceptual delta between two slide images")
+    diff.add_argument("--a", required=True)
+    diff.add_argument("--b", required=True)
+    diff.add_argument("--out", help="write a heatmap PNG here")
+    diff.add_argument("--threshold", type=float, default=12.0)
+    diff.set_defaults(handler=cmd_diff)
+
+    patch = sub.add_parser("patch", help="validate and apply seam replacements")
+    patch.add_argument("--workspace", default=".")
+    patch.add_argument("--plan", help="default <workspace>/authoring-plan.json")
+    patch.add_argument("--patches", help="default <workspace>/patches.json")
+    patch.add_argument("--out", help="default <workspace>/slides.json")
+    patch.add_argument("--slides", type=int, help="expected slide count")
+    patch.add_argument("--list", action="store_true", help="print baseline digests and seams")
+    patch.add_argument("--check", action="store_true", help="validate without writing")
+    patch.set_defaults(handler=cmd_patch)
+
+    check = sub.add_parser("check", help="every mechanical gate, one verdict")
+    check.add_argument("--workspace", default=".")
+    check.add_argument("--slides", help="default <workspace>/slides.json")
+    check.add_argument("--contract", help="default <workspace>/brand-contract.json")
+    check.set_defaults(handler=cmd_check)
+
+    return parser
+
+
+def main(argv: list[str]) -> int:
+    args = build_parser().parse_args(argv[1:])
+    return args.handler(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>ACR20 response at week 24</title>
+    <style>
+      :root {
+        --ink: #14161a;
+        --paper: #fcfcfa;
+        --muted: #767a80;
+        --accent: #2f5d3f;
+        --rule: #dfe1e0;
+      }
+      html, body {
+        margin: 0; padding: 0; width: 1280px; height: 720px;
+        background: var(--paper); color: var(--ink);
+        font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+      }
+      .slide {
+        box-sizing: border-box; width: 1280px; height: 720px;
+        padding: 72px; overflow: hidden;
+      }
+      h1 {
+        margin: 0; font-size: 44px; line-height: 1.14;
+        font-weight: 700; letter-spacing: -0.015em;
+      }
+      .key { color: var(--accent); }
+      .caption, .source {
+        margin: 0; font-size: 18px; line-height: 1.4;
+        font-style: italic; color: var(--muted);
+      }
+      .body { margin: 0; font-size: 24px; line-height: 1.45; }
+      svg text { font-family: Inter, "Helvetica Neue", Arial, sans-serif; }
+
+      .slide--stack { display: grid; grid-template-rows: auto auto 1fr auto; row-gap: 20px; }
+      .arm { font-size: 22px; fill: var(--ink); }
+      .val { font-size: 24px; fill: var(--ink); font-weight: 700; }
+      .tick { font-size: 18px; fill: var(--muted); }
+      .delta { font-size: 20px; fill: var(--accent); font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <section class="slide slide--stack">
+      <h1 data-pptx-role="title">
+        Only 40mg separates from placebo by a margin the
+        <span class="key">interval supports</span>
+      </h1>
+      <p class="caption">
+        ACR20 responders at week 24, intention to treat, with 95% confidence
+        intervals
+      </p>
+
+      <svg width="1136" height="344" viewBox="0 0 1136 344" role="img"
+           aria-label="ACR20 response: placebo 22 percent, 20mg 34 percent, 40mg 51 percent, with 95 percent confidence intervals">
+        <line x1="240" y1="20" x2="240" y2="268" stroke="#dfe1e0" stroke-width="1" />
+        <line x1="480" y1="20" x2="480" y2="268" stroke="#dfe1e0" stroke-width="1" />
+        <line x1="720" y1="20" x2="720" y2="268" stroke="#dfe1e0" stroke-width="1" />
+        <line x1="960" y1="20" x2="960" y2="268" stroke="#dfe1e0" stroke-width="1" />
+
+        <text class="arm" x="0" y="58">Placebo</text>
+        <rect x="240" y="36" width="211" height="32" fill="#c9cdd1" />
+        <line x1="403" y1="52" x2="499" y2="52" stroke="#14161a" stroke-width="2" />
+        <line x1="403" y1="44" x2="403" y2="60" stroke="#14161a" stroke-width="2" />
+        <line x1="499" y1="44" x2="499" y2="60" stroke="#14161a" stroke-width="2" />
+        <text class="val" x="516" y="60">22%</text>
+
+        <text class="arm" x="0" y="146">20mg</text>
+        <rect x="240" y="124" width="326" height="32" fill="#c9cdd1" />
+        <line x1="518" y1="140" x2="614" y2="140" stroke="#14161a" stroke-width="2" />
+        <line x1="518" y1="132" x2="518" y2="148" stroke="#14161a" stroke-width="2" />
+        <line x1="614" y1="132" x2="614" y2="148" stroke="#14161a" stroke-width="2" />
+        <text class="val" x="631" y="148">34%</text>
+
+        <text class="arm" x="0" y="234">40mg</text>
+        <rect x="240" y="212" width="490" height="32" fill="#2f5d3f" />
+        <line x1="682" y1="228" x2="778" y2="228" stroke="#14161a" stroke-width="2" />
+        <line x1="682" y1="220" x2="682" y2="236" stroke="#14161a" stroke-width="2" />
+        <line x1="778" y1="220" x2="778" y2="236" stroke="#14161a" stroke-width="2" />
+        <text class="val" x="795" y="236">51%</text>
+
+        <text class="delta" x="884" y="236">+29 over placebo</text>
+        <text class="delta" x="884" y="148" fill="#767a80">+12, not separated</text>
+
+        <line x1="240" y1="268" x2="1040" y2="268" stroke="#dfe1e0" stroke-width="1" />
+        <text class="tick" x="240" y="298" text-anchor="middle">0%</text>
+        <text class="tick" x="480" y="298" text-anchor="middle">25%</text>
+        <text class="tick" x="720" y="298" text-anchor="middle">50%</text>
+        <text class="tick" x="960" y="298" text-anchor="middle">75%</text>
+      </svg>
+
+      <p class="source">
+        Source: primary analysis, Cochran&ndash;Mantel&ndash;Haenszel, stratified by
+        prior biologic exposure.
+      </p>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DOT-MATRIX // LADDER</title>
+<style>
+  html, body { margin:0; padding:0; width:1280px; height:720px;
+               -webkit-font-smoothing:antialiased; background:#0a0a0a; }
+  .slide { width:1280px; height:720px; box-sizing:border-box;
+           position:relative; overflow:hidden;
+           background:#0a0a0a; color:#fafaf9;
+           font-family:'JetBrains Mono','IBM Plex Mono','SF Mono',Menlo,monospace; }
+  .frame { position:absolute; inset:24px; border:2px solid #fafaf9; }
+  .topbar { position:absolute; top:24px; left:24px; right:24px; height:36px;
+            border-bottom:2px solid #fafaf9;
+            display:flex; justify-content:space-between; align-items:center;
+            padding:0 16px; font-size:11px; font-weight:600; }
+  .head { position:absolute; top:80px; left:40px; right:40px;
+          display:flex; justify-content:space-between; align-items:flex-end; }
+  .eyebrow { font-size:11px; font-weight:600; color:#0066ff; margin:0 0 8px 0; }
+  h1 { font-size:40px; font-weight:700; line-height:1.05; margin:0;
+       color:#fafaf9; letter-spacing:0; }
+  .summary { font-size:11px; font-weight:600; text-align:right; line-height:1.7;
+             color:#fafaf9; }
+  .summary em { font-style:normal; color:#0066ff; font-weight:700; }
+  .lay { position:absolute; top:204px; left:40px; right:40px; bottom:90px;
+         display:grid; grid-template-columns: 540px 1fr; gap:0;
+         border:1px solid #fafaf9; }
+  .col-left { border-right:1px solid #fafaf9; padding:18px 20px;
+              display:flex; flex-direction:column; gap:14px; }
+  .matrix-title { font-size:11px; font-weight:700; color:#fafaf9; }
+  .matrix-title em { font-style:normal; color:#0066ff; }
+  .matrix { border:1px solid #fafaf9; padding:14px; }
+  .pct { font-size:42px; font-weight:700; color:#fafaf9; line-height:1;
+         margin-top:6px; }
+  .pct em { font-style:normal; color:#0066ff; }
+  .legend { display:flex; gap:12px; font-size:10px; font-weight:700;
+            color:#fafaf9; margin-top:6px; }
+  .legend .sw { display:inline-block; width:10px; height:10px;
+                vertical-align:middle; margin-right:6px;
+                border:1px solid #fafaf9; }
+  .legend .sw.on { background:#0066ff; border-color:#0066ff; }
+  .legend .sw.fill { background:#fafaf9; border-color:#fafaf9; }
+  .col-right { padding:0; }
+  .ladder { display:flex; flex-direction:column; }
+  .lad-head { display:grid; grid-template-columns: 60px 1fr 130px 80px;
+              font-size:10px; font-weight:700; height:24px;
+              border-bottom:1px solid #fafaf9; }
+  .lad-head div { padding:0 12px; display:flex; align-items:center;
+                  border-right:1px solid #fafaf9; }
+  .lad-head div:last-child { border-right:none; }
+  .lad-row { display:grid; grid-template-columns: 60px 1fr 130px 80px;
+             font-size:13px; height:32px; align-items:center;
+             border-bottom:1px solid #fafaf9; }
+  .lad-row:last-child { border-bottom:none; }
+  .lad-row .ix { padding:0 12px; font-weight:700; color:#fafaf9;
+                 border-right:1px solid #fafaf9; height:100%;
+                 display:flex; align-items:center; }
+  .lad-row .lbl { padding:0 12px; font-weight:600; color:#fafaf9;
+                  border-right:1px solid #fafaf9; height:100%;
+                  display:flex; align-items:center; }
+  .lad-row .val { padding:0 12px; font-weight:700; color:#fafaf9;
+                  border-right:1px solid #fafaf9; height:100%;
+                  display:flex; align-items:center; justify-content:flex-end; }
+  .lad-row .delta { padding:0 12px; font-weight:700; height:100%;
+                    display:flex; align-items:center; }
+  .lad-row .delta.up { color:#0066ff; }
+  .lad-row .delta.dn { color:#fafaf9; }
+  .footer { position:absolute; bottom:24px; left:40px; right:40px;
+            display:flex; justify-content:space-between; align-items:flex-end;
+            font-size:11px; font-weight:600; color:#fafaf9; }
+  .pillrow { display:flex; gap:6px; }
+  .pillrow span { display:inline-block; padding:3px 8px; border:1px solid #fafaf9;
+                  font-size:10px; font-weight:700; }
+  .pillrow span.acc { background:#0066ff; border-color:#0066ff; color:#0a0a0a; }
+  .deco { position:absolute; right:40px; bottom:54px; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="frame"></div>
+  <div class="topbar">
+    <span>DOT-MATRIX / LADDER / SAMPLE WINDOW 60s</span>
+    <span>PAGE 27 OF 27 // FINAL</span>
+  </div>
+
+  <div class="head">
+    <div>
+      <div class="eyebrow">// 27 — DOT MATRIX + LADDER</div>
+      <h1 data-pptx-role="title">SATURATION // 14 / 18</h1>
+    </div>
+    <div class="summary">
+      DOTS&nbsp;&nbsp;18<br>
+      <em>FILLED&nbsp;14</em>&nbsp;//&nbsp;OPEN&nbsp;4<br>
+      WINDOW&nbsp;60s
+    </div>
+  </div>
+
+  <div class="lay">
+    <div class="col-left">
+      <div class="matrix-title">// MATRIX A &nbsp;&mdash;&nbsp; <em>norm-svc / cpu sat</em></div>
+      <div class="matrix">
+        <svg width="100%" height="48" viewBox="0 0 480 48" aria-hidden="true">
+          <circle cx="14" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="40" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="66" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="92" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="118" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="144" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="170" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="196" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="222" cy="24" r="9" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="248" cy="24" r="9" fill="#0066ff" stroke="#0066ff" stroke-width="2"/>
+          <circle cx="274" cy="24" r="9" fill="#0066ff" stroke="#0066ff" stroke-width="2"/>
+          <circle cx="300" cy="24" r="9" fill="#0066ff" stroke="#0066ff" stroke-width="2"/>
+          <circle cx="326" cy="24" r="9" fill="#0066ff" stroke="#0066ff" stroke-width="2"/>
+          <circle cx="352" cy="24" r="9" fill="#0066ff" stroke="#0066ff" stroke-width="2"/>
+          <circle cx="378" cy="24" r="9" fill="none" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="404" cy="24" r="9" fill="none" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="430" cy="24" r="9" fill="none" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="456" cy="24" r="9" fill="none" stroke="#fafaf9" stroke-width="2"/>
+        </svg>
+        <div class="pct">SAT&nbsp;<em>77.8</em>%&nbsp;<span style="font-size:13px;font-weight:600;opacity:0.6;">&nbsp;14/18</span></div>
+        <div class="legend">
+          <span><span class="sw fill"></span>RUN</span>
+          <span><span class="sw on"></span>HOT</span>
+          <span><span class="sw"></span>FREE</span>
+        </div>
+      </div>
+
+      <div class="matrix-title" style="margin-top:6px;">// MATRIX B &nbsp;&mdash;&nbsp; <em>kfk-buf / partition fill</em></div>
+      <div class="matrix">
+        <svg width="100%" height="38" viewBox="0 0 480 38" aria-hidden="true">
+          <circle cx="14" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="36" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="58" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="80" cy="19" r="7" fill="#0066ff" stroke="#0066ff" stroke-width="2"/>
+          <circle cx="102" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="124" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="146" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="168" cy="19" r="7" fill="none" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="190" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="212" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="234" cy="19" r="7" fill="#0066ff" stroke="#0066ff" stroke-width="2"/>
+          <circle cx="256" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="278" cy="19" r="7" fill="none" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="300" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="322" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="344" cy="19" r="7" fill="#0066ff" stroke="#0066ff" stroke-width="2"/>
+          <circle cx="366" cy="19" r="7" fill="none" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="388" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="410" cy="19" r="7" fill="#fafaf9" stroke="#fafaf9" stroke-width="2"/>
+          <circle cx="432" cy="19" r="7" fill="none" stroke="#fafaf9" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <div class="ladder">
+        <div class="lad-head">
+          <div>IDX</div><div>METRIC</div><div>VALUE</div><div>&Delta;</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">01</div>
+          <div class="lbl">cpu_user</div>
+          <div class="val">62.0%</div>
+          <div class="delta up">+02.1</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">02</div>
+          <div class="lbl">cpu_sys</div>
+          <div class="val">11.4%</div>
+          <div class="delta up">+00.4</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">03</div>
+          <div class="lbl">mem_rss</div>
+          <div class="val">3.20 GB</div>
+          <div class="delta dn">-00.1</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">04</div>
+          <div class="lbl">heap_alloc</div>
+          <div class="val">812 MB</div>
+          <div class="delta up">+12.0</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">05</div>
+          <div class="lbl">net_rx</div>
+          <div class="val">410 Mbps</div>
+          <div class="delta up">+18.2</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">06</div>
+          <div class="lbl">net_tx</div>
+          <div class="val">388 Mbps</div>
+          <div class="delta up">+14.0</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">07</div>
+          <div class="lbl">disk_iops</div>
+          <div class="val">8.4K</div>
+          <div class="delta dn">-00.6</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">08</div>
+          <div class="lbl">gc_pause_p99</div>
+          <div class="val">2.1 ms</div>
+          <div class="delta dn">-00.2</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">09</div>
+          <div class="lbl">queue_lag</div>
+          <div class="val">1.18 K</div>
+          <div class="delta up">+04.0</div>
+        </div>
+        <div class="lad-row">
+          <div class="ix">10</div>
+          <div class="lbl">err_per_5m</div>
+          <div class="val">0.013%</div>
+          <div class="delta up">+00.1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <svg class="deco" width="180" height="22" viewBox="0 0 180 22" aria-hidden="true">
+    <rect x="0" y="6" width="10" height="10" fill="#fafaf9"/>
+    <rect x="14" y="6" width="10" height="10" fill="none" stroke="#fafaf9"/>
+    <rect x="28" y="6" width="10" height="10" fill="#fafaf9"/>
+    <rect x="42" y="6" width="10" height="10" fill="#0066ff"/>
+    <rect x="56" y="6" width="10" height="10" fill="#fafaf9"/>
+    <rect x="70" y="6" width="10" height="10" fill="none" stroke="#fafaf9"/>
+    <rect x="84" y="6" width="10" height="10" fill="#fafaf9"/>
+    <rect x="98" y="6" width="10" height="10" fill="#0066ff"/>
+    <rect x="112" y="6" width="10" height="10" fill="#fafaf9"/>
+    <rect x="126" y="6" width="10" height="10" fill="none" stroke="#fafaf9"/>
+    <rect x="140" y="6" width="10" height="10" fill="#fafaf9"/>
+    <rect x="154" y="6" width="10" height="10" fill="#0066ff"/>
+    <rect x="168" y="6" width="10" height="10" fill="#fafaf9"/>
+  </svg>
+
+  <div class="footer">
+    <span class="pillrow">
+      <span>SAMPLE 60s</span><span class="acc">14/18</span><span>WINDOW LIVE</span><span>END OF DECK</span>
+    </span>
+    <span>// final slide // 27/27 // sig 4f12:7d80:c001</span>
+  </div>
+</div>
+</body>
+</html>

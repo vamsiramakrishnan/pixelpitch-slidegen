@@ -1,0 +1,32 @@
+{
+  "slide_count": 1,
+  "slide_types": [
+    {
+      "archetype": "hero/section",
+      "baseline_path": "baselines/statement.html",
+      "id": "statement",
+      "preview_path": "specimens/statement.png",
+      "seams": [
+        {
+          "allowed_style_properties": [],
+          "allowed_tags": ["em", "strong"],
+          "id": "title",
+          "kind": "content"
+        },
+        {
+          "allowed_style_properties": ["color", "display", "font-size", "font-weight", "gap"],
+          "allowed_tags": ["div", "line", "rect", "span", "svg", "text"],
+          "id": "aid",
+          "kind": "visual_aid"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "etag": "CJmR8fKq9YMDEAE=",
+    "generation": "1772841600000000",
+    "gs_uri": "gs://pixelpitch-templates/northwind/northwind-master.pptx",
+    "sha256": "4f1c1f6b0f0a2d6f1e2c3b4a5968778695a4b3c2d1e0f9a8b7c6d5e4f3a2b1c0"
+  },
+  "template_bundle_id": "b7f4c2a19e5d3806"
+}
